@@ -1,20 +1,23 @@
 package com.cozyhills.game;
 
 import com.cozyhills.cozy.CozyHills;
+import com.cozyhills.model.GameType;
 
-import java.awt.*;
-import java.awt.event.KeyEvent;
+import java.awt.Insets;
+import java.awt.Graphics;
+import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.util.List;
 import javax.swing.*;
 
 /**
  * Created by pere5 on 21/12/15.
  */
-public class Game extends JFrame {
+public class GraphicsHandler extends JFrame {
     boolean isRunning = true;
     int fps = 6;
-    int windowWidth = 500;
-    int windowHeight = 500;
+    int windowWidth = 800;
+    int windowHeight = 600;
 
     BufferedImage backBuffer;
     Insets insets;
@@ -102,7 +105,14 @@ public class Game extends JFrame {
     }
 
     private void drawAllObjects(Graphics bbg) {
-        bbg.drawRect(x, 10, 20, 20);
-        bbg.drawRect(x, 5, 10, 10);
+
+        for (List<GameType> types: cozyHills.getState()) {
+            for (GameType type: types) {
+                bbg.setColor(type.color);
+                bbg.fillRect(type.x, type.y, type.size, type.size);
+            }
+        }
+
+
     }
 }

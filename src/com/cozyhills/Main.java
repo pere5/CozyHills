@@ -1,12 +1,12 @@
 package com.cozyhills;
 
-import com.cozyhills.game.Game;
+import com.cozyhills.game.GraphicsHandler;
 
 public class Main {
 
     public static void main(String[] args) {
-        Game game = new Game();
-        game.run();
+        GraphicsHandler graphicsHandler = new GraphicsHandler();
+        graphicsHandler.run();
         System.exit(0);
     }
 }
