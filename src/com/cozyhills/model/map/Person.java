@@ -3,7 +3,10 @@ package com.cozyhills.model.map;
 import com.cozyhills.Util;
 import com.cozyhills.model.Rule;
 import com.cozyhills.model.VisibleEntity;
+import com.cozyhills.model.map.person.Home;
+import com.cozyhills.model.map.person.StrengthInNumbers;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +15,16 @@ import java.util.List;
  */
 public class Person extends VisibleEntity {
 
-    public int status;
+    public static List<Rule> rules = new ArrayList<>();
+    private List<Person> targets = new ArrayList<>();
+
+    static {
+        rules.add(new StrengthInNumbers());
+        rules.add(new Home());
+    }
+
+    private boolean working = false;
+    private Rule selectedRule = null;
 
     public Person () {
         setDefaults();
@@ -28,9 +40,27 @@ public class Person extends VisibleEntity {
 
     private void setDefaults() {
         this.size = 3;
+        this.color = Color.PINK;
     }
 
-    public List<Rule> getRules() {
-        return new ArrayList<Rule>();
+    public static List<Rule> getRules() {
+        return rules;
+    }
+
+    public boolean working() {
+        return working;
+    }
+
+    public void work() {
+        working = selectedRule.work(this, targets);
+    }
+
+    public void startWorking(Rule selectedRule) {
+        working = true;
+        this.selectedRule = selectedRule;
+    }
+
+    public void addTarget(Person person) {
+        targets.add(person);
     }
 }

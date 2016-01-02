@@ -9,5 +9,5 @@ public abstract class VisibleEntity {
     public int x = 0;
     public int y = 0;
     public int size = 0;
-    public Color color = Color.magenta;
+    public Color color = null;
 }

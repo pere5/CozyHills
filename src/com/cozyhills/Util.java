@@ -16,7 +16,7 @@ public class Util {
     }
 
     public static int generateInt () {
-        return 100 - ThreadLocalRandom.current().nextInt(0, 200 + 1);
+        return 250 - ThreadLocalRandom.current().nextInt(0, 500 + 1);
     }
 
     private void testClassMembers () {
@@ -26,5 +26,17 @@ public class Util {
                 System.out.println(boll);
             }
         }
+    }
+
+    public static void print(int value) {
+        System.out.print(value + " ");
+    }
+
+    public static void print(String value) {
+        System.out.print(value + " ");
+    }
+
+    public static void println() {
+        System.out.println();
     }
 }

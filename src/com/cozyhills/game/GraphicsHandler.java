@@ -2,6 +2,7 @@ package com.cozyhills.game;
 
 import com.cozyhills.Const;
 import com.cozyhills.cozy.CozyHills;
+import com.cozyhills.cozy.StateHolder;
 import com.cozyhills.model.VisibleEntity;
 
 import java.awt.Insets;
@@ -9,6 +10,7 @@ import java.awt.Graphics;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 import javax.swing.*;
 
 /**
@@ -33,15 +35,19 @@ public class GraphicsHandler extends JFrame {
      */
     public void run() {
         initialize();
-
+        int character = 0;
         while(isRunning) {
             long time = System.currentTimeMillis();
+
 
             update();
             draw();
 
             //  delay for each frame  -   time it took for one frame
             time = (1000 / fps) - (System.currentTimeMillis() - time);
+            character = ThreadLocalRandom.current().nextInt(1, 3 + 1);
+            System.out.print(character == 1 ? "- " : character == 2 ? "+ " : "* ");
+            System.out.println(time);
 
             if (time > 0) {
                 try {
@@ -106,8 +112,8 @@ public class GraphicsHandler extends JFrame {
     }
 
     private void drawAllObjects(Graphics bbg) {
-
-        for (List<VisibleEntity> types: cozyHills.getState()) {
+        StateHolder stateHolder = StateHolder.instance();
+        for (List<VisibleEntity> types: stateHolder.getState()) {
             for (VisibleEntity type: types) {
                 bbg.setColor(type.color);
                 bbg.fillRect(type.x, type.y, type.size, type.size);

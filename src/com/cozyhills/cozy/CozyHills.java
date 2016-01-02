@@ -1,36 +1,39 @@
 package com.cozyhills.cozy;
 
+import com.cozyhills.Util;
 import com.cozyhills.model.Rule;
 import com.cozyhills.model.VisibleEntity;
-import com.cozyhills.model.EmptyRule;
+import com.cozyhills.model.map.person.EmptyRule;
 import com.cozyhills.model.map.Person;
-
-import java.util.List;
 
 /**
  * Created by pere5 on 21/12/15.
  */
 public class CozyHills {
 
-    StateHolder stateHolder = new StateHolder();
+    StateHolder stateHolder = StateHolder.instance();
+    Rule selectedRule = new EmptyRule();
 
     public void update() {
         for (VisibleEntity visibleEntity : stateHolder.getPersons()) {
             Person person = (Person) visibleEntity;
-            int currentStatus = -1;
-            Rule selectedRule = new EmptyRule();
-            for (Rule rule: person.getRules()) {
-                int newStatus = rule.calculate();
-                if (currentStatus < newStatus) {
-                    currentStatus = newStatus;
-                    selectedRule = rule;
+            if (!person.working()) {
+                int currentStatus = -1;
+                Util.print("[");
+                for (Rule rule : Person.getRules()) {
+                    int newStatus = rule.calculate(person);
+                    rule.printStatus(newStatus);
+                    if (currentStatus < newStatus) {
+                        currentStatus = newStatus;
+                        selectedRule = rule;
+                    }
                 }
+                Util.print("]");
+                person.startWorking(selectedRule);
+            } else {
+                Util.print("[     ]");
             }
-            //person.calculateStatus();
+            person.work();
         }
-    }
-
-    public List<List<VisibleEntity>> getState() {
-        return stateHolder.getState();
     }
 }
