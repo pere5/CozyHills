@@ -1,7 +1,7 @@
 package com.cozyhills.cozy;
 
-import com.cozyhills.model.GameType;
-import com.cozyhills.model.major.Person;
+import com.cozyhills.model.VisibleEntity;
+import com.cozyhills.model.map.Person;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,29 +10,39 @@ import java.util.List;
  * Created by pere5 on 23/12/15.
  */
 public class StateHolder {
-    List<List<GameType>> stateHolder = new ArrayList<List<GameType>>();
+    List<List<VisibleEntity>> state = new ArrayList<List<VisibleEntity>>();
 
     public StateHolder() {
-        createPersons(stateHolder);
-        createNature(stateHolder);
+        createPersons(state);
+        createNature(state);
     }
 
-    private void createNature(List<List<GameType>> stateHolder) {
+    public List<VisibleEntity> getPersons() {
+        return state.get(0);
+    }
+
+    public List<List<VisibleEntity>> getState() {
+        return state;
+    }
+
+    private void createNature(List<List<VisibleEntity>> stateHolder) {
 
     }
 
-    private void createPersons(List<List<GameType>> stateHolder) {
-        List<GameType> persons = new ArrayList<GameType>();
-        persons.add(new Person(400, 300));
-        persons.add(new Person(403, 303));
-        persons.add(new Person(410, 310));
-        persons.add(new Person(390, 310));
-        persons.add(new Person(400, 290));
-        persons.add(new Person(410, 290));
+    private void createPersons(List<List<VisibleEntity>> stateHolder) {
+        List<VisibleEntity> persons = new ArrayList<VisibleEntity>();
+        persons.add(new Person());
+        persons.add(new Person());
+        persons.add(new Person());
+        persons.add(new Person());
+        persons.add(new Person());
+        persons.add(new Person());
+        persons.add(new Person());
+        persons.add(new Person());
+        persons.add(new Person());
+        persons.add(new Person());
+        persons.add(new Person());
+        persons.add(new Person());
         stateHolder.add(persons);
-    }
-
-    public List<List<GameType>> getState() {
-        return stateHolder;
     }
 }

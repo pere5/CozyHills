@@ -1,7 +1,8 @@
 package com.cozyhills.game;
 
+import com.cozyhills.Const;
 import com.cozyhills.cozy.CozyHills;
-import com.cozyhills.model.GameType;
+import com.cozyhills.model.VisibleEntity;
 
 import java.awt.Insets;
 import java.awt.Graphics;
@@ -16,8 +17,8 @@ import javax.swing.*;
 public class GraphicsHandler extends JFrame {
     boolean isRunning = true;
     int fps = 6;
-    int windowWidth = 800;
-    int windowHeight = 600;
+    int windowWidth = Const.WINDOW_WIDTH;
+    int windowHeight = Const.WINDOW_HEIGHT;
 
     BufferedImage backBuffer;
     Insets insets;
@@ -76,7 +77,7 @@ public class GraphicsHandler extends JFrame {
      * around and check for win conditions, etc
      */
     void update() {
-        CozyHills.update();
+        cozyHills.update();
         /*
         if (input.isKeyDown(KeyEvent.VK_RIGHT)) {
             x += 5;
@@ -106,13 +107,11 @@ public class GraphicsHandler extends JFrame {
 
     private void drawAllObjects(Graphics bbg) {
 
-        for (List<GameType> types: cozyHills.getState()) {
-            for (GameType type: types) {
+        for (List<VisibleEntity> types: cozyHills.getState()) {
+            for (VisibleEntity type: types) {
                 bbg.setColor(type.color);
                 bbg.fillRect(type.x, type.y, type.size, type.size);
             }
         }
-
-
     }
 }
