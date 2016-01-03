@@ -63,4 +63,8 @@ public class Person extends VisibleEntity {
     public void addTarget(Person person) {
         targets.add(person);
     }
+
+    public void clearTarget() {
+        targets.clear();
+    }
 }
