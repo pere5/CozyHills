@@ -52,7 +52,7 @@ public class Person extends VisibleEntity {
     }
 
     public void work() {
-        working = selectedRule.work(this, targets);
+        working = selectedRule.work(this);
     }
 
     public void startWorking(Rule selectedRule) {
@@ -66,5 +66,9 @@ public class Person extends VisibleEntity {
 
     public void clearTarget() {
         targets.clear();
+    }
+
+    public List<Person> getTargets() {
+        return targets;
     }
 }

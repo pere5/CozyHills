@@ -34,8 +34,8 @@ public class StrengthInNumbers extends RuleHelper {
         return result;
     }
 
-    @Override
-    public boolean work(Person person, List<Person> targets) {
+    public boolean work(Person person) {
+        List<Person> targets = person.getTargets();
         if (targets.size() == 0) {
             int r1 = 1 - ThreadLocalRandom.current().nextInt(0, 2 + 1);
             int r2 = 1 - ThreadLocalRandom.current().nextInt(0, 2 + 1);

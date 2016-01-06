@@ -10,7 +10,6 @@ import java.util.List;
 public interface Rule {
 
     int calculate(Person me);
-    boolean work(Person person, List<Person> targets);
-
+    boolean work(Person person);
     void printStatus(int newStatus);
 }

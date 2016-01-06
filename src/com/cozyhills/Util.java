@@ -28,12 +28,20 @@ public class Util {
         }
     }
 
+    public static void print(double value) {
+        //System.out.print(value + " ");
+    }
+
+    public static void print(long value) {
+        //System.out.print(value + " ");
+    }
+
     public static void print(int value) {
-        System.out.print(value + " ");
+        //System.out.print(value + " ");
     }
 
     public static void print(String value) {
-        System.out.print(value + " ");
+        //System.out.print(value + " ");
     }
 
     public static void println() {

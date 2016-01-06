@@ -1,6 +1,7 @@
 package com.cozyhills.game;
 
 import com.cozyhills.Const;
+import com.cozyhills.Util;
 import com.cozyhills.cozy.CozyHills;
 import com.cozyhills.cozy.StateHolder;
 import com.cozyhills.model.VisibleEntity;
@@ -10,6 +11,7 @@ import java.awt.Graphics;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.util.List;
+import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadLocalRandom;
 import javax.swing.*;
 
@@ -18,7 +20,6 @@ import javax.swing.*;
  */
 public class GraphicsHandler extends JFrame {
     boolean isRunning = true;
-    int fps = 6;
     int windowWidth = Const.WINDOW_WIDTH;
     int windowHeight = Const.WINDOW_HEIGHT;
 
@@ -36,24 +37,39 @@ public class GraphicsHandler extends JFrame {
     public void run() {
         initialize();
         int character = 0;
+        int intendedFps = 15;
+        int fps = 0;
+        long timeStart = System.currentTimeMillis();
+
+        final boolean runByCappedFps = true;
+        final boolean runByMeasureFps = !runByCappedFps;
         while(isRunning) {
             long time = System.currentTimeMillis();
 
-
             update();
             draw();
-            character = ThreadLocalRandom.current().nextInt(1, 3 + 1);
-            System.out.print(character == 1 ? "- " : character == 2 ? "+ " : "* ");
 
-            //  delay for each frame  -   time it took for one frame
-            time = (1000 / fps) - (System.currentTimeMillis() - time);
-            System.out.println(time);
+            if (runByMeasureFps) {
+                fps++;
+                if (time - timeStart > 1000) {
+                    System.out.println(fps);
+                    timeStart = System.currentTimeMillis();
+                    fps = 0;
+                }
+            }
+            if (runByCappedFps) {
+                //  delay for each frame  -   time it took for one frame
+                character = ThreadLocalRandom.current().nextInt(1, 3 + 1);
+                System.out.print(character == 1 ? "- " : character == 2 ? "+ " : "* ");
 
-            if (time > 0) {
-                try {
-                    Thread.sleep(time);
-                } catch(Exception e) {
-                    System.out.println("Woohah!");
+                time = (1000 / intendedFps) - (System.currentTimeMillis() - time);
+                System.out.println(time);
+                if (time > 0) {
+                    try {
+                        Thread.sleep(time);
+                    } catch(Exception e) {
+                        System.out.println("Woohah!");
+                    }
                 }
             }
         }
