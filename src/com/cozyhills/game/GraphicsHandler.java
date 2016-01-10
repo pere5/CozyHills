@@ -1,19 +1,15 @@
 package com.cozyhills.game;
 
 import com.cozyhills.Const;
-import com.cozyhills.Util;
 import com.cozyhills.cozy.CozyHills;
 import com.cozyhills.cozy.StateHolder;
 import com.cozyhills.model.VisibleEntity;
 
-import java.awt.Insets;
-import java.awt.Graphics;
-import java.awt.Color;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.List;
-import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadLocalRandom;
-import javax.swing.*;
 
 /**
  * Created by pere5 on 21/12/15.
@@ -37,7 +33,7 @@ public class GraphicsHandler extends JFrame {
     public void run() {
         initialize();
         int character = 0;
-        int intendedFps = 15;
+        int intendedFps = 1;
         int fps = 0;
         long timeStart = System.currentTimeMillis();
 

@@ -13,7 +13,13 @@ public class EmptyRule extends RuleHelper {
         return 0;
     }
 
-    public boolean work(Person person) {
+    @Override
+    public void initWork(Person me) {
+
+    }
+
+    @Override
+    public boolean work(Person me) {
         return false;
     }
 

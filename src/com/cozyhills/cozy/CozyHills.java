@@ -3,8 +3,8 @@ package com.cozyhills.cozy;
 import com.cozyhills.Util;
 import com.cozyhills.model.Rule;
 import com.cozyhills.model.VisibleEntity;
-import com.cozyhills.model.map.person.EmptyRule;
 import com.cozyhills.model.map.Person;
+import com.cozyhills.model.map.person.EmptyRule;
 
 /**
  * Created by pere5 on 21/12/15.

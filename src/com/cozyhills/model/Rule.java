@@ -10,6 +10,8 @@ import java.util.List;
 public interface Rule {
 
     int calculate(Person me);
-    boolean work(Person person);
+    boolean work(Person me);
     void printStatus(int newStatus);
+
+    void initWork(Person me);
 }

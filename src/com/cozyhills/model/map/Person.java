@@ -3,6 +3,7 @@ package com.cozyhills.model.map;
 import com.cozyhills.Util;
 import com.cozyhills.model.Rule;
 import com.cozyhills.model.VisibleEntity;
+import com.cozyhills.model.idea.Path;
 import com.cozyhills.model.map.person.Home;
 import com.cozyhills.model.map.person.StrengthInNumbers;
 
@@ -25,6 +26,7 @@ public class Person extends VisibleEntity {
 
     private boolean working = false;
     private Rule selectedRule = null;
+    private Path path = null;
 
     public Person () {
         setDefaults();
@@ -56,7 +58,7 @@ public class Person extends VisibleEntity {
     }
 
     public void startWorking(Rule selectedRule) {
-        working = true;
+        selectedRule.initWork(this);
         this.selectedRule = selectedRule;
     }
 
@@ -70,5 +72,13 @@ public class Person extends VisibleEntity {
 
     public List<Person> getTargets() {
         return targets;
+    }
+
+    public void setPath(Path path) {
+        this.path = path;
+    }
+
+    public Path getPath() {
+        return path;
     }
 }

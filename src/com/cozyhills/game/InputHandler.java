@@ -3,8 +3,10 @@ package com.cozyhills.game;
 /**
  * Created by pere5 on 21/12/15.
  */
-import java.awt.Component;
-import java.awt.event.*;
+
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 /**
  * Makes handling input a lot simpler

@@ -3,6 +3,7 @@ package com.cozyhills.model.map.person;
 import com.cozyhills.Util;
 import com.cozyhills.model.RuleHelper;
 import com.cozyhills.model.VisibleEntity;
+import com.cozyhills.model.idea.Path;
 import com.cozyhills.model.map.Person;
 
 import java.util.List;
@@ -34,19 +35,27 @@ public class StrengthInNumbers extends RuleHelper {
         return result;
     }
 
-    public boolean work(Person person) {
-        List<Person> targets = person.getTargets();
+    @Override
+    public void initWork(Person me) {
+        List<Person> targets = me.getTargets();
+        int[] destination;
         if (targets.size() == 0) {
             int r1 = 1 - ThreadLocalRandom.current().nextInt(0, 2 + 1);
             int r2 = 1 - ThreadLocalRandom.current().nextInt(0, 2 + 1);
-            person.x = person.x + 3 * r1;
-            person.y = person.y + 3 * r2;
+            destination = new int[] {me.x + 50 * r1, me.y + 50 * r2};
         } else {
-            int[] centroid = centroid(targets);
-            person.x = person.x + 3 * (centroid[0] - person.x > 0 ? 1 : -1);
-            person.y = person.y + 3 * (centroid[1] - person.y > 0 ? 1 : -1);
+            destination = centroid(targets);
         }
-        return false;
+        me.setPath(new Path(new int[] {me.x, me.y}, destination));
+    }
+
+    @Override
+    public boolean work(Person me) {
+        Path path = me.getPath();
+        int[] step = path.nextStep();
+        me.x = step[0];
+        me.y = step[1];
+        return path.canContinue();
     }
 
     @Override
