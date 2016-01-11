@@ -12,7 +12,7 @@ import java.util.concurrent.ThreadLocalRandom;
 /**
  * Created by pere5 on 02/01/16.
  */
-public class StrengthInNumbers extends RuleHelper {
+public class CozyUp extends RuleHelper {
 
     private static final int comfortZone = 30;
     private static final int visibleZone = 80;

@@ -5,7 +5,7 @@ import com.cozyhills.model.Rule;
 import com.cozyhills.model.VisibleEntity;
 import com.cozyhills.model.idea.Path;
 import com.cozyhills.model.map.person.Home;
-import com.cozyhills.model.map.person.StrengthInNumbers;
+import com.cozyhills.model.map.person.CozyUp;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ public class Person extends VisibleEntity {
     private List<Person> targets = new ArrayList<>();
 
     static {
-        rules.add(new StrengthInNumbers());
+        rules.add(new CozyUp());
         rules.add(new Home());
     }
 

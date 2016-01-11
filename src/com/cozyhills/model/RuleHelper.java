@@ -2,7 +2,6 @@ package com.cozyhills.model;
 
 import com.cozyhills.cozy.StateHolder;
 import com.cozyhills.model.map.Person;
-import com.cozyhills.model.map.person.StrengthInNumbers;
 
 import java.util.List;
 

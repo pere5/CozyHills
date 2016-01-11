@@ -58,8 +58,8 @@ public class GraphicsHandler extends JFrame {
                 character = ThreadLocalRandom.current().nextInt(1, 3 + 1);
                 System.out.print(character == 1 ? "- " : character == 2 ? "+ " : "* ");
 
+                System.out.println(System.currentTimeMillis() - time);
                 time = (1000 / intendedFps) - (System.currentTimeMillis() - time);
-                System.out.println(time);
                 if (time > 0) {
                     try {
                         Thread.sleep(time);
