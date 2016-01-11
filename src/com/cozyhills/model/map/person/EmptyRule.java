@@ -1,5 +1,6 @@
 package com.cozyhills.model.map.person;
 
+import com.cozyhills.Util;
 import com.cozyhills.model.RuleHelper;
 import com.cozyhills.model.map.Person;
 
@@ -10,7 +11,7 @@ public class EmptyRule extends RuleHelper {
 
     @Override
     public int calculate(Person me) {
-        return 0;
+        return Integer.MAX_VALUE;
     }
 
     @Override
@@ -24,7 +25,7 @@ public class EmptyRule extends RuleHelper {
     }
 
     @Override
-    public void printStatus(int newStatus) {
-
+    public void printStatus(int status) {
+        Util.print(status);
     }
 }

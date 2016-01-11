@@ -14,7 +14,7 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class CozyUp extends RuleHelper {
 
-    private static final int comfortZone = 30;
+    private static final int comfortZone = 10;
     private static final int visibleZone = 80;
 
     @Override

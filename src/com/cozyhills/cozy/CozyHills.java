@@ -18,12 +18,12 @@ public class CozyHills {
         for (VisibleEntity visibleEntity : stateHolder.getPersons()) {
             Person person = (Person) visibleEntity;
             if (!person.working()) {
-                int currentStatus = -1;
+                int currentStatus = Integer.MAX_VALUE;
                 Util.print("[");
                 for (Rule rule : Person.getRules()) {
                     int newStatus = rule.calculate(person);
                     rule.printStatus(newStatus);
-                    if (currentStatus < newStatus) {
+                    if (currentStatus > newStatus) {
                         currentStatus = newStatus;
                         selectedRule = rule;
                     }
