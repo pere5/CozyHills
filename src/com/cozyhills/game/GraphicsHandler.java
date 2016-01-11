@@ -33,7 +33,7 @@ public class GraphicsHandler extends JFrame {
     public void run() {
         initialize();
         int character = 0;
-        int intendedFps = 1;
+        int intendedFps = 6;
         int fps = 0;
         long timeStart = System.currentTimeMillis();
 

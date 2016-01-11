@@ -42,7 +42,7 @@ public class StrengthInNumbers extends RuleHelper {
         if (targets.size() == 0) {
             int r1 = 1 - ThreadLocalRandom.current().nextInt(0, 2 + 1);
             int r2 = 1 - ThreadLocalRandom.current().nextInt(0, 2 + 1);
-            destination = new int[] {me.x + 50 * r1, me.y + 50 * r2};
+            destination = new int[] {me.x + 20 * r1, me.y + 20 * r2};
         } else {
             destination = centroid(targets);
         }

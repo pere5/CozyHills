@@ -14,8 +14,8 @@ public class Path {
     Queue<int[]> path = new LinkedList<>();
 
     public Path(int[] start, int[] destination) {
-        int[] nextStep = new int [2];
-        while (!arrived(nextStep, destination)) {
+        int[] nextStep;
+        while (!arrived(start, destination)) {
             double vx = destination[0] - start[0];
             double vy = destination[1] - start[1];
 
