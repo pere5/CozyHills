@@ -9,8 +9,8 @@ import java.util.*;
  * Created by pere5 on 06/01/16.
  */
 public class Path {
-    int step = 3;
-    int closeEnough = 5;
+    private final int step = 3;
+    private final int closeEnough = 5;
     Queue<int[]> path = new LinkedList<>();
 
     public Path(int[] start, int[] destination) {
