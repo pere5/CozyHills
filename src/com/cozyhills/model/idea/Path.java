@@ -23,8 +23,8 @@ public class Path {
 
             vx /= mag;
             vy /= mag;
-            int px = (int) (((double) start[0]) + (vx * ((double) step)));
-            int py = (int) (((double) start[1]) + (vy * ((double) step)));
+            int px = (int)(start[0] + vx * step);
+            int py = (int)(start[1] + vy * step);
             nextStep = new int[] {px, py};
             path.add(nextStep);
             start = nextStep;
