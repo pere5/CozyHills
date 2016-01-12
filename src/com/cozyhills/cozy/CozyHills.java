@@ -20,16 +20,16 @@ public class CozyHills {
             if (!person.working()) {
                 int currentStatus = Integer.MAX_VALUE;
                 Util.print("[");
-                for (Rule rule : Person.getRules()) {
-                    int newStatus = rule.calculate(person);
-                    rule.printStatus(newStatus);
-                    if (currentStatus > newStatus) {
+                for (Rule newRule : Person.getRules()) {
+                    int newStatus = newRule.calculateStatus(person);
+                    newRule.printStatus(newStatus);
+                    if (newStatus < currentStatus || (newStatus == currentStatus && newRule.rank() > selectedRule.rank())) {
                         currentStatus = newStatus;
-                        selectedRule = rule;
+                        selectedRule = newRule;
                     }
                 }
                 Util.print("]");
-                person.startWorking(selectedRule);
+                person.startWorking(selectedRule, currentStatus);
             } else {
                 Util.print("[     ]");
             }

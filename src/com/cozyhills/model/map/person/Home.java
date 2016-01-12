@@ -9,13 +9,17 @@ import com.cozyhills.model.map.Person;
  */
 public class Home extends RuleHelper {
 
+    public Home(int rank) {
+        super(rank);
+    }
+
     @Override
-    public int calculate(Person me) {
+    public int calculateStatus(Person me) {
         return 0;
     }
 
     @Override
-    public void initWork(Person me) {
+    public void initWork(Person me, int status) {
 
     }
 

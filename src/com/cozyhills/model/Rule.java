@@ -9,9 +9,11 @@ import java.util.List;
  */
 public interface Rule {
 
-    int calculate(Person me);
+    int calculateStatus(Person me);
     boolean work(Person me);
-    void printStatus(int newStatus);
+    void printStatus(int status);
 
-    void initWork(Person me);
+    void initWork(Person me, int status);
+
+    int rank();
 }

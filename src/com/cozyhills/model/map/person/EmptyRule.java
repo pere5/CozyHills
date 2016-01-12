@@ -9,13 +9,17 @@ import com.cozyhills.model.map.Person;
  */
 public class EmptyRule extends RuleHelper {
 
+    public EmptyRule() {
+        super(0);
+    }
+
     @Override
-    public int calculate(Person me) {
+    public int calculateStatus(Person me) {
         return Integer.MAX_VALUE;
     }
 
     @Override
-    public void initWork(Person me) {
+    public void initWork(Person me, int status) {
 
     }
 

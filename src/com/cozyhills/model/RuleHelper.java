@@ -10,6 +10,17 @@ import java.util.List;
  */
 public abstract class RuleHelper implements Rule {
 
+    private final int rank;
+
+    public RuleHelper(int rank) {
+        this.rank = rank;
+    }
+
+    @Override
+    public int rank() {
+        return rank;
+    }
+
     protected int range(VisibleEntity visibleEntity, Person me) {
         return (int)Math.sqrt(Math.pow((visibleEntity.x - me.x), 2) + Math.pow((visibleEntity.y - me.y), 2));
     }

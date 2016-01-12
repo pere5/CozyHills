@@ -1,16 +1,13 @@
 package com.cozyhills.model.idea;
 
-import com.cozyhills.Util;
-import com.cozyhills.model.map.Person;
-
 import java.util.*;
 
 /**
  * Created by pere5 on 06/01/16.
  */
 public class Path {
-    private final int step = 3;
-    private final int closeEnough = 5;
+    private static final int STEP = 3;
+    private static final int CLOSE_ENOUGH = 5;
     Queue<int[]> path = new LinkedList<>();
 
     public Path(int[] start, int[] destination) {
@@ -23,8 +20,8 @@ public class Path {
 
             vx /= mag;
             vy /= mag;
-            int px = (int)(start[0] + vx * step);
-            int py = (int)(start[1] + vy * step);
+            int px = (int)(start[0] + vx * STEP);
+            int py = (int)(start[1] + vy * STEP);
             nextStep = new int[] {px, py};
             path.add(nextStep);
             start = nextStep;
@@ -33,10 +30,10 @@ public class Path {
     }
 
     private boolean arrived(int[] pointA, int[] pointB) {
-        int xBig = pointA[0] + closeEnough;
-        int xSmall = pointA[0] - closeEnough;
-        int yBig = pointA[1] + closeEnough;
-        int ySmall = pointA[1] - closeEnough;
+        int xBig = pointA[0] + CLOSE_ENOUGH;
+        int xSmall = pointA[0] - CLOSE_ENOUGH;
+        int yBig = pointA[1] + CLOSE_ENOUGH;
+        int ySmall = pointA[1] - CLOSE_ENOUGH;
         return pointB[0] < xBig && pointB[0] > xSmall && pointB[1] < yBig && pointB[1] > ySmall;
     }
 

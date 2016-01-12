@@ -20,8 +20,9 @@ public class Person extends VisibleEntity {
     private List<Person> targets = new ArrayList<>();
 
     static {
-        rules.add(new CozyUp());
-        rules.add(new Home());
+        int rank = Integer.MAX_VALUE;
+        rules.add(new CozyUp(rank--));
+        rules.add(new Home(rank));
     }
 
     private boolean working = false;
@@ -57,8 +58,8 @@ public class Person extends VisibleEntity {
         working = selectedRule.work(this);
     }
 
-    public void startWorking(Rule selectedRule) {
-        selectedRule.initWork(this);
+    public void startWorking(Rule selectedRule, int status) {
+        selectedRule.initWork(this, status);
         this.selectedRule = selectedRule;
     }
 
