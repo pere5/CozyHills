@@ -37,7 +37,9 @@ public class CozyUp extends RuleHelper {
                 me.addTarget(person);
             }
         }
-        result -= (COZY_GROUP - 1);
+        final int ME = 1;
+        final int MARGIN = 1;
+        result -= (COZY_GROUP - ME - MARGIN);
         return result > 0 ? result : 0;
     }
 
