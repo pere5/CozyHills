@@ -1,4 +1,4 @@
-package com.cozyhills.idea;
+package com.cozyhills.ideas;
 
 import java.util.*;
 

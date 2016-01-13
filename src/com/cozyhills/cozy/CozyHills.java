@@ -5,7 +5,7 @@ import com.cozyhills.rules.EmptyRule;
 import com.cozyhills.rules.Rule;
 import com.cozyhills.model.VisibleEntity;
 import com.cozyhills.model.Person;
-import com.cozyhills.rules.SeekShelter;
+import com.cozyhills.rules.Household;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,7 @@ public class CozyHills {
     static {
         int rank = Integer.MAX_VALUE;
         rules.add(new CozyUp(--rank));
-        rules.add(new SeekShelter(--rank));
+        rules.add(new Household(--rank));
     }
 
     StateHolder stateHolder = StateHolder.instance();

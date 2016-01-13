@@ -1,10 +1,8 @@
 package com.cozyhills.model;
 
 import com.cozyhills.cozy.Util;
-import com.cozyhills.idea.Path;
+import com.cozyhills.ideas.Path;
 import com.cozyhills.rules.Rule;
-import com.cozyhills.rules.SeekShelter;
-import com.cozyhills.rules.CozyUp;
 
 import java.awt.*;
 import java.util.ArrayList;

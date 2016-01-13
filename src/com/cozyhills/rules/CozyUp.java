@@ -2,7 +2,7 @@ package com.cozyhills.rules;
 
 import com.cozyhills.cozy.Util;
 import com.cozyhills.model.VisibleEntity;
-import com.cozyhills.idea.Path;
+import com.cozyhills.ideas.Path;
 import com.cozyhills.model.Person;
 
 import java.util.List;

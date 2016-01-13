@@ -7,9 +7,9 @@ import com.cozyhills.model.Home;
 /**
  * Created by pere5 on 02/01/16.
  */
-public class SeekShelter extends RuleHelper {
+public class Household extends RuleHelper {
 
-    public SeekShelter(int rank) {
+    public Household(int rank) {
         super(rank);
     }
 
