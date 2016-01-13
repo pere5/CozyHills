@@ -23,7 +23,7 @@ public abstract class RuleHelper implements Rule {
         return rank;
     }
 
-    protected int range(VisibleEntity visibleEntity, Person me) {
+    protected int range(VisibleEntity visibleEntity, VisibleEntity me) {
         return (int)Math.sqrt(Math.pow((visibleEntity.x - me.x), 2) + Math.pow((visibleEntity.y - me.y), 2));
     }
 
@@ -44,5 +44,9 @@ public abstract class RuleHelper implements Rule {
 
     public List<VisibleEntity> getPersons() {
         return StateHolder.instance().getPersons();
+    }
+
+    public List<VisibleEntity> getHomes() {
+        return StateHolder.instance().getHomes();
     }
 }

@@ -5,4 +5,7 @@ package com.cozyhills.model;
  */
 public class Home extends VisibleEntity {
 
+    public boolean exists() {
+        return false;
+    }
 }
