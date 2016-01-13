@@ -1,11 +1,10 @@
-package com.cozyhills.model.map;
+package com.cozyhills.model;
 
-import com.cozyhills.Util;
-import com.cozyhills.model.Rule;
-import com.cozyhills.model.VisibleEntity;
-import com.cozyhills.model.idea.Path;
-import com.cozyhills.model.map.person.Home;
-import com.cozyhills.model.map.person.CozyUp;
+import com.cozyhills.cozy.Util;
+import com.cozyhills.idea.Path;
+import com.cozyhills.rules.Rule;
+import com.cozyhills.rules.SeekShelter;
+import com.cozyhills.rules.CozyUp;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -16,18 +15,11 @@ import java.util.List;
  */
 public class Person extends VisibleEntity {
 
-    public static List<Rule> rules = new ArrayList<>();
     private List<Person> targets = new ArrayList<>();
-
-    static {
-        int rank = Integer.MAX_VALUE;
-        rules.add(new CozyUp(rank--));
-        rules.add(new Home(rank));
-    }
-
     private boolean working = false;
     private Rule selectedRule = null;
     private Path path = null;
+    private Home home = new Home();
 
     public Person () {
         setDefaults();
@@ -44,10 +36,6 @@ public class Person extends VisibleEntity {
     private void setDefaults() {
         this.size = 3;
         this.color = Color.PINK;
-    }
-
-    public static List<Rule> getRules() {
-        return rules;
     }
 
     public boolean working() {
@@ -81,5 +69,9 @@ public class Person extends VisibleEntity {
 
     public Path getPath() {
         return path;
+    }
+
+    public Home getHome() {
+        return home;
     }
 }

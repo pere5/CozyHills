@@ -1,10 +1,9 @@
-package com.cozyhills.model.map.person;
+package com.cozyhills.rules;
 
-import com.cozyhills.Util;
-import com.cozyhills.model.RuleHelper;
+import com.cozyhills.cozy.Util;
 import com.cozyhills.model.VisibleEntity;
-import com.cozyhills.model.idea.Path;
-import com.cozyhills.model.map.Person;
+import com.cozyhills.idea.Path;
+import com.cozyhills.model.Person;
 
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;

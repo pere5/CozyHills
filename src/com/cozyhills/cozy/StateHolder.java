@@ -1,9 +1,9 @@
 package com.cozyhills.cozy;
 
 import com.cozyhills.model.VisibleEntity;
-import com.cozyhills.model.map.Person;
-import com.cozyhills.model.nature.Rock;
-import com.cozyhills.model.nature.Tree;
+import com.cozyhills.model.Person;
+import com.cozyhills.model.Rock;
+import com.cozyhills.model.Tree;
 
 import java.util.ArrayList;
 import java.util.List;

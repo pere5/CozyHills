@@ -1,6 +1,6 @@
-package com.cozyhills.model.nature;
+package com.cozyhills.model;
 
-import com.cozyhills.Util;
+import com.cozyhills.cozy.Util;
 import com.cozyhills.model.VisibleEntity;
 
 import java.awt.*;

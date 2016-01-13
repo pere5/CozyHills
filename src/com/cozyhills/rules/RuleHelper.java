@@ -1,7 +1,9 @@
-package com.cozyhills.model;
+package com.cozyhills.rules;
 
 import com.cozyhills.cozy.StateHolder;
-import com.cozyhills.model.map.Person;
+import com.cozyhills.model.Person;
+import com.cozyhills.model.VisibleEntity;
+import com.cozyhills.rules.Rule;
 
 import java.util.List;
 

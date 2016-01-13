@@ -1,20 +1,21 @@
-package com.cozyhills.model.map.person;
+package com.cozyhills.rules;
 
-import com.cozyhills.Util;
-import com.cozyhills.model.RuleHelper;
-import com.cozyhills.model.map.Person;
+import com.cozyhills.cozy.Util;
+import com.cozyhills.model.Person;
+import com.cozyhills.model.Home;
 
 /**
  * Created by pere5 on 02/01/16.
  */
-public class Home extends RuleHelper {
+public class SeekShelter extends RuleHelper {
 
-    public Home(int rank) {
+    public SeekShelter(int rank) {
         super(rank);
     }
 
     @Override
     public int calculateStatus(Person me) {
+        Home home = me.getHome();
         return 0;
     }
 

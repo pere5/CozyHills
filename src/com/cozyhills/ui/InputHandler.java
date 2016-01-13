@@ -1,4 +1,4 @@
-package com.cozyhills.game;
+package com.cozyhills.ui;
 
 /**
  * Created by pere5 on 21/12/15.

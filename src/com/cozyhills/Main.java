@@ -1,6 +1,6 @@
 package com.cozyhills;
 
-import com.cozyhills.game.GraphicsHandler;
+import com.cozyhills.ui.GraphicsHandler;
 
 public class Main {
 

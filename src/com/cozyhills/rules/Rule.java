@@ -1,8 +1,6 @@
-package com.cozyhills.model;
+package com.cozyhills.rules;
 
-import com.cozyhills.model.map.Person;
-
-import java.util.List;
+import com.cozyhills.model.Person;
 
 /**
  * Created by pere5 on 02/01/16.

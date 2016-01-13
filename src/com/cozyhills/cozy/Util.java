@@ -1,4 +1,6 @@
-package com.cozyhills;
+package com.cozyhills.cozy;
+
+import com.cozyhills.Const;
 
 import java.util.concurrent.ThreadLocalRandom;
 

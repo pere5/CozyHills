@@ -1,4 +1,4 @@
-package com.cozyhills.game;
+package com.cozyhills.ui;
 
 import com.cozyhills.Const;
 import com.cozyhills.cozy.CozyHills;

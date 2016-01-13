@@ -1,8 +1,7 @@
-package com.cozyhills.model.map.person;
+package com.cozyhills.rules;
 
-import com.cozyhills.Util;
-import com.cozyhills.model.RuleHelper;
-import com.cozyhills.model.map.Person;
+import com.cozyhills.cozy.Util;
+import com.cozyhills.model.Person;
 
 /**
  * Created by pere5 on 02/01/16.
@@ -10,7 +9,7 @@ import com.cozyhills.model.map.Person;
 public class EmptyRule extends RuleHelper {
 
     public EmptyRule() {
-        super(0);
+        super(Integer.MAX_VALUE);
     }
 
     @Override
