@@ -2,7 +2,7 @@ package com.cozyhills.cozy;
 
 import com.cozyhills.rules.CozyUp;
 import com.cozyhills.rules.EmptyRule;
-import com.cozyhills.rules.Rule;
+import com.cozyhills.rules.structure.Rule;
 import com.cozyhills.model.VisibleEntity;
 import com.cozyhills.model.Person;
 import com.cozyhills.rules.Household;

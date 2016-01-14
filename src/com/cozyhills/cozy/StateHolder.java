@@ -71,4 +71,8 @@ public class StateHolder {
     public List<VisibleEntity> getHomes() {
         return state.get(HOMES);
     }
+
+    public List<VisibleEntity> getTrees() {
+        return state.get(TREES);
+    }
 }

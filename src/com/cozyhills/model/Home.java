@@ -5,7 +5,13 @@ package com.cozyhills.model;
  */
 public class Home extends VisibleEntity {
 
+    private int status = 1;
+
     public boolean exists() {
         return false;
+    }
+
+    public int getStatus() {
+        return status;
     }
 }

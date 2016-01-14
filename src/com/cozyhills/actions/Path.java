@@ -1,11 +1,11 @@
-package com.cozyhills.ideas;
+package com.cozyhills.actions;
 
 import java.util.*;
 
 /**
  * Created by pere5 on 06/01/16.
  */
-public class Path {
+public class Path implements Action {
     private static final int STEP = 3;
     private static final int CLOSE_ENOUGH = 5;
     Queue<int[]> path = new LinkedList<>();

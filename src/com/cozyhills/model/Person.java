@@ -1,11 +1,13 @@
 package com.cozyhills.model;
 
 import com.cozyhills.cozy.Util;
-import com.cozyhills.ideas.Path;
-import com.cozyhills.rules.Rule;
+import com.cozyhills.actions.Path;
+import com.cozyhills.rules.structure.Rule;
+import com.cozyhills.actions.Action;
+import com.cozyhills.rules.support.HomeLocation;
 
 import java.awt.*;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
 
 /**
@@ -16,8 +18,8 @@ public class Person extends VisibleEntity {
     private List<Person> targets = new ArrayList<>();
     private boolean working = false;
     private Rule selectedRule = null;
-    private Path path = null;
     private Home home = new Home();
+    private Queue<Action> actionList = new LinkedList<>();
 
     public Person () {
         setDefaults();
@@ -45,7 +47,7 @@ public class Person extends VisibleEntity {
     }
 
     public void startWorking(Rule selectedRule, int status) {
-        selectedRule.initWork(this, status);
+        actionList = selectedRule.initWork(this, status);
         this.selectedRule = selectedRule;
     }
 
@@ -61,15 +63,16 @@ public class Person extends VisibleEntity {
         return targets;
     }
 
-    public void setPath(Path path) {
-        this.path = path;
-    }
-
-    public Path getPath() {
-        return path;
-    }
-
     public Home getHome() {
         return home;
     }
+
+    public Queue<Action> getActionList() {
+        return actionList;
+    }
+
+    public void setActionList(Queue<Action> actionList) {
+        this.actionList = actionList;
+    }
+
 }

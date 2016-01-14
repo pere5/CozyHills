@@ -2,11 +2,14 @@ package com.cozyhills.rules;
 
 import com.cozyhills.cozy.Util;
 import com.cozyhills.model.VisibleEntity;
-import com.cozyhills.ideas.Path;
+import com.cozyhills.actions.Path;
 import com.cozyhills.model.Person;
+import com.cozyhills.actions.Action;
+import com.cozyhills.rules.structure.RuleHelper;
 
+import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.Queue;
 
 /**
  * Created by pere5 on 02/01/16.
@@ -15,6 +18,7 @@ public class CozyUp extends RuleHelper {
 
     private static final int COMFORT_ZONE = 20;
     private static final int VISIBLE_ZONE = 80;
+    private static final int WALK_DISTANCE = 20;
     private static final int COZY_GROUP = 4;
 
     public CozyUp(int rank) {
@@ -43,35 +47,38 @@ public class CozyUp extends RuleHelper {
     }
 
     @Override
-    public void initWork(Person me, int status) {
+    public Queue<Action> initWork(Person me, int status) {
         List<Person> targets = me.getTargets();
         int[] destination;
         if (targets.size() == 0) {
-            destination = randomDestination(me);
+            destination = randomDestination(me, WALK_DISTANCE);
         } else if (status == 0) {
             destination = centroid(targets);
             if (me.x == destination[0] && me.y == destination[1]) {
-                destination = randomDestination(me);
+                destination = randomDestination(me, WALK_DISTANCE);
             }
         } else {
             destination = centroid(targets);
         }
-        me.setPath(new Path(new int[] {me.x, me.y}, destination));
-    }
-
-    private int[] randomDestination(Person me) {
-        int r1 = 1 - ThreadLocalRandom.current().nextInt(0, 2 + 1);
-        int r2 = 1 - ThreadLocalRandom.current().nextInt(0, 2 + 1);
-        return new int[]{me.x + 20 * r1, me.y + 20 * r2};
+        Action path = new Path(new int[] {me.x, me.y}, destination);
+        Queue<Action> actionList = new LinkedList<>();
+        actionList.add(path);
+        return actionList;
     }
 
     @Override
     public boolean work(Person me) {
-        Path path = me.getPath();
+        Queue<Action> actionList = me.getActionList();
+        Path path = (Path) actionList.peek();
         int[] step = path.nextStep();
         me.x = step[0];
         me.y = step[1];
-        return path.canContinue();
+        if (path.canContinue()) {
+            return true;
+        } else {
+            actionList.poll();
+            return false;
+        }
     }
 
     @Override

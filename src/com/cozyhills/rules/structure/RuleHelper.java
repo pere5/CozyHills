@@ -1,11 +1,11 @@
-package com.cozyhills.rules;
+package com.cozyhills.rules.structure;
 
 import com.cozyhills.cozy.StateHolder;
 import com.cozyhills.model.Person;
 import com.cozyhills.model.VisibleEntity;
-import com.cozyhills.rules.Rule;
 
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Created by pere5 on 02/01/16.
@@ -42,11 +42,21 @@ public abstract class RuleHelper implements Rule {
         return centroid;
     }
 
+    protected int[] randomDestination(Person me, int distance) {
+        int r1 = 1 - ThreadLocalRandom.current().nextInt(0, 2 + 1);
+        int r2 = 1 - ThreadLocalRandom.current().nextInt(0, 2 + 1);
+        return new int[]{me.x + distance * r1, me.y + distance * r2};
+    }
+
     public List<VisibleEntity> getPersons() {
         return StateHolder.instance().getPersons();
     }
 
     public List<VisibleEntity> getHomes() {
         return StateHolder.instance().getHomes();
+    }
+
+    public List<VisibleEntity> getTrees() {
+        return StateHolder.instance().getTrees();
     }
 }
