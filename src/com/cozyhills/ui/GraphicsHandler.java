@@ -34,38 +34,24 @@ public class GraphicsHandler extends JFrame {
         initialize();
         int character = 0;
         int intendedFps = 6;
-        int fps = 0;
-        long timeStart = System.currentTimeMillis();
 
-        final boolean runByCappedFps = true;
-        final boolean runByMeasureFps = !runByCappedFps;
         while(isRunning) {
-            long time = System.currentTimeMillis();
 
+            long time = System.currentTimeMillis();
             update();
+            character = ThreadLocalRandom.current().nextInt(1, 3 + 1);
+            System.out.print(character == 1 ? "- " : character == 2 ? "+ " : "* ");
+            System.out.println(System.currentTimeMillis() - time);
+
             draw();
 
-            if (runByMeasureFps) {
-                fps++;
-                if (time - timeStart > 1000) {
-                    System.out.println(fps);
-                    timeStart = System.currentTimeMillis();
-                    fps = 0;
-                }
-            }
-            if (runByCappedFps) {
-                //  delay for each frame  -   time it took for one frame
-                character = ThreadLocalRandom.current().nextInt(1, 3 + 1);
-                System.out.print(character == 1 ? "- " : character == 2 ? "+ " : "* ");
-
-                System.out.println(System.currentTimeMillis() - time);
-                time = (1000 / intendedFps) - (System.currentTimeMillis() - time);
-                if (time > 0) {
-                    try {
-                        Thread.sleep(time);
-                    } catch(Exception e) {
-                        System.out.println("Woohah!");
-                    }
+            //  delay for each frame  -   time it took for one frame
+            time = (1000 / intendedFps) - (System.currentTimeMillis() - time);
+            if (time > 0) {
+                try {
+                    Thread.sleep(time);
+                } catch(Exception e) {
+                    System.out.println("Woohah!");
                 }
             }
         }
