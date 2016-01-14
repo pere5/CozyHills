@@ -12,7 +12,7 @@ import java.util.Queue;
 public interface Rule {
 
     int calculateStatus(Person me);
-    boolean work(Person me);
+    boolean work(Person me, Queue<Action> actionList);
     void printStatus(int status);
 
     Queue<Action> initWork(Person me, int status);

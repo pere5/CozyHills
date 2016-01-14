@@ -45,6 +45,7 @@ public class Household extends RuleHelper {
 
     @Override
     public Queue<Action> initWork(Person me, int status) {
+        /*
         if (status == 0) {
             //build new home
             me.setHomeLocation(new HomeLocation(me.x, me.y));
@@ -68,11 +69,12 @@ public class Household extends RuleHelper {
         } else {
             //improve home
         }
+        */
         return null;
     }
 
     @Override
-    public boolean work(Person me) {
+    public boolean work(Person me, Queue<Action> actionList) {
         return false;
     }
 

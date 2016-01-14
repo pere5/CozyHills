@@ -28,7 +28,7 @@ public class EmptyRule extends RuleHelper {
     }
 
     @Override
-    public boolean work(Person me) {
+    public boolean work(Person me, Queue<Action> actionList) {
         return false;
     }
 

@@ -27,15 +27,15 @@ public abstract class RuleHelper implements Rule {
         return (int)Math.sqrt(Math.pow((visibleEntity.x - me.x), 2) + Math.pow((visibleEntity.y - me.y), 2));
     }
 
-    protected int[] centroid(List<Person> persons) {
+    protected int[] centroid(List<VisibleEntity> visibleEntityList) {
         int[] centroid = { 0, 0 };
 
-        for (Person person: persons) {
-            centroid[0] += person.x;
-            centroid[1] += person.y;
+        for (VisibleEntity visibleEntity: visibleEntityList) {
+            centroid[0] += visibleEntity.x;
+            centroid[1] += visibleEntity.y;
         }
 
-        int totalPoints = persons.size();
+        int totalPoints = visibleEntityList.size();
         centroid[0] = centroid[0] / totalPoints;
         centroid[1] = centroid[1] / totalPoints;
 

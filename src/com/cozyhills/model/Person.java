@@ -15,11 +15,11 @@ import java.util.List;
  */
 public class Person extends VisibleEntity {
 
-    private List<Person> targets = new ArrayList<>();
+    private List<VisibleEntity> targets = new ArrayList<>();
     private boolean working = false;
     private Rule selectedRule = null;
     private Home home = new Home();
-    private Queue<Action> actionList = new LinkedList<>();
+    private Queue<Action> actionList = null;
 
     public Person () {
         setDefaults();
@@ -43,7 +43,7 @@ public class Person extends VisibleEntity {
     }
 
     public void work() {
-        working = selectedRule.work(this);
+        working = selectedRule.work(this, actionList);
     }
 
     public void startWorking(Rule selectedRule, int status) {
@@ -51,15 +51,15 @@ public class Person extends VisibleEntity {
         this.selectedRule = selectedRule;
     }
 
-    public void addTarget(Person person) {
-        targets.add(person);
+    public void addTarget(VisibleEntity visibleEntity) {
+        targets.add(visibleEntity);
     }
 
     public void clearTarget() {
         targets.clear();
     }
 
-    public List<Person> getTargets() {
+    public List<VisibleEntity> getTargets() {
         return targets;
     }
 

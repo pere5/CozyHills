@@ -18,7 +18,7 @@ public class CozyUp extends RuleHelper {
 
     private static final int COMFORT_ZONE = 20;
     private static final int VISIBLE_ZONE = 80;
-    private static final int WALK_DISTANCE = 20;
+    private static final int SEARCH_DISTANCE = 20;
     private static final int COZY_GROUP = 4;
 
     public CozyUp(int rank) {
@@ -48,14 +48,14 @@ public class CozyUp extends RuleHelper {
 
     @Override
     public Queue<Action> initWork(Person me, int status) {
-        List<Person> targets = me.getTargets();
+        List<VisibleEntity> targets = me.getTargets();
         int[] destination;
         if (targets.size() == 0) {
-            destination = randomDestination(me, WALK_DISTANCE);
+            destination = randomDestination(me, SEARCH_DISTANCE);
         } else if (status == 0) {
             destination = centroid(targets);
             if (me.x == destination[0] && me.y == destination[1]) {
-                destination = randomDestination(me, WALK_DISTANCE);
+                destination = randomDestination(me, SEARCH_DISTANCE);
             }
         } else {
             destination = centroid(targets);
@@ -67,8 +67,7 @@ public class CozyUp extends RuleHelper {
     }
 
     @Override
-    public boolean work(Person me) {
-        Queue<Action> actionList = me.getActionList();
+    public boolean work(Person me, Queue<Action> actionList) {
         Path path = (Path) actionList.peek();
         int[] step = path.nextStep();
         me.x = step[0];
