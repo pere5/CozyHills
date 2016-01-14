@@ -18,7 +18,7 @@ public class Person extends VisibleEntity {
     private List<VisibleEntity> targets = new ArrayList<>();
     private Rule selectedRule = null;
     private Home home = new Home();
-    private Queue<Action> actionList = new LinkedList<>();
+    private Queue<Action> actionQueue = new LinkedList<>();
 
     public Person () {
         setDefaults();
@@ -38,15 +38,15 @@ public class Person extends VisibleEntity {
     }
 
     public boolean working() {
-        return actionList.size() > 0;
+        return actionQueue.size() > 0;
     }
 
     public void work() {
-        selectedRule.work(this, actionList);
+        selectedRule.work(this, actionQueue);
     }
 
     public void startWorking(Rule selectedRule, int status) {
-        selectedRule.initWork(this, status, actionList);
+        selectedRule.initWork(this, status, actionQueue);
         this.selectedRule = selectedRule;
     }
 

@@ -22,12 +22,12 @@ public class EmptyRule extends RuleHelper {
     }
 
     @Override
-    public Queue<Action> initWork(Person me, int status, Queue<Action> actionList) {
+    public Queue<Action> initWork(Person me, int status, Queue<Action> actionQueue) {
         return null;
     }
 
     @Override
-    public boolean work(Person me, Queue<Action> actionList) {
+    public boolean work(Person me, Queue<Action> actionQueue) {
         return false;
     }
 

@@ -40,7 +40,7 @@ public class Household extends RuleHelper {
     }
 
     @Override
-    public Queue<Action> initWork(Person me, int status, Queue<Action> actionList) {
+    public Queue<Action> initWork(Person me, int status, Queue<Action> actionQueue) {
         /*
         if (status == 0) {
             //build new home
@@ -70,7 +70,7 @@ public class Household extends RuleHelper {
     }
 
     @Override
-    public boolean work(Person me, Queue<Action> actionList) {
+    public boolean work(Person me, Queue<Action> actionQueue) {
         return false;
     }
 
