@@ -16,10 +16,9 @@ import java.util.List;
 public class Person extends VisibleEntity {
 
     private List<VisibleEntity> targets = new ArrayList<>();
-    private boolean working = false;
     private Rule selectedRule = null;
     private Home home = new Home();
-    private Queue<Action> actionList = null;
+    private Queue<Action> actionList = new LinkedList<>();
 
     public Person () {
         setDefaults();
@@ -39,15 +38,15 @@ public class Person extends VisibleEntity {
     }
 
     public boolean working() {
-        return working;
+        return actionList.size() > 0;
     }
 
     public void work() {
-        working = selectedRule.work(this, actionList);
+        selectedRule.work(this, actionList);
     }
 
     public void startWorking(Rule selectedRule, int status) {
-        actionList = selectedRule.initWork(this, status);
+        selectedRule.initWork(this, status, actionList);
         this.selectedRule = selectedRule;
     }
 
@@ -66,13 +65,4 @@ public class Person extends VisibleEntity {
     public Home getHome() {
         return home;
     }
-
-    public Queue<Action> getActionList() {
-        return actionList;
-    }
-
-    public void setActionList(Queue<Action> actionList) {
-        this.actionList = actionList;
-    }
-
 }

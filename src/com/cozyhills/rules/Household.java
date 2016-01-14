@@ -1,16 +1,12 @@
 package com.cozyhills.rules;
 
 import com.cozyhills.cozy.Util;
-import com.cozyhills.actions.Path;
 import com.cozyhills.model.Person;
 import com.cozyhills.model.Home;
-import com.cozyhills.model.Tree;
 import com.cozyhills.model.VisibleEntity;
 import com.cozyhills.actions.Action;
-import com.cozyhills.rules.support.HomeLocation;
 import com.cozyhills.rules.structure.RuleHelper;
 
-import java.util.List;
 import java.util.Queue;
 
 /**
@@ -44,7 +40,7 @@ public class Household extends RuleHelper {
     }
 
     @Override
-    public Queue<Action> initWork(Person me, int status) {
+    public Queue<Action> initWork(Person me, int status, Queue<Action> actionList) {
         /*
         if (status == 0) {
             //build new home

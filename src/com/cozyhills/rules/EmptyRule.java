@@ -5,7 +5,6 @@ import com.cozyhills.model.Person;
 import com.cozyhills.actions.Action;
 import com.cozyhills.rules.structure.RuleHelper;
 
-import java.util.List;
 import java.util.Queue;
 
 /**
@@ -23,7 +22,7 @@ public class EmptyRule extends RuleHelper {
     }
 
     @Override
-    public Queue<Action> initWork(Person me, int status) {
+    public Queue<Action> initWork(Person me, int status, Queue<Action> actionList) {
         return null;
     }
 

@@ -47,7 +47,7 @@ public class CozyUp extends RuleHelper {
     }
 
     @Override
-    public Queue<Action> initWork(Person me, int status) {
+    public Queue<Action> initWork(Person me, int status, Queue<Action> actionList) {
         List<VisibleEntity> targets = me.getTargets();
         int[] destination;
         if (targets.size() == 0) {
@@ -61,7 +61,6 @@ public class CozyUp extends RuleHelper {
             destination = centroid(targets);
         }
         Action path = new Path(new int[] {me.x, me.y}, destination);
-        Queue<Action> actionList = new LinkedList<>();
         actionList.add(path);
         return actionList;
     }

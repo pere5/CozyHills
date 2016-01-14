@@ -15,7 +15,7 @@ public interface Rule {
     boolean work(Person me, Queue<Action> actionList);
     void printStatus(int status);
 
-    Queue<Action> initWork(Person me, int status);
+    Queue<Action> initWork(Person me, int status, Queue<Action> actionList);
 
     int rank();
 }
