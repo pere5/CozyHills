@@ -3,7 +3,7 @@ package com.cozyhills.rules;
 import com.cozyhills.cozy.Util;
 import com.cozyhills.model.Person;
 import com.cozyhills.actions.Action;
-import com.cozyhills.rules.structure.RuleHelper;
+import com.cozyhills.rules.support.RuleHelper;
 
 import java.util.Queue;
 
@@ -22,17 +22,12 @@ public class EmptyRule extends RuleHelper {
     }
 
     @Override
-    public Queue<Action> initWork(Person me, int status, Queue<Action> actionQueue) {
-        return null;
+    public void initWork(Person me, int status, Queue<Action> actionQueue) {
+
     }
 
     @Override
-    public boolean work(Person me, Queue<Action> actionQueue) {
-        return false;
-    }
-
-    @Override
-    public void printStatus(int status) {
-        Util.print(status);
+    public void printInfo(int status) {
+        Util.print(id + ":" + status);
     }
 }

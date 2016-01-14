@@ -1,4 +1,4 @@
-package com.cozyhills.rules.structure;
+package com.cozyhills.rules.support;
 
 import com.cozyhills.model.Person;
 import com.cozyhills.actions.Action;
@@ -12,10 +12,10 @@ import java.util.Queue;
 public interface Rule {
 
     int calculateStatus(Person me);
-    boolean work(Person me, Queue<Action> actionQueue);
-    void printStatus(int status);
+    void printInfo(int status);
 
-    Queue<Action> initWork(Person me, int status, Queue<Action> actionQueue);
+    void initWork(Person me, int status, Queue<Action> actionQueue);
 
     int rank();
+    int id();
 }

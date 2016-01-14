@@ -1,11 +1,14 @@
 package com.cozyhills.rules;
 
+import com.cozyhills.actions.Path;
+import com.cozyhills.actions.WaitForever;
 import com.cozyhills.cozy.Util;
 import com.cozyhills.model.Person;
 import com.cozyhills.model.Home;
+import com.cozyhills.model.Tree;
 import com.cozyhills.model.VisibleEntity;
 import com.cozyhills.actions.Action;
-import com.cozyhills.rules.structure.RuleHelper;
+import com.cozyhills.rules.support.RuleHelper;
 
 import java.util.Queue;
 
@@ -40,13 +43,12 @@ public class Household extends RuleHelper {
     }
 
     @Override
-    public Queue<Action> initWork(Person me, int status, Queue<Action> actionQueue) {
-        /*
+    public void initWork(Person me, int status, Queue<Action> actionQueue) {
+
         if (status == 0) {
             //build new home
-            me.setHomeLocation(new HomeLocation(me.x, me.y));
             Tree closestTree = null;
-            int closestRange = Integer.MAX_VALUE;
+            Integer closestRange = Integer.MAX_VALUE;
             int[] destination;
             for (VisibleEntity visibleEntity: getTrees()) {
                 Tree tree = (Tree)visibleEntity;
@@ -58,24 +60,20 @@ public class Household extends RuleHelper {
             }
             if (closestRange > VISIBLE_ZONE || closestTree == null) {
                 destination = randomDestination(me, VISIBLE_ZONE);
+                actionQueue.add(new Path(new int[] {me.x, me.y}, destination));
             } else {
                 destination = new int[] {closestTree.x, closestTree.y};
+                actionQueue.add(new Path(new int[] {me.x, me.y}, destination));
+                actionQueue.add(new WaitForever());
             }
-            me.setPath(new Path(new int[] {me.x, me.y}, destination));
         } else {
             //improve home
+
         }
-        */
-        return null;
     }
 
     @Override
-    public boolean work(Person me, Queue<Action> actionQueue) {
-        return false;
-    }
-
-    @Override
-    public void printStatus(int status) {
-        Util.print(status);
+    public void printInfo(int status) {
+        Util.print(id + ":" + status);
     }
 }

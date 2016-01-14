@@ -1,10 +1,12 @@
-package com.cozyhills.rules.structure;
+package com.cozyhills.rules.support;
 
+import com.cozyhills.actions.Action;
 import com.cozyhills.cozy.StateHolder;
 import com.cozyhills.model.Person;
 import com.cozyhills.model.VisibleEntity;
 
 import java.util.List;
+import java.util.Queue;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -13,14 +15,21 @@ import java.util.concurrent.ThreadLocalRandom;
 public abstract class RuleHelper implements Rule {
 
     private final int rank;
+    protected final int id;
 
     public RuleHelper(int rank) {
         this.rank = rank;
+        this.id = Integer.MAX_VALUE - rank;
     }
 
     @Override
     public int rank() {
         return rank;
+    }
+
+    @Override
+    public int id() {
+        return id;
     }
 
     protected int range(VisibleEntity visibleEntity, VisibleEntity me) {

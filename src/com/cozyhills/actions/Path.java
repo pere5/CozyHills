@@ -1,5 +1,7 @@
 package com.cozyhills.actions;
 
+import com.cozyhills.model.Person;
+
 import java.util.*;
 
 /**
@@ -27,6 +29,20 @@ public class Path implements Action {
             start = nextStep;
         }
         path.add(destination);
+    }
+
+    @Override
+    public boolean doIt(Person me, Queue<Action> actionQueue) {
+        Path path = (Path)actionQueue.peek();
+        int[] step = path.nextStep();
+        me.x = step[0];
+        me.y = step[1];
+        if (path.canContinue()) {
+            return true;
+        } else {
+            actionQueue.poll();
+            return false;
+        }
     }
 
     private boolean arrived(int[] pointA, int[] pointB) {

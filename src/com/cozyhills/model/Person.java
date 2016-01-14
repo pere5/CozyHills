@@ -1,10 +1,8 @@
 package com.cozyhills.model;
 
 import com.cozyhills.cozy.Util;
-import com.cozyhills.actions.Path;
-import com.cozyhills.rules.structure.Rule;
+import com.cozyhills.rules.support.Rule;
 import com.cozyhills.actions.Action;
-import com.cozyhills.rules.support.HomeLocation;
 
 import java.awt.*;
 import java.util.*;
@@ -16,7 +14,6 @@ import java.util.List;
 public class Person extends VisibleEntity {
 
     private List<VisibleEntity> targets = new ArrayList<>();
-    private Rule selectedRule = null;
     private Home home = new Home();
     private Queue<Action> actionQueue = new LinkedList<>();
 
@@ -42,12 +39,11 @@ public class Person extends VisibleEntity {
     }
 
     public void work() {
-        selectedRule.work(this, actionQueue);
+        actionQueue.peek().doIt(this, actionQueue);
     }
 
     public void startWorking(Rule selectedRule, int status) {
         selectedRule.initWork(this, status, actionQueue);
-        this.selectedRule = selectedRule;
     }
 
     public void addTarget(VisibleEntity visibleEntity) {

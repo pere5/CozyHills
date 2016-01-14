@@ -2,7 +2,7 @@ package com.cozyhills.cozy;
 
 import com.cozyhills.rules.CozyUp;
 import com.cozyhills.rules.EmptyRule;
-import com.cozyhills.rules.structure.Rule;
+import com.cozyhills.rules.support.Rule;
 import com.cozyhills.model.VisibleEntity;
 import com.cozyhills.model.Person;
 import com.cozyhills.rules.Household;
@@ -33,16 +33,17 @@ public class CozyHills {
                 Util.print("[");
                 for (Rule newRule : rules) {
                     int newStatus = newRule.calculateStatus(person);
-                    newRule.printStatus(newStatus);
+                    Util.print(newRule.id());
                     if (newStatus < currentStatus || (newStatus == currentStatus && newRule.rank() > selectedRule.rank())) {
                         currentStatus = newStatus;
                         selectedRule = newRule;
                     }
                 }
                 Util.print("]");
+                Util.print(selectedRule.id());
                 person.startWorking(selectedRule, currentStatus);
             } else {
-                Util.print("[     ]");
+                Util.print("[         ]");
             }
             person.work();
         }

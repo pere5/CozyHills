@@ -5,9 +5,8 @@ import com.cozyhills.model.VisibleEntity;
 import com.cozyhills.actions.Path;
 import com.cozyhills.model.Person;
 import com.cozyhills.actions.Action;
-import com.cozyhills.rules.structure.RuleHelper;
+import com.cozyhills.rules.support.RuleHelper;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
@@ -47,7 +46,7 @@ public class CozyUp extends RuleHelper {
     }
 
     @Override
-    public Queue<Action> initWork(Person me, int status, Queue<Action> actionQueue) {
+    public void initWork(Person me, int status, Queue<Action> actionQueue) {
         List<VisibleEntity> targets = me.getTargets();
         int[] destination;
         if (targets.size() == 0) {
@@ -62,25 +61,10 @@ public class CozyUp extends RuleHelper {
         }
         Action path = new Path(new int[] {me.x, me.y}, destination);
         actionQueue.add(path);
-        return actionQueue;
     }
 
     @Override
-    public boolean work(Person me, Queue<Action> actionQueue) {
-        Path path = (Path) actionQueue.peek();
-        int[] step = path.nextStep();
-        me.x = step[0];
-        me.y = step[1];
-        if (path.canContinue()) {
-            return true;
-        } else {
-            actionQueue.poll();
-            return false;
-        }
-    }
-
-    @Override
-    public void printStatus(int status) {
-        Util.print(status);
+    public void printInfo(int status) {
+        Util.print(id + ":" + status);
     }
 }
