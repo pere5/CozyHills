@@ -38,8 +38,6 @@ public class CozyHills {
                     }
                 }
                 person.startWorking(selectedRule, currentStatus);
-            } else {
-
             }
             Util.print(person.getCurrentRule().id());
             person.work();
