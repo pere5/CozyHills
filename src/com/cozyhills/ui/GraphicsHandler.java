@@ -39,11 +39,12 @@ public class GraphicsHandler extends JFrame {
 
             long time = System.currentTimeMillis();
             update();
+            draw();
             character = ThreadLocalRandom.current().nextInt(1, 3 + 1);
             System.out.print(character == 1 ? "- " : character == 2 ? "+ " : "* ");
             System.out.println(System.currentTimeMillis() - time);
 
-            draw();
+
 
             //  delay for each frame  -   time it took for one frame
             time = (1000 / intendedFps) - (System.currentTimeMillis() - time);

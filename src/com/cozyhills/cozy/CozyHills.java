@@ -30,21 +30,18 @@ public class CozyHills {
             Person person = (Person) visibleEntity;
             if (!person.working()) {
                 int currentStatus = Integer.MAX_VALUE;
-                Util.print("[");
                 for (Rule newRule : rules) {
                     int newStatus = newRule.calculateStatus(person);
-                    Util.print(newRule.id());
                     if (newStatus < currentStatus || (newStatus == currentStatus && newRule.rank() > selectedRule.rank())) {
                         currentStatus = newStatus;
                         selectedRule = newRule;
                     }
                 }
-                Util.print("]");
-                Util.print(selectedRule.id());
                 person.startWorking(selectedRule, currentStatus);
             } else {
-                Util.print("[         ]");
+
             }
+            Util.print(person.getCurrentRule().id());
             person.work();
         }
     }

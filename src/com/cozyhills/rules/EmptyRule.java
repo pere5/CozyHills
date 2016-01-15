@@ -25,9 +25,4 @@ public class EmptyRule extends RuleHelper {
     public void initWork(Person me, int status, Queue<Action> actionQueue) {
 
     }
-
-    @Override
-    public void printInfo(int status) {
-        Util.print(id + ":" + status);
-    }
 }

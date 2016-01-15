@@ -71,9 +71,4 @@ public class Household extends RuleHelper {
 
         }
     }
-
-    @Override
-    public void printInfo(int status) {
-        Util.print(id + ":" + status);
-    }
 }

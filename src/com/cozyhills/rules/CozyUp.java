@@ -62,9 +62,4 @@ public class CozyUp extends RuleHelper {
         Action path = new Path(new int[] {me.x, me.y}, destination);
         actionQueue.add(path);
     }
-
-    @Override
-    public void printInfo(int status) {
-        Util.print(id + ":" + status);
-    }
 }

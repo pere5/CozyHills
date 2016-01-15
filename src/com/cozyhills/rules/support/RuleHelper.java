@@ -1,7 +1,7 @@
 package com.cozyhills.rules.support;
 
-import com.cozyhills.actions.Action;
 import com.cozyhills.cozy.StateHolder;
+import com.cozyhills.cozy.Util;
 import com.cozyhills.model.Person;
 import com.cozyhills.model.VisibleEntity;
 
@@ -30,6 +30,11 @@ public abstract class RuleHelper implements Rule {
     @Override
     public int id() {
         return id;
+    }
+
+    @Override
+    public void printInfo(int status) {
+        Util.print(id + ":" + status);
     }
 
     protected int range(VisibleEntity visibleEntity, VisibleEntity me) {
