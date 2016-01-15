@@ -41,7 +41,7 @@ public class GraphicsHandler extends JFrame {
             update();
             draw();
             character = ThreadLocalRandom.current().nextInt(1, 3 + 1);
-            System.out.print(character == 1 ? "- " : character == 2 ? "+ " : "* ");
+            System.out.print(character == 1 ? " - " : character == 2 ? " + " : " * ");
             System.out.println(System.currentTimeMillis() - time);
 
 

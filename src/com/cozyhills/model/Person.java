@@ -32,7 +32,7 @@ public class Person extends VisibleEntity {
 
     private void setDefaults() {
         this.size = 3;
-        this.color = Color.PINK;
+        this.color = Color.BLACK;
     }
 
     public boolean working() {

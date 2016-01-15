@@ -1,6 +1,5 @@
 package com.cozyhills.rules;
 
-import com.cozyhills.cozy.Util;
 import com.cozyhills.model.VisibleEntity;
 import com.cozyhills.actions.Path;
 import com.cozyhills.model.Person;
@@ -15,9 +14,9 @@ import java.util.Queue;
  */
 public class CozyUp extends RuleHelper {
 
-    private static final int COMFORT_ZONE = 20;
+    private static final int COMFORT_ZONE = 25;
     private static final int VISIBLE_ZONE = 80;
-    private static final int SEARCH_DISTANCE = 20;
+    private static final int WALK_DISTANCE = 20;
     private static final int COZY_GROUP = 4;
 
     public CozyUp(int rank) {
@@ -50,11 +49,11 @@ public class CozyUp extends RuleHelper {
         List<VisibleEntity> targets = me.getTargets();
         int[] destination;
         if (targets.size() == 0) {
-            destination = randomDestination(me, SEARCH_DISTANCE);
+            destination = randomDestination(me, WALK_DISTANCE);
         } else if (status == 0) {
             destination = centroid(targets);
             if (me.x == destination[0] && me.y == destination[1]) {
-                destination = randomDestination(me, SEARCH_DISTANCE);
+                destination = randomDestination(me, WALK_DISTANCE);
             }
         } else {
             destination = centroid(targets);

@@ -7,6 +7,7 @@ import com.cozyhills.model.VisibleEntity;
 import com.cozyhills.model.Person;
 import com.cozyhills.rules.Household;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +29,8 @@ public class CozyHills {
     public void update() {
         for (VisibleEntity visibleEntity : stateHolder.getPersons()) {
             Person person = (Person) visibleEntity;
-            if (!person.working()) {
+            boolean working = person.working();
+            if (!working) {
                 int currentStatus = Integer.MAX_VALUE;
                 for (Rule newRule : rules) {
                     int newStatus = newRule.calculateStatus(person);
@@ -39,7 +41,8 @@ public class CozyHills {
                 }
                 person.startWorking(selectedRule, currentStatus);
             }
-            Util.print(person.getCurrentRule().id());
+            Util.print((working ? "  " : " >") + person.getCurrentRule().id());
+            person.color = working ? Color.BLACK : Color.RED;
             person.work();
         }
     }
