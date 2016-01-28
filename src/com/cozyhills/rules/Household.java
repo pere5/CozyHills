@@ -1,6 +1,7 @@
 package com.cozyhills.rules;
 
 import com.cozyhills.actions.Action;
+import com.cozyhills.actions.CutRock;
 import com.cozyhills.actions.CutTree;
 import com.cozyhills.actions.Path;
 import com.cozyhills.model.*;
@@ -44,14 +45,28 @@ public class Household extends RuleHelper {
         if (status == 0) {
             //build new home
             Tree closestTree = getClosestVisibleTree(me, VISIBLE_ZONE);
-            Rock closestRock = getClosestVisibleRock(me, VISIBLE_ZONE);
             if (closestTree == null) {
                 int[] destination;
                 destination = randomDestination(me, VISIBLE_ZONE);
                 actionQueue.add(new Path(new int[]{me.x, me.y}, destination));
             } else {
-                actionQueue.add(new Path(new int[] {me.x, me.y}, new int[] {closestTree.x, closestTree.y}));
+                int[] treePosition = new int[] {closestTree.x, closestTree.y};
+                int[] myPosition = new int[] {me.x, me.y};
+                actionQueue.add(new Path(myPosition, treePosition));
                 actionQueue.add(new CutTree(closestTree));
+                actionQueue.add(new Path(treePosition, myPosition));
+            }
+            Rock closestRock = getClosestVisibleRock(me, VISIBLE_ZONE);
+            if (closestRock == null) {
+                int[] destination;
+                destination = randomDestination(me, VISIBLE_ZONE);
+                actionQueue.add(new Path(new int[]{me.x, me.y}, destination));
+            } else {
+                int[] rockPosition = new int[] {closestRock.x, closestRock.y};
+                int[] myPosition = new int[] {me.x, me.y};
+                actionQueue.add(new Path(myPosition, rockPosition));
+                actionQueue.add(new CutRock(closestRock));
+                actionQueue.add(new Path(rockPosition, myPosition));
             }
         } else {
             //improve home

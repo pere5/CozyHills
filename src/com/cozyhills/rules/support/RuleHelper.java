@@ -1,13 +1,10 @@
 package com.cozyhills.rules.support;
 
-import com.cozyhills.actions.Action;
-import com.cozyhills.actions.Path;
 import com.cozyhills.cozy.StateHolder;
 import com.cozyhills.cozy.Util;
 import com.cozyhills.model.*;
 
 import java.util.List;
-import java.util.Queue;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
