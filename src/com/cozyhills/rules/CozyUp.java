@@ -1,9 +1,9 @@
 package com.cozyhills.rules;
 
-import com.cozyhills.model.VisibleEntity;
+import com.cozyhills.actions.Action;
 import com.cozyhills.actions.Path;
 import com.cozyhills.model.Person;
-import com.cozyhills.actions.Action;
+import com.cozyhills.model.VisibleEntity;
 import com.cozyhills.rules.support.RuleHelper;
 
 import java.util.List;

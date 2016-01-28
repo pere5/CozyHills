@@ -1,12 +1,14 @@
 package com.cozyhills.model;
 
+import com.cozyhills.actions.Action;
 import com.cozyhills.cozy.Util;
 import com.cozyhills.rules.support.Rule;
-import com.cozyhills.actions.Action;
 
 import java.awt.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 /**
  * Created by pere5 on 21/12/15.
@@ -40,7 +42,10 @@ public class Person extends VisibleEntity {
     }
 
     public void work() {
-        actionQueue.peek().doIt(this, actionQueue);
+        boolean continueWorking = actionQueue.peek().doIt(this);
+        if (!continueWorking) {
+            Action discard = actionQueue.poll();
+        }
     }
 
     public void startWorking(Rule selectedRule, int status) {

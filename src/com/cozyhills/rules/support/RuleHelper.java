@@ -6,7 +6,6 @@ import com.cozyhills.model.Person;
 import com.cozyhills.model.VisibleEntity;
 
 import java.util.List;
-import java.util.Queue;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**

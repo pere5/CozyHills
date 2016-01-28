@@ -1,11 +1,11 @@
 package com.cozyhills.cozy;
 
+import com.cozyhills.model.Person;
+import com.cozyhills.model.VisibleEntity;
 import com.cozyhills.rules.CozyUp;
 import com.cozyhills.rules.EmptyRule;
-import com.cozyhills.rules.support.Rule;
-import com.cozyhills.model.VisibleEntity;
-import com.cozyhills.model.Person;
 import com.cozyhills.rules.Household;
+import com.cozyhills.rules.support.Rule;
 
 import java.awt.*;
 import java.util.ArrayList;

@@ -1,8 +1,7 @@
 package com.cozyhills.rules;
 
-import com.cozyhills.cozy.Util;
-import com.cozyhills.model.Person;
 import com.cozyhills.actions.Action;
+import com.cozyhills.model.Person;
 import com.cozyhills.rules.support.RuleHelper;
 
 import java.util.Queue;

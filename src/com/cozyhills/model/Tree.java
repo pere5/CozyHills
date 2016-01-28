@@ -1,7 +1,6 @@
 package com.cozyhills.model;
 
 import com.cozyhills.cozy.Util;
-import com.cozyhills.model.VisibleEntity;
 
 import java.awt.*;
 

@@ -1,18 +1,17 @@
 package com.cozyhills.actions;
 
-import com.cozyhills.cozy.Util;
 import com.cozyhills.model.Person;
-
-import java.util.Queue;
 
 /**
  * Created by pere5 on 14/01/16.
  */
 public class Wait implements Action {
 
+    private int wait = 10;
+
     @Override
-    public boolean doIt(Person me, Queue<Action> actionQueue) {
-        Wait wait = (Wait)actionQueue.poll();
-        return wait != null;
+    public boolean doIt(Person me) {
+        wait--;
+        return wait > 0;
     }
 }
