@@ -1,9 +1,6 @@
 package com.cozyhills.rules;
 
-import com.cozyhills.actions.Action;
-import com.cozyhills.actions.CutRock;
-import com.cozyhills.actions.CutTree;
-import com.cozyhills.actions.Path;
+import com.cozyhills.actions.*;
 import com.cozyhills.model.*;
 import com.cozyhills.rules.support.RuleHelper;
 
@@ -27,10 +24,10 @@ public class Household extends RuleHelper {
         if (myHome.exists()) {
             int result = 0;
             for (VisibleEntity visibleEntity: getHomes()) {
-                Home otherHome = (Home)visibleEntity;
-                int range = otherHome != myHome ? range(otherHome, myHome): Integer.MAX_VALUE;
+                Home someHome = (Home)visibleEntity;
+                int range = range(someHome, myHome); //include my own home
                 if (range < NEIGHBORHOOD_ZONE) {
-                    result += otherHome.getStatus();
+                    result += someHome.getStatus();
                 }
             }
             return result;
@@ -42,8 +39,27 @@ public class Household extends RuleHelper {
     @Override
     public void initWork(Person me, int status, Queue<Action> actionQueue) {
 
-        if (status == 0) {
-            //build new home
+        if (me.getHome().exists()) {
+            //improve home: end
+        } else {
+            if (me.wantToSearchForHome()) {
+                int[] destination;
+                destination = randomDestination(me, VISIBLE_ZONE);
+                actionQueue.add(new Path(new int[]{me.x, me.y}, destination));
+            } else {
+                if (me.hasEnoughResources(BasicHut.buildCost())) {
+                    //build new home and move in
+                    actionQueue.add(new Build(BasicHut.class));
+                    actionQueue.add(new Build(BasicHut.class));
+                } else {
+                    //gather enough resources: end
+                }
+            }
+
+
+
+                //build
+
             Tree closestTree = getClosestVisibleTree(me, VISIBLE_ZONE);
             if (closestTree == null) {
                 int[] destination;
@@ -68,9 +84,6 @@ public class Household extends RuleHelper {
                 actionQueue.add(new CutRock(closestRock));
                 actionQueue.add(new Path(rockPosition, myPosition));
             }
-        } else {
-            //improve home
-
         }
     }
 }
