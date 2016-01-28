@@ -13,9 +13,9 @@ import java.util.List;
  */
 public class Person extends VisibleEntity {
 
-    private List<VisibleEntity> targets = new ArrayList<>();
+    private final List<VisibleEntity> targets = new ArrayList<>();
+    private final Queue<Action> actionQueue = new LinkedList<>();
     private Home home = new Home();
-    private Queue<Action> actionQueue = new LinkedList<>();
     private Rule currentRule = null;
 
     public Person () {

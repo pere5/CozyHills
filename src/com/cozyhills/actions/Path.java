@@ -10,7 +10,7 @@ import java.util.*;
 public class Path implements Action {
     private static final int STEP = 3;
     private static final int CLOSE_ENOUGH = 5;
-    Queue<int[]> path = new LinkedList<>();
+    private final Queue<int[]> path = new LinkedList<>();
 
     public Path(int[] start, int[] destination) {
         int[] nextStep;

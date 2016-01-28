@@ -1,8 +1,7 @@
 package com.cozyhills.rules;
 
+import com.cozyhills.actions.CutTree;
 import com.cozyhills.actions.Path;
-import com.cozyhills.actions.WaitForever;
-import com.cozyhills.cozy.Util;
 import com.cozyhills.model.Person;
 import com.cozyhills.model.Home;
 import com.cozyhills.model.Tree;
@@ -47,28 +46,42 @@ public class Household extends RuleHelper {
 
         if (status == 0) {
             //build new home
-            Tree closestTree = null;
-            Integer closestRange = Integer.MAX_VALUE;
-            int[] destination;
-            for (VisibleEntity visibleEntity: getTrees()) {
-                Tree tree = (Tree)visibleEntity;
-                int range = range(me, tree);
-                if (range < closestRange) {
-                    closestRange = range;
-                    closestTree = tree;
-                }
-            }
-            if (closestRange > VISIBLE_ZONE || closestTree == null) {
-                destination = randomDestination(me, VISIBLE_ZONE);
-                actionQueue.add(new Path(new int[] {me.x, me.y}, destination));
+            Tree closestTree = getClosestTree(me);
+            if (closestTree == null) {
+                searchForTree(me, actionQueue);
             } else {
-                destination = new int[] {closestTree.x, closestTree.y};
-                actionQueue.add(new Path(new int[] {me.x, me.y}, destination));
-                actionQueue.add(new WaitForever());
+                gatherResource(me, actionQueue, closestTree);
             }
         } else {
             //improve home
 
         }
+    }
+
+    private Tree getClosestTree(Person me) {
+        Tree closestTree = null;
+        Integer closestRange = Integer.MAX_VALUE;
+        for (VisibleEntity visibleEntity: getTrees()) {
+            Tree tree = (Tree)visibleEntity;
+            int range = range(me, tree);
+            if (range < closestRange) {
+                closestRange = range;
+                if (closestRange < VISIBLE_ZONE) {
+                    closestTree = tree;
+                }
+            }
+        }
+        return closestTree;
+    }
+
+    private void gatherResource(Person me, Queue<Action> actionQueue, Tree closestTree) {
+        actionQueue.add(new Path(new int[] {me.x, me.y}, new int[] {closestTree.x, closestTree.y}));
+        actionQueue.add(new CutTree());
+    }
+
+    private void searchForTree(Person me, Queue<Action> actionQueue) {
+        int[] destination;
+        destination = randomDestination(me, VISIBLE_ZONE);
+        actionQueue.add(new Path(new int[] {me.x, me.y}, destination));
     }
 }
