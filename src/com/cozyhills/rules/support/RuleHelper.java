@@ -1,11 +1,13 @@
 package com.cozyhills.rules.support;
 
+import com.cozyhills.actions.Action;
+import com.cozyhills.actions.Path;
 import com.cozyhills.cozy.StateHolder;
 import com.cozyhills.cozy.Util;
-import com.cozyhills.model.Person;
-import com.cozyhills.model.VisibleEntity;
+import com.cozyhills.model.*;
 
 import java.util.List;
+import java.util.Queue;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -61,15 +63,46 @@ public abstract class RuleHelper implements Rule {
         return new int[]{me.x + distance * r1, me.y + distance * r2};
     }
 
-    public List<VisibleEntity> getPersons() {
+    protected Rock getClosestVisibleRock(Person me, final int VISIBLE_ZONE) {
+        return (Rock)getClosestVisibleEntity(me, VISIBLE_ZONE, StateHolder.ROCKS);
+    }
+
+    protected Tree getClosestVisibleTree(Person me, final int VISIBLE_ZONE) {
+        return (Tree)getClosestVisibleEntity(me, VISIBLE_ZONE, StateHolder.TREES);
+    }
+
+    private VisibleEntity getClosestVisibleEntity(Person me, final int VISIBLE_ZONE, String type) {
+        VisibleEntity closestEntity = null;
+        Integer closestRange = Integer.MAX_VALUE;
+        for (VisibleEntity entity: getEntityList(type)) {
+            int range = range(me, entity);
+            if (range < closestRange) {
+                closestRange = range;
+                if (closestRange < VISIBLE_ZONE) {
+                    closestEntity = entity;
+                }
+            }
+        }
+        return closestEntity;
+    }
+
+    private List<? extends VisibleEntity> getEntityList(String entity) {
+        return StateHolder.instance().getEntities(entity);
+    }
+
+    protected List<Person> getPersons() {
         return StateHolder.instance().getPersons();
     }
 
-    public List<VisibleEntity> getHomes() {
+    protected List<Home> getHomes() {
         return StateHolder.instance().getHomes();
     }
 
-    public List<VisibleEntity> getTrees() {
+    protected List<Tree> getTrees() {
         return StateHolder.instance().getTrees();
+    }
+
+    protected List<Rock> getRocks() {
+        return StateHolder.instance().getRocks();
     }
 }

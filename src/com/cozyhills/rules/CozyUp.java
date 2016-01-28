@@ -26,10 +26,8 @@ public class CozyUp extends RuleHelper {
     @Override
     public int calculateStatus(Person me) {
         int result = 0;
-        List<VisibleEntity> persons = getPersons();
         me.clearTarget();
-        for (VisibleEntity visibleEntity: persons) {
-            Person person = (Person)visibleEntity;
+        for (Person person: getPersons()) {
             int range = person != me ? range(person, me): Integer.MAX_VALUE;
             if (range < COMFORT_ZONE) {
                 result += 1;

@@ -7,7 +7,11 @@ import com.cozyhills.model.Person;
  */
 public class Wait implements Action {
 
-    private int wait = 10;
+    private int wait;
+
+    public Wait(int frames) {
+        wait = frames;
+    }
 
     @Override
     public boolean doIt(Person me) {

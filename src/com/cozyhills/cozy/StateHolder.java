@@ -1,9 +1,6 @@
 package com.cozyhills.cozy;
 
-import com.cozyhills.model.Person;
-import com.cozyhills.model.Rock;
-import com.cozyhills.model.Tree;
-import com.cozyhills.model.VisibleEntity;
+import com.cozyhills.model.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,7 +17,7 @@ public class StateHolder {
     public static final String TREES = "trees";
     public static final String HOMES = "homes";
     private static StateHolder instance = new StateHolder();
-    Map<String, List<VisibleEntity>> state = new HashMap<>();
+    Map<String, List<? extends VisibleEntity>> state = new HashMap<>();
 
     public StateHolder() {
         createPersons(state);
@@ -31,16 +28,16 @@ public class StateHolder {
         return instance;
     }
 
-    public Map<String, List<VisibleEntity>> getState() {
+    public Map<String, List<? extends VisibleEntity>> getState() {
         return state;
     }
 
-    private void createNature(Map<String, List<VisibleEntity>> stateHolder) {
+    private void createNature(Map<String, List<? extends VisibleEntity>> stateHolder) {
         createTrees(stateHolder);
         createRocks(stateHolder);
     }
 
-    private void createTrees(Map<String, List<VisibleEntity>> stateHolder) {
+    private void createTrees(Map<String, List<? extends VisibleEntity>> stateHolder) {
         List<VisibleEntity> trees = new ArrayList<>();
         for (int i = 0; i < 40; i++) {
             trees.add(new Tree());
@@ -48,7 +45,7 @@ public class StateHolder {
         stateHolder.put(TREES, trees);
     }
 
-    private void createRocks(Map<String, List<VisibleEntity>> stateHolder) {
+    private void createRocks(Map<String, List<? extends VisibleEntity>> stateHolder) {
         List<VisibleEntity> rocks = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
             rocks.add(new Rock());
@@ -56,7 +53,7 @@ public class StateHolder {
         stateHolder.put(ROCKS, rocks);
     }
 
-    private void createPersons(Map<String, List<VisibleEntity>> stateHolder) {
+    private void createPersons(Map<String, List<? extends VisibleEntity>> stateHolder) {
         List<VisibleEntity> persons = new ArrayList<>();
         for (int i = 0; i < 40; i++) {
             persons.add(new Person());
@@ -64,15 +61,23 @@ public class StateHolder {
         stateHolder.put(PERSONS, persons);
     }
 
-    public List<VisibleEntity> getPersons() {
-        return state.get(PERSONS);
+    public List<Person> getPersons() {
+        return (List<Person>)state.get(PERSONS);
     }
 
-    public List<VisibleEntity> getHomes() {
-        return state.get(HOMES);
+    public List<Home> getHomes() {
+        return (List<Home>)state.get(HOMES);
     }
 
-    public List<VisibleEntity> getTrees() {
-        return state.get(TREES);
+    public List<Tree> getTrees() {
+        return (List<Tree>)state.get(TREES);
+    }
+
+    public List<Rock> getRocks() {
+        return (List<Rock>)state.get(ROCKS);
+    }
+
+    public List<? extends VisibleEntity> getEntities(String entity) {
+        return state.get(entity);
     }
 }
