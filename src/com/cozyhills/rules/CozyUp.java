@@ -43,7 +43,8 @@ public class CozyUp extends RuleHelper {
     }
 
     @Override
-    public void initWork(Person me, int status, Queue<Action> actionQueue) {
+    public void initWork(Person me, int status) {
+        Queue<Action> actionQueue = me.getActionQueue();
         List<VisibleEntity> targets = me.getTargets();
         int[] destination;
         if (targets.size() == 0) {

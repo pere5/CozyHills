@@ -11,9 +11,16 @@ import java.util.Map;
  */
 public class BasicHut extends Home {
     private static Map<Class<?>, Integer> buildCost = new HashMap<>();
+
+    final static int ROOMS = 1;
+
+    public BasicHut () {
+        super(ROOMS);
+    }
+
     static {
         buildCost.put(Stone.class, 1);
-        buildCost.put(Wood.class, 1);
+        buildCost.put(Wood.class, 2);
     }
 
     public static Map<Class<?>, Integer> buildCost() {

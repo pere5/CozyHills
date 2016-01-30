@@ -6,6 +6,16 @@ package com.cozyhills.model;
 public class Home extends VisibleEntity {
 
     private int status = 1;
+    private final int ROOMS;
+    private int takenRooms = 0;
+
+    public Home() {
+        this.ROOMS = 0;
+    }
+
+    public Home(final int ROOMS) {
+        this.ROOMS = ROOMS;
+    }
 
     public boolean exists() {
         return false;
@@ -13,5 +23,9 @@ public class Home extends VisibleEntity {
 
     public int getStatus() {
         return status;
+    }
+
+    public boolean availableRooms() {
+        return takenRooms < ROOMS;
     }
 }

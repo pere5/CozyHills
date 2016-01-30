@@ -37,27 +37,27 @@ public class Household extends RuleHelper {
     }
 
     @Override
-    public void initWork(Person me, int status, Queue<Action> actionQueue) {
-
+    public void initWork(Person me, int status) {
+        Queue<Action> actionQueue = me.getActionQueue();
         if (me.getHome().exists()) {
             //improve home: end
-        } else {
-            if (me.wantToSearchForHome()) {
-                int[] destination;
-                destination = randomDestination(me, VISIBLE_ZONE);
-                actionQueue.add(new Path(new int[]{me.x, me.y}, destination));
+        } else if (me.searchForHome()) {
+            Home closestHome = getClosestVisibleHome(me, VISIBLE_ZONE);
+            if (closestHome != null && closestHome.availableRooms()) {
+                actionQueue.add(new Path(new int[]{me.x, me.y}, new int[]{closestHome.x, closestHome.y}));
+                actionQueue.add(new MoveIn(closestHome));
             } else {
-                if (me.hasEnoughResources(BasicHut.buildCost())) {
-                    //build new home and move in
-                    actionQueue.add(new Build(BasicHut.class));
-                    actionQueue.add(new Build(BasicHut.class));
-                } else {
-                    //gather enough resources: end
-                }
+                actionQueue.add(new Path(new int[]{me.x, me.y}, randomDestination(me, VISIBLE_ZONE)));
             }
+        } else if (me.hasEnoughResources(BasicHut.buildCost())) {
+            actionQueue.add(new Build(BasicHut.class));
+        } else {
+            //gather enough resources: end
+        }
+    }
+}
 
-
-
+/*
                 //build
 
             Tree closestTree = getClosestVisibleTree(me, VISIBLE_ZONE);
@@ -87,3 +87,4 @@ public class Household extends RuleHelper {
         }
     }
 }
+*/

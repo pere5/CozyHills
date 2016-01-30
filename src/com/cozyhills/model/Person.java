@@ -19,6 +19,7 @@ public class Person extends VisibleEntity {
     private final Queue<Action> actionQueue = new LinkedList<>();
     private Home home = new Home();
     private Rule currentRule = null;
+    private int searchForHome = 2;
 
     public Person () {
         setDefaults();
@@ -50,7 +51,7 @@ public class Person extends VisibleEntity {
 
     public void startWorking(Rule selectedRule, int status) {
         currentRule = selectedRule;
-        selectedRule.initWork(this, status, actionQueue);
+        selectedRule.initWork(this, status);
     }
 
     public void addTarget(VisibleEntity visibleEntity) {
@@ -82,5 +83,14 @@ public class Person extends VisibleEntity {
             }
         }
         return true;
+    }
+
+    public boolean searchForHome() {
+        searchForHome--;
+        return searchForHome >= 0;
+    }
+
+    public Queue<Action> getActionQueue() {
+        return actionQueue;
     }
 }

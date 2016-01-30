@@ -54,10 +54,10 @@ public abstract class RuleHelper implements Rule {
         return centroid;
     }
 
-    protected int[] randomDestination(Person me, int distance) {
+    protected int[] randomDestination(Person me, final int DISTANCE) {
         int r1 = 1 - ThreadLocalRandom.current().nextInt(0, 2 + 1);
         int r2 = 1 - ThreadLocalRandom.current().nextInt(0, 2 + 1);
-        return new int[]{me.x + distance * r1, me.y + distance * r2};
+        return new int[]{me.x + DISTANCE * r1, me.y + DISTANCE * r2};
     }
 
     protected Rock getClosestVisibleRock(Person me, final int VISIBLE_ZONE) {
@@ -66,6 +66,10 @@ public abstract class RuleHelper implements Rule {
 
     protected Tree getClosestVisibleTree(Person me, final int VISIBLE_ZONE) {
         return (Tree)getClosestVisibleEntity(me, VISIBLE_ZONE, StateHolder.TREES);
+    }
+
+    protected Home getClosestVisibleHome(Person me, final int VISIBLE_ZONE) {
+        return (Home)getClosestVisibleEntity(me, VISIBLE_ZONE, StateHolder.HOMES);
     }
 
     private VisibleEntity getClosestVisibleEntity(Person me, final int VISIBLE_ZONE, String type) {
