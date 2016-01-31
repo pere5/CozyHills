@@ -51,13 +51,13 @@ public class CozyUp extends RuleHelper {
             destination = randomDestination(me, WALK_DISTANCE);
         } else if (status == 0) {
             destination = centroid(targets);
-            if (me.x == destination[0] && me.y == destination[1]) {
+            if (me.xy[0] == destination[0] && me.xy[1] == destination[1]) {
                 destination = randomDestination(me, WALK_DISTANCE);
             }
         } else {
             destination = centroid(targets);
         }
-        Action path = new Path(new int[] {me.x, me.y}, destination);
+        Action path = new Path(me.xy, destination);
         actionQueue.add(path);
     }
 }

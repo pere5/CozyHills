@@ -115,7 +115,7 @@ public class GraphicsHandler extends JFrame {
         for (List<? extends VisibleEntity> types: stateHolder.getState().values()) {
             for (VisibleEntity type: types) {
                 bbg.setColor(type.color);
-                bbg.fillRect(type.x, type.y, type.size, type.size);
+                bbg.fillRect(type.xy[0], type.xy[1], type.size, type.size);
             }
         }
     }

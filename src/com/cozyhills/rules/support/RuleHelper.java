@@ -36,15 +36,15 @@ public abstract class RuleHelper implements Rule {
     }
 
     protected int range(VisibleEntity visibleEntity, VisibleEntity me) {
-        return (int)Math.sqrt(Math.pow((visibleEntity.x - me.x), 2) + Math.pow((visibleEntity.y - me.y), 2));
+        return (int)Math.sqrt(Math.pow((visibleEntity.xy[0] - me.xy[0]), 2) + Math.pow((visibleEntity.xy[1] - me.xy[1]), 2));
     }
 
     protected int[] centroid(List<VisibleEntity> visibleEntityList) {
         int[] centroid = { 0, 0 };
 
         for (VisibleEntity visibleEntity: visibleEntityList) {
-            centroid[0] += visibleEntity.x;
-            centroid[1] += visibleEntity.y;
+            centroid[0] += visibleEntity.xy[0];
+            centroid[1] += visibleEntity.xy[1];
         }
 
         int totalPoints = visibleEntityList.size();
@@ -57,22 +57,28 @@ public abstract class RuleHelper implements Rule {
     protected int[] randomDestination(Person me, final int DISTANCE) {
         int r1 = 1 - ThreadLocalRandom.current().nextInt(0, 2 + 1);
         int r2 = 1 - ThreadLocalRandom.current().nextInt(0, 2 + 1);
-        return new int[]{me.x + DISTANCE * r1, me.y + DISTANCE * r2};
+        return new int[]{me.xy[0] + DISTANCE * r1, me.xy[1] + DISTANCE * r2};
     }
 
     protected Rock getClosestVisibleRock(Person me, final int VISIBLE_ZONE) {
-        return (Rock)getClosestVisibleEntity(me, VISIBLE_ZONE, StateHolder.ROCKS);
+        return (Rock)getClosestVisibleEntity(me, VISIBLE_ZONE, Rock.class);
     }
 
     protected Tree getClosestVisibleTree(Person me, final int VISIBLE_ZONE) {
-        return (Tree)getClosestVisibleEntity(me, VISIBLE_ZONE, StateHolder.TREES);
+        return (Tree)getClosestVisibleEntity(me, VISIBLE_ZONE, Tree.class);
     }
 
     protected Home getClosestVisibleHome(Person me, final int VISIBLE_ZONE) {
-        return (Home)getClosestVisibleEntity(me, VISIBLE_ZONE, StateHolder.HOMES);
+        return (Home)getClosestVisibleEntity(me, VISIBLE_ZONE, Home.class);
     }
 
-    private VisibleEntity getClosestVisibleEntity(Person me, final int VISIBLE_ZONE, String type) {
+    protected Home getClosestUnvisitedVisibleHome(Person me, final int VISIBLE_ZONE) {
+        List<Home> visitedHomes = me.getVisitedHomes();
+        //for (Home home: getEntityList(StateHolder.HOMES)) {
+        return null;
+    }
+
+    private VisibleEntity getClosestVisibleEntity(Person me, final int VISIBLE_ZONE, Class<?> type) {
         VisibleEntity closestEntity = null;
         Integer closestRange = Integer.MAX_VALUE;
         for (VisibleEntity entity: getEntityList(type)) {
@@ -87,7 +93,7 @@ public abstract class RuleHelper implements Rule {
         return closestEntity;
     }
 
-    private List<? extends VisibleEntity> getEntityList(String entity) {
+    private List<? extends VisibleEntity> getEntityList(Class<?> entity) {
         return StateHolder.instance().getEntities(entity);
     }
 

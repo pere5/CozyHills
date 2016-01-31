@@ -41,49 +41,34 @@ public class Household extends RuleHelper {
         Queue<Action> actionQueue = me.getActionQueue();
         if (me.getHome().exists()) {
             //improve home: end
+            actionQueue.add(new Wait(10));
         } else if (me.searchForHome()) {
-            Home closestHome = getClosestVisibleHome(me, VISIBLE_ZONE);
-            if (closestHome != null && closestHome.availableRooms()) {
-                actionQueue.add(new Path(new int[]{me.x, me.y}, new int[]{closestHome.x, closestHome.y}));
-                actionQueue.add(new MoveIn(closestHome));
+            Home closestUnvisitedHome = getClosestUnvisitedVisibleHome(me, VISIBLE_ZONE);
+            if (closestUnvisitedHome != null) {
+                actionQueue.add(new Path(me.xy, closestUnvisitedHome.xy));
+                actionQueue.add(new MoveIn(closestUnvisitedHome));
             } else {
-                actionQueue.add(new Path(new int[]{me.x, me.y}, randomDestination(me, VISIBLE_ZONE)));
+                actionQueue.add(new Path(me.xy, randomDestination(me, VISIBLE_ZONE)));
             }
         } else if (me.hasEnoughResources(BasicHut.buildCost())) {
             actionQueue.add(new Build(BasicHut.class));
         } else {
-            //gather enough resources: end
+            actionQueue.add(new Gather(me.getResources(), BasicHut.buildCost()));
         }
     }
 }
 
 /*
                 //build
-
-            Tree closestTree = getClosestVisibleTree(me, VISIBLE_ZONE);
-            if (closestTree == null) {
-                int[] destination;
-                destination = randomDestination(me, VISIBLE_ZONE);
-                actionQueue.add(new Path(new int[]{me.x, me.y}, destination));
-            } else {
-                int[] treePosition = new int[] {closestTree.x, closestTree.y};
-                int[] myPosition = new int[] {me.x, me.y};
-                actionQueue.add(new Path(myPosition, treePosition));
-                actionQueue.add(new CutTree(closestTree));
-                actionQueue.add(new Path(treePosition, myPosition));
-            }
-            Rock closestRock = getClosestVisibleRock(me, VISIBLE_ZONE);
-            if (closestRock == null) {
-                int[] destination;
-                destination = randomDestination(me, VISIBLE_ZONE);
-                actionQueue.add(new Path(new int[]{me.x, me.y}, destination));
-            } else {
-                int[] rockPosition = new int[] {closestRock.x, closestRock.y};
-                int[] myPosition = new int[] {me.x, me.y};
-                actionQueue.add(new Path(myPosition, rockPosition));
-                actionQueue.add(new CutRock(closestRock));
-                actionQueue.add(new Path(rockPosition, myPosition));
-            }
+        Tree closestTree = getClosestVisibleTree(me, VISIBLE_ZONE);
+        if (closestTree == null) {
+            int[] destination;
+            destination = randomDestination(me, VISIBLE_ZONE);
+            actionQueue.add(new Path(me.xy, destination));
+        } else {
+            actionQueue.add(new Path(me.xy, closestTree.xy));
+            actionQueue.add(new CutTree(closestTree));
+            actionQueue.add(new Path(closestTree.xy, me.xy));
         }
     }
 }

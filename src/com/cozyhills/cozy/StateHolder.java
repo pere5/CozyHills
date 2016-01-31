@@ -12,72 +12,64 @@ import java.util.Map;
  */
 public class StateHolder {
 
-    public static final String PERSONS = "persons";
-    public static final String ROCKS = "rocks";
-    public static final String TREES = "trees";
-    public static final String HOMES = "homes";
     private static StateHolder instance = new StateHolder();
-    Map<String, List<? extends VisibleEntity>> state = new HashMap<>();
+    Map<Class<?>, List<? extends VisibleEntity>> state = new HashMap<>();
 
     public StateHolder() {
-        createPersons(state);
-        createNature(state);
+        createPersons();
+        createTrees();
+        createRocks();
     }
 
     public static StateHolder instance() {
         return instance;
     }
 
-    public Map<String, List<? extends VisibleEntity>> getState() {
+    public Map<Class<?>, List<? extends VisibleEntity>> getState() {
         return state;
     }
 
-    private void createNature(Map<String, List<? extends VisibleEntity>> stateHolder) {
-        createTrees(stateHolder);
-        createRocks(stateHolder);
-    }
-
-    private void createTrees(Map<String, List<? extends VisibleEntity>> stateHolder) {
+    private void createTrees() {
         List<VisibleEntity> trees = new ArrayList<>();
         for (int i = 0; i < 40; i++) {
             trees.add(new Tree());
         }
-        stateHolder.put(TREES, trees);
+        state.put(Tree.class, trees);
     }
 
-    private void createRocks(Map<String, List<? extends VisibleEntity>> stateHolder) {
+    private void createRocks() {
         List<VisibleEntity> rocks = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
             rocks.add(new Rock());
         }
-        stateHolder.put(ROCKS, rocks);
+        state.put(Rock.class, rocks);
     }
 
-    private void createPersons(Map<String, List<? extends VisibleEntity>> stateHolder) {
+    private void createPersons() {
         List<VisibleEntity> persons = new ArrayList<>();
         for (int i = 0; i < 40; i++) {
             persons.add(new Person());
         }
-        stateHolder.put(PERSONS, persons);
+        state.put(Person.class, persons);
     }
 
     public List<Person> getPersons() {
-        return (List<Person>)state.get(PERSONS);
+        return (List<Person>)state.get(Person.class);
     }
 
     public List<Home> getHomes() {
-        return (List<Home>)state.get(HOMES);
+        return (List<Home>)state.get(Home.class);
     }
 
     public List<Tree> getTrees() {
-        return (List<Tree>)state.get(TREES);
+        return (List<Tree>)state.get(Tree.class);
     }
 
     public List<Rock> getRocks() {
-        return (List<Rock>)state.get(ROCKS);
+        return (List<Rock>)state.get(Rock.class);
     }
 
-    public List<? extends VisibleEntity> getEntities(String entity) {
-        return state.get(entity);
+    public List<? extends VisibleEntity> getEntities(Class<?> classType) {
+        return state.get(classType);
     }
 }

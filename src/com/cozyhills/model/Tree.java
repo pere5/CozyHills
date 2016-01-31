@@ -10,14 +10,14 @@ import java.awt.*;
 public class Tree extends VisibleEntity {
     public Tree () {
         setDefaults();
-        this.x = Util.generateWidth();
-        this.y = Util.generateHeight();
+        this.xy[0] = Util.generateWidth();
+        this.xy[1] = Util.generateHeight();
     }
 
     public Tree (int x, int y) {
         setDefaults();
-        this.x = x;
-        this.y = y;
+        this.xy[0] = x;
+        this.xy[1] = y;
     }
 
     private void setDefaults() {

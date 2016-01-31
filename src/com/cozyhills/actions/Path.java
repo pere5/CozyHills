@@ -34,9 +34,7 @@ public class Path implements Action {
 
     @Override
     public boolean doIt(Person me) {
-        int[] step = path.poll();
-        me.x = step[0];
-        me.y = step[1];
+        me.xy = path.poll();
         return path.size() > 0;
     }
 

@@ -10,14 +10,14 @@ import java.awt.*;
 public class Rock extends VisibleEntity {
     public Rock () {
         setDefaults();
-        this.x = Util.generateWidth();
-        this.y = Util.generateHeight();
+        this.xy[0] = Util.generateWidth();
+        this.xy[1] = Util.generateHeight();
     }
 
     public Rock (int x, int y) {
         setDefaults();
-        this.x = x;
-        this.y = y;
+        this.xy[0] = x;
+        this.xy[1] = y;
     }
 
     private void setDefaults() {

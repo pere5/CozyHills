@@ -17,20 +17,21 @@ public class Person extends VisibleEntity {
     private final List<VisibleEntity> targets = new ArrayList<>();
     private final Map<Class<?>, Integer> resources = new HashMap<>();
     private final Queue<Action> actionQueue = new LinkedList<>();
+    private List<Home> visitedHomes = new ArrayList<>();
     private Home home = new Home();
     private Rule currentRule = null;
-    private int searchForHome = 2;
+    private int searchForHome = 10;
 
     public Person () {
         setDefaults();
-        this.x = Util.generateWidth();
-        this.y = Util.generateHeight();
+        this.xy[0] = Util.generateWidth();
+        this.xy[1] = Util.generateHeight();
     }
 
     public Person (int x, int y) {
         setDefaults();
-        this.x = x;
-        this.y = y;
+        this.xy[0] = x;
+        this.xy[1] = y;
     }
 
     private void setDefaults() {
@@ -92,5 +93,13 @@ public class Person extends VisibleEntity {
 
     public Queue<Action> getActionQueue() {
         return actionQueue;
+    }
+
+    public Map<Class<?>, Integer> getResources() {
+        return resources;
+    }
+
+    public List<Home> getVisitedHomes() {
+        return visitedHomes;
     }
 }
