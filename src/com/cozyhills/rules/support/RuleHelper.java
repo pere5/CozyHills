@@ -72,9 +72,10 @@ public abstract class RuleHelper implements Rule {
         return (Home)getClosestVisibleEntity(me, VISIBLE_ZONE, Home.class);
     }
 
-    protected Home getClosestUnvisitedVisibleHome(Person me, final int VISIBLE_ZONE) {
-        List<Home> visitedHomes = me.getVisitedHomes();
-        //for (Home home: getEntityList(StateHolder.HOMES)) {
+    protected Home getClosestUnvisitedVisibleHome(List<Home> visitedHomes, final int VISIBLE_ZONE) {
+        for (Home home: getHomes()) {
+            
+        }
         return null;
     }
 

@@ -43,7 +43,7 @@ public class Household extends RuleHelper {
             //improve home: end
             actionQueue.add(new Wait(10));
         } else if (me.searchForHome()) {
-            Home closestUnvisitedHome = getClosestUnvisitedVisibleHome(me, VISIBLE_ZONE);
+            Home closestUnvisitedHome = getClosestUnvisitedVisibleHome(me.getVisitedHomes(), VISIBLE_ZONE);
             if (closestUnvisitedHome != null) {
                 actionQueue.add(new Path(me.xy, closestUnvisitedHome.xy));
                 actionQueue.add(new MoveIn(closestUnvisitedHome));
