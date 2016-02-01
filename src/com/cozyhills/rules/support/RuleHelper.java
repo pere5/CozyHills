@@ -4,8 +4,11 @@ import com.cozyhills.cozy.StateHolder;
 import com.cozyhills.cozy.Util;
 import com.cozyhills.model.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
 
 /**
  * Created by pere5 on 02/01/16.
@@ -72,11 +75,20 @@ public abstract class RuleHelper implements Rule {
         return (Home)getClosestVisibleEntity(me, VISIBLE_ZONE, Home.class);
     }
 
-    protected Home getClosestUnvisitedVisibleHome(List<Home> visitedHomes, final int VISIBLE_ZONE) {
-        for (Home home: getHomes()) {
-            
+    protected Home getClosestUnvisitedVisibleHome(Person me, List<Home> visitedHomes, final int VISIBLE_ZONE) {
+        Map<Home, Integer> homeDistances = new HashMap<>();
+        List<Home> allHomes = getHomes();
+        allHomes.forEach(home -> homeDistances.put(home, range(me, home)));
+        List<Home> unvisitedVisibleHomes = allHomes.stream().parallel().filter(
+                home -> !visitedHomes.contains(home) && homeDistances.get(home) <= VISIBLE_ZONE
+        ).collect(Collectors.toList());
+        unvisitedVisibleHomes.sort((home1, home2) -> homeDistances.get(home1).compareTo(homeDistances.get(home2)));
+        try {
+            return unvisitedVisibleHomes.get(0);
+        } catch (IndexOutOfBoundsException e) {
+            return null;
         }
-        return null;
+
     }
 
     private VisibleEntity getClosestVisibleEntity(Person me, final int VISIBLE_ZONE, Class<?> type) {

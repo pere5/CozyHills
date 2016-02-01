@@ -12,6 +12,8 @@ import java.util.Map;
  */
 public class StateHolder {
 
+    private static int idGenerator = 0;
+
     private static StateHolder instance = new StateHolder();
     Map<Class<?>, List<? extends VisibleEntity>> state = new HashMap<>();
 
@@ -71,5 +73,9 @@ public class StateHolder {
 
     public List<? extends VisibleEntity> getEntities(Class<?> classType) {
         return state.get(classType);
+    }
+
+    public int getNewId() {
+        return idGenerator++;
     }
 }

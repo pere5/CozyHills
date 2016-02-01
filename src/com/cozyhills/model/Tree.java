@@ -1,5 +1,6 @@
 package com.cozyhills.model;
 
+import com.cozyhills.cozy.StateHolder;
 import com.cozyhills.cozy.Util;
 
 import java.awt.*;
@@ -9,12 +10,14 @@ import java.awt.*;
  */
 public class Tree extends VisibleEntity {
     public Tree () {
+        super(StateHolder.instance().getNewId());
         setDefaults();
         this.xy[0] = Util.generateWidth();
         this.xy[1] = Util.generateHeight();
     }
 
     public Tree (int x, int y) {
+        super(StateHolder.instance().getNewId());
         setDefaults();
         this.xy[0] = x;
         this.xy[1] = y;

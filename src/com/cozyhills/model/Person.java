@@ -1,8 +1,8 @@
 package com.cozyhills.model;
 
 import com.cozyhills.actions.Action;
+import com.cozyhills.cozy.StateHolder;
 import com.cozyhills.cozy.Util;
-import com.cozyhills.items.Item;
 import com.cozyhills.rules.support.Rule;
 
 import java.awt.*;
@@ -23,12 +23,14 @@ public class Person extends VisibleEntity {
     private int searchForHome = 10;
 
     public Person () {
+        super(StateHolder.instance().getNewId());
         setDefaults();
         this.xy[0] = Util.generateWidth();
         this.xy[1] = Util.generateHeight();
     }
 
     public Person (int x, int y) {
+        super(StateHolder.instance().getNewId());
         setDefaults();
         this.xy[0] = x;
         this.xy[1] = y;
