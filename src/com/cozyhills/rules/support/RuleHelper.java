@@ -80,7 +80,7 @@ public abstract class RuleHelper implements Rule {
         return allHomes.stream().parallel()
                 .filter(home -> !visitedHomes.contains(home))
                 .min((home1, home2) -> range(me, home1) - range(me, home2))
-                .map(boll -> range(me, boll) <= VISIBLE_ZONE ? boll : null);
+                .map(result -> range(me, result) <= VISIBLE_ZONE ? result : null);
     }
 
     protected Optional<VisibleEntity> hasAResource(Person me, Map<Class<?>, Integer> buildCost) {
