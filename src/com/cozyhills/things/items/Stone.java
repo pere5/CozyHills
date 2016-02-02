@@ -5,5 +5,5 @@ import com.cozyhills.things.VisibleEntity;
 /**
  * Created by pere5 on 28/01/16.
  */
-public class Stone extends VisibleEntity {
+public class Stone extends VisibleEntity implements Item {
 }

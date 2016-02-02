@@ -14,7 +14,7 @@ public abstract class VisibleEntity {
     public Color color = null;
 
     protected VisibleEntity() {
-        this.id = StateHolder.instance().getNewId();
+        this.id = StateHolder.getNewId();
     }
 
     @Override

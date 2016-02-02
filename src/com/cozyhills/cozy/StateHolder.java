@@ -21,6 +21,8 @@ public class StateHolder {
         createPersons();
         createTrees();
         createRocks();
+
+        state.put(Home.class, new HashSet<Home>());
     }
 
     public static StateHolder instance() {
@@ -75,7 +77,7 @@ public class StateHolder {
         return state.get(classType);
     }
 
-    public int getNewId() {
+    public static int getNewId() {
         return idGenerator++;
     }
 }
