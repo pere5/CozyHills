@@ -8,12 +8,14 @@ import java.util.Map;
  * Created by pere5 on 31/01/16.
  */
 public class Gather implements Action {
-    public Gather(Map<Class<?>, Integer> currentResources, Map<Class<?>, Integer> goal) {
-
+    private final Map<Class<?>, Integer> goal;
+    public Gather(Map<Class<?>, Integer> goal) {
+        this.goal = goal;
     }
 
     @Override
     public boolean doIt(Person me) {
+
         return false;
     }
 }

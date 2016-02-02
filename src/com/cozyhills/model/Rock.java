@@ -10,14 +10,14 @@ import java.awt.*;
  */
 public class Rock extends VisibleEntity {
     public Rock () {
-        super(StateHolder.instance().getNewId());
+        super();
         setDefaults();
         this.xy[0] = Util.generateWidth();
         this.xy[1] = Util.generateHeight();
     }
 
     public Rock (int x, int y) {
-        super(StateHolder.instance().getNewId());
+        super();
         setDefaults();
         this.xy[0] = x;
         this.xy[1] = y;

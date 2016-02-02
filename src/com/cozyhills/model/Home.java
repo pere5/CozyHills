@@ -1,24 +1,22 @@
 package com.cozyhills.model;
 
-import com.cozyhills.cozy.StateHolder;
-
 /**
  * Created by periks15 on 2016-01-13.
  */
 public class Home extends VisibleEntity {
 
+    private final Person[] tenants;
     private int status = 1;
-    private final int ROOMS;
     private int takenRooms = 0;
 
     public Home() {
-        super(StateHolder.instance().getNewId());
-        this.ROOMS = 0;
+        super();
+        tenants = new Person[0];
     }
 
     public Home(final int ROOMS) {
-        super(StateHolder.instance().getNewId());
-        this.ROOMS = ROOMS;
+        super();
+        tenants = new Person[ROOMS];
     }
 
     public boolean exists() {
@@ -30,6 +28,19 @@ public class Home extends VisibleEntity {
     }
 
     public boolean availableRooms() {
-        return takenRooms < ROOMS;
+        return takenRooms < tenants.length;
+    }
+
+    public void moveIn(Person me) {
+        if (takenRooms < tenants.length) {
+            for (int i = 0; i < tenants.length; i++) {
+                if (tenants[i] == null) {
+                    tenants[i] = me;
+                    takenRooms++;
+                    me.setHome(this);
+                    return;
+                }
+            }
+        }
     }
 }

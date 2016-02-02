@@ -1,5 +1,7 @@
 package com.cozyhills.model;
 
+import com.cozyhills.cozy.StateHolder;
+
 import java.awt.*;
 
 /**
@@ -11,8 +13,8 @@ public abstract class VisibleEntity {
     public int size = 0;
     public Color color = null;
 
-    protected VisibleEntity(int id) {
-        this.id = id;
+    protected VisibleEntity() {
+        this.id = StateHolder.instance().getNewId();
     }
 
     @Override

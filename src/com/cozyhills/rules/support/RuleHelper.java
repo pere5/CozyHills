@@ -75,10 +75,11 @@ public abstract class RuleHelper implements Rule {
         return (Home)getClosestVisibleEntity(me, VISIBLE_ZONE, Home.class);
     }
 
-    protected Home getClosestUnvisitedVisibleHome(Person me, List<Home> visitedHomes, final int VISIBLE_ZONE) {
+    protected Home getClosestUnvisitedVisibleHome(Person me, final int VISIBLE_ZONE) {
+        List<Home> visitedHomes = me.getVisitedHomes();
         Map<Home, Integer> homeDistances = new HashMap<>();
         List<Home> allHomes = getHomes();
-        allHomes.forEach(home -> homeDistances.put(home, range(me, home)));
+        allHomes.stream().parallel().forEach(home -> homeDistances.put(home, range(me, home)));
         List<Home> unvisitedVisibleHomes = allHomes.stream().parallel().filter(
                 home -> !visitedHomes.contains(home) && homeDistances.get(home) <= VISIBLE_ZONE
         ).collect(Collectors.toList());

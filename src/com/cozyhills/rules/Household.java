@@ -1,6 +1,7 @@
 package com.cozyhills.rules;
 
 import com.cozyhills.actions.*;
+import com.cozyhills.cozy.Util;
 import com.cozyhills.model.*;
 import com.cozyhills.rules.support.RuleHelper;
 
@@ -42,8 +43,9 @@ public class Household extends RuleHelper {
         if (me.getHome().exists()) {
             //improve home: end
             actionQueue.add(new Wait(10));
+            Util.print("NOT IMPLEMENTED, improve home!");
         } else if (me.searchForHome()) {
-            Home closestUnvisitedHome = getClosestUnvisitedVisibleHome(me, me.getVisitedHomes(), VISIBLE_ZONE);
+            Home closestUnvisitedHome = getClosestUnvisitedVisibleHome(me, VISIBLE_ZONE);
             if (closestUnvisitedHome != null) {
                 actionQueue.add(new Path(me.xy, closestUnvisitedHome.xy));
                 actionQueue.add(new MoveIn(closestUnvisitedHome));
@@ -53,7 +55,7 @@ public class Household extends RuleHelper {
         } else if (me.hasEnoughResources(BasicHut.buildCost())) {
             actionQueue.add(new Build(BasicHut.class));
         } else {
-            actionQueue.add(new Gather(me.getResources(), BasicHut.buildCost()));
+            actionQueue.add(new Gather(BasicHut.buildCost()));
         }
     }
 }

@@ -23,14 +23,14 @@ public class Person extends VisibleEntity {
     private int searchForHome = 10;
 
     public Person () {
-        super(StateHolder.instance().getNewId());
+        super();
         setDefaults();
         this.xy[0] = Util.generateWidth();
         this.xy[1] = Util.generateHeight();
     }
 
     public Person (int x, int y) {
-        super(StateHolder.instance().getNewId());
+        super();
         setDefaults();
         this.xy[0] = x;
         this.xy[1] = y;
@@ -103,5 +103,9 @@ public class Person extends VisibleEntity {
 
     public List<Home> getVisitedHomes() {
         return visitedHomes;
+    }
+
+    public void setHome(Home home) {
+        this.home = home;
     }
 }
