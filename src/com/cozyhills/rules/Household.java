@@ -50,6 +50,7 @@ public class Household extends RuleHelper {
             Util.print("NOT IMPLEMENTED, improve home!");
         } else if (me.searchForHome()) {
             Optional<Home> closestUnvisitedHome = getClosestUnvisitedVisibleHome(me, VISIBLE_ZONE);
+
             if (closestUnvisitedHome.isPresent()) {
                 actionQueue.add(new Path(me.xy, closestUnvisitedHome.get().xy));
                 actionQueue.add(new MoveIn(closestUnvisitedHome.get()));

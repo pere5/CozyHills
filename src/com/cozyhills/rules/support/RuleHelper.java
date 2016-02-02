@@ -84,8 +84,8 @@ public abstract class RuleHelper implements Rule {
     }
 
     protected Optional<VisibleEntity> hasAResource(Person me, Map<Class<?>, Integer> buildCost) {
-
-        return null;
+        Util.print("NOT IMPLEMENTED, hasAResource!");
+        return Optional.empty();
     }
 
     private VisibleEntity getClosestVisibleEntity(Person me, final int VISIBLE_ZONE, Class<?> type) {

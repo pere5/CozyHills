@@ -1,5 +1,9 @@
 package com.cozyhills.things;
 
+import com.cozyhills.cozy.Util;
+
+import java.awt.*;
+
 /**
  * Created by periks15 on 2016-01-13.
  */
@@ -11,12 +15,20 @@ public class Home extends VisibleEntity {
 
     public Home() {
         super();
-        tenants = new Person[0];
+        tenants = new Person[2];
+        setDefaults();
+        this.xy[0] = Util.generateWidth();
+        this.xy[1] = Util.generateHeight();
     }
 
     public Home(final int ROOMS) {
         super();
         tenants = new Person[ROOMS];
+    }
+
+    private void setDefaults() {
+        this.size = 20;
+        this.color = Color.PINK;
     }
 
     public boolean exists() {

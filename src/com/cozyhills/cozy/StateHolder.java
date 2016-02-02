@@ -22,7 +22,9 @@ public class StateHolder {
         createTrees();
         createRocks();
 
-        state.put(Home.class, new HashSet<Home>());
+        createHomes();
+
+        //state.put(Home.class, new HashSet<Home>());
     }
 
     public static StateHolder instance() {
@@ -33,8 +35,17 @@ public class StateHolder {
         return state;
     }
 
+
+    private void createHomes() {
+        Set<Home> trees = new HashSet<>();
+        for (int i = 0; i < 2; i++) {
+            trees.add(new Home());
+        }
+        state.put(Home.class, trees);
+    }
+
     private void createTrees() {
-        Set<VisibleEntity> trees = new HashSet<>();
+        Set<Tree> trees = new HashSet<>();
         for (int i = 0; i < 40; i++) {
             trees.add(new Tree());
         }
@@ -42,7 +53,7 @@ public class StateHolder {
     }
 
     private void createRocks() {
-        Set<VisibleEntity> rocks = new HashSet<>();
+        Set<Rock> rocks = new HashSet<>();
         for (int i = 0; i < 20; i++) {
             rocks.add(new Rock());
         }
@@ -50,7 +61,7 @@ public class StateHolder {
     }
 
     private void createPersons() {
-        Set<VisibleEntity> persons = new HashSet<>();
+        Set<Person> persons = new HashSet<>();
         for (int i = 0; i < 40; i++) {
             persons.add(new Person());
         }
