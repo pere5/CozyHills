@@ -1,4 +1,4 @@
-package com.cozyhills.model;
+package com.cozyhills.things;
 
 import com.cozyhills.cozy.StateHolder;
 

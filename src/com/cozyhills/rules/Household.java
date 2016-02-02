@@ -2,9 +2,11 @@ package com.cozyhills.rules;
 
 import com.cozyhills.actions.*;
 import com.cozyhills.cozy.Util;
-import com.cozyhills.model.*;
+import com.cozyhills.things.*;
 import com.cozyhills.rules.support.RuleHelper;
+import com.cozyhills.things.items.Item;
 
+import java.util.Map;
 import java.util.Queue;
 
 /**
@@ -52,10 +54,16 @@ public class Household extends RuleHelper {
             } else {
                 actionQueue.add(new Path(me.xy, randomDestination(me, VISIBLE_ZONE * 2)));
             }
-        } else if (me.hasEnoughResources(BasicHut.buildCost())) {
-            actionQueue.add(new Build(BasicHut.class));
         } else {
-            actionQueue.add(new Gather(BasicHut.buildCost()));
+            VisibleEntity resource = hasAResource(me, BasicHut.buildCost());
+            if (resource != null) {
+                actionQueue.add(new Path(me.xy, resource.xy));
+                actionQueue.add(new PickUp(resource));
+                actionQueue.add(new Path(resource.xy, me.xy));
+                actionQueue.add(new Build(BasicHut.class, resource));
+            } else {
+                actionQueue.add(new Gather(BasicHut.buildCost()));
+            }
         }
     }
 }

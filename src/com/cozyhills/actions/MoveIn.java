@@ -1,7 +1,7 @@
 package com.cozyhills.actions;
 
-import com.cozyhills.model.Home;
-import com.cozyhills.model.Person;
+import com.cozyhills.things.Home;
+import com.cozyhills.things.Person;
 
 /**
  * Created by pere5 on 30/01/16.

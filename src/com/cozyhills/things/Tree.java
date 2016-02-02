@@ -1,6 +1,5 @@
-package com.cozyhills.model;
+package com.cozyhills.things;
 
-import com.cozyhills.cozy.StateHolder;
 import com.cozyhills.cozy.Util;
 
 import java.awt.*;

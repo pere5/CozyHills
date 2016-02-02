@@ -2,7 +2,7 @@ package com.cozyhills.rules.support;
 
 import com.cozyhills.cozy.StateHolder;
 import com.cozyhills.cozy.Util;
-import com.cozyhills.model.*;
+import com.cozyhills.things.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -90,6 +90,11 @@ public abstract class RuleHelper implements Rule {
             return null;
         }
 
+    }
+
+    private VisibleEntity hasAResource(Person me, Map<Class<?>, Integer> classIntegerMap) {
+
+        return null;
     }
 
     private VisibleEntity getClosestVisibleEntity(Person me, final int VISIBLE_ZONE, Class<?> type) {

@@ -1,6 +1,6 @@
 package com.cozyhills.cozy;
 
-import com.cozyhills.model.*;
+import com.cozyhills.things.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;

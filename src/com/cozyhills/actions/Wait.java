@@ -1,6 +1,6 @@
 package com.cozyhills.actions;
 
-import com.cozyhills.model.Person;
+import com.cozyhills.things.Person;
 
 /**
  * Created by pere5 on 14/01/16.

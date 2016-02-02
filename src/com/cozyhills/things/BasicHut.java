@@ -1,7 +1,7 @@
-package com.cozyhills.model;
+package com.cozyhills.things;
 
-import com.cozyhills.items.Stone;
-import com.cozyhills.items.Wood;
+import com.cozyhills.things.items.Stone;
+import com.cozyhills.things.items.Wood;
 
 import java.util.HashMap;
 import java.util.Map;

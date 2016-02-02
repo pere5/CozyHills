@@ -1,6 +1,6 @@
 package com.cozyhills.rules;
 
-import com.cozyhills.model.Person;
+import com.cozyhills.things.Person;
 import com.cozyhills.rules.support.RuleHelper;
 
 /**

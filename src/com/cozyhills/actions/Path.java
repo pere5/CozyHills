@@ -1,6 +1,6 @@
 package com.cozyhills.actions;
 
-import com.cozyhills.model.Person;
+import com.cozyhills.things.Person;
 
 import java.util.LinkedList;
 import java.util.Queue;

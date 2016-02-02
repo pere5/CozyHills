@@ -1,15 +1,13 @@
 package com.cozyhills.actions;
 
-import com.cozyhills.things.BasicHut;
 import com.cozyhills.things.Person;
 import com.cozyhills.things.VisibleEntity;
 
 /**
- * Created by pere5 on 28/01/16.
+ * Created by periks15 on 2016-02-02.
  */
-public class Build implements Action {
-    public Build(Class<BasicHut> basicHutClass, VisibleEntity resource) {
-
+public class PickUp implements Action {
+    public PickUp(VisibleEntity resource) {
     }
 
     @Override

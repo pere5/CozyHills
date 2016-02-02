@@ -1,4 +1,4 @@
-package com.cozyhills.model;
+package com.cozyhills.things;
 
 /**
  * Created by periks15 on 2016-01-13.

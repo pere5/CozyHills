@@ -3,7 +3,7 @@ package com.cozyhills.ui;
 import com.cozyhills.Const;
 import com.cozyhills.cozy.CozyHills;
 import com.cozyhills.cozy.StateHolder;
-import com.cozyhills.model.VisibleEntity;
+import com.cozyhills.things.VisibleEntity;
 
 import javax.swing.*;
 import java.awt.*;

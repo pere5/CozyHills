@@ -1,7 +1,6 @@
-package com.cozyhills.model;
+package com.cozyhills.things;
 
 import com.cozyhills.actions.Action;
-import com.cozyhills.cozy.StateHolder;
 import com.cozyhills.cozy.Util;
 import com.cozyhills.rules.support.Rule;
 
@@ -15,7 +14,6 @@ import java.util.List;
 public class Person extends VisibleEntity {
 
     private final List<VisibleEntity> targets = new ArrayList<>();
-    private final Map<Class<?>, Integer> resources = new HashMap<>();
     private final Queue<Action> actionQueue = new LinkedList<>();
     private List<Home> visitedHomes = new ArrayList<>();
     private Home home = new Home();
@@ -77,17 +75,6 @@ public class Person extends VisibleEntity {
         return currentRule;
     }
 
-    public boolean hasEnoughResources(Map<Class<?>, Integer> items) {
-        for (Map.Entry<Class<?>, Integer> itemType: items.entrySet()) {
-            if (resources.containsKey(itemType.getKey()) && resources.get(itemType.getKey()).compareTo(itemType.getValue()) >= 0) {
-                continue;
-            } else {
-                return false;
-            }
-        }
-        return true;
-    }
-
     public boolean searchForHome() {
         searchForHome--;
         return searchForHome >= 0;
@@ -95,10 +82,6 @@ public class Person extends VisibleEntity {
 
     public Queue<Action> getActionQueue() {
         return actionQueue;
-    }
-
-    public Map<Class<?>, Integer> getResources() {
-        return resources;
     }
 
     public List<Home> getVisitedHomes() {
