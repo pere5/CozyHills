@@ -5,17 +5,19 @@ import com.cozyhills.cozy.Util;
 import com.cozyhills.rules.support.Rule;
 
 import java.awt.*;
-import java.util.*;
-import java.util.List;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Set;
 
 /**
  * Created by pere5 on 21/12/15.
  */
 public class Person extends VisibleEntity {
 
-    private final List<VisibleEntity> targets = new ArrayList<>();
+    private final Set<VisibleEntity> targets = new HashSet<>();
     private final Queue<Action> actionQueue = new LinkedList<>();
-    private List<Home> visitedHomes = new ArrayList<>();
+    private Set<Home> visitedHomes = new HashSet<>();
     private Home home = new Home();
     private Rule currentRule = null;
     private int searchForHome = 10;
@@ -63,7 +65,7 @@ public class Person extends VisibleEntity {
         targets.clear();
     }
 
-    public List<VisibleEntity> getTargets() {
+    public Set<VisibleEntity> getTargets() {
         return targets;
     }
 
@@ -84,7 +86,7 @@ public class Person extends VisibleEntity {
         return actionQueue;
     }
 
-    public List<Home> getVisitedHomes() {
+    public Set<Home> getVisitedHomes() {
         return visitedHomes;
     }
 

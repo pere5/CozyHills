@@ -2,12 +2,12 @@ package com.cozyhills.rules;
 
 import com.cozyhills.actions.Action;
 import com.cozyhills.actions.Path;
+import com.cozyhills.rules.support.RuleHelper;
 import com.cozyhills.things.Person;
 import com.cozyhills.things.VisibleEntity;
-import com.cozyhills.rules.support.RuleHelper;
 
-import java.util.List;
 import java.util.Queue;
+import java.util.Set;
 
 /**
  * Created by pere5 on 02/01/16.
@@ -45,7 +45,7 @@ public class CozyUp extends RuleHelper {
     @Override
     public void initWork(Person me, int status) {
         Queue<Action> actionQueue = me.getActionQueue();
-        List<VisibleEntity> targets = me.getTargets();
+        Set<VisibleEntity> targets = me.getTargets();
         int[] destination;
         if (targets.size() == 0) {
             destination = randomDestination(me, WALK_DISTANCE);

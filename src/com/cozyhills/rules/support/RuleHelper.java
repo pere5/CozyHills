@@ -4,11 +4,10 @@ import com.cozyhills.cozy.StateHolder;
 import com.cozyhills.cozy.Util;
 import com.cozyhills.things.*;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.stream.Collectors;
 
 /**
  * Created by pere5 on 02/01/16.
@@ -42,7 +41,7 @@ public abstract class RuleHelper implements Rule {
         return (int)Math.sqrt(Math.pow((visibleEntity.xy[0] - me.xy[0]), 2) + Math.pow((visibleEntity.xy[1] - me.xy[1]), 2));
     }
 
-    protected int[] centroid(List<VisibleEntity> visibleEntityList) {
+    protected int[] centroid(Set<VisibleEntity> visibleEntityList) {
         int[] centroid = { 0, 0 };
 
         for (VisibleEntity visibleEntity: visibleEntityList) {
@@ -75,24 +74,16 @@ public abstract class RuleHelper implements Rule {
         return (Home)getClosestVisibleEntity(me, VISIBLE_ZONE, Home.class);
     }
 
-    protected Home getClosestUnvisitedVisibleHome(Person me, final int VISIBLE_ZONE) {
-        List<Home> visitedHomes = me.getVisitedHomes();
-        Map<Home, Integer> homeDistances = new HashMap<>();
-        List<Home> allHomes = getHomes();
-        allHomes.stream().parallel().forEach(home -> homeDistances.put(home, range(me, home)));
-        List<Home> unvisitedVisibleHomes = allHomes.stream().parallel().filter(
-                home -> !visitedHomes.contains(home) && homeDistances.get(home) <= VISIBLE_ZONE
-        ).collect(Collectors.toList());
-        unvisitedVisibleHomes.sort((home1, home2) -> homeDistances.get(home1).compareTo(homeDistances.get(home2)));
-        try {
-            return unvisitedVisibleHomes.get(0);
-        } catch (IndexOutOfBoundsException e) {
-            return null;
-        }
-
+    protected Optional<Home> getClosestUnvisitedVisibleHome(Person me, final int VISIBLE_ZONE) {
+        Set<Home> visitedHomes = me.getVisitedHomes();
+        Set<Home> allHomes = getHomes();
+        return allHomes.stream().parallel()
+                .filter(home -> !visitedHomes.contains(home))
+                .min((home1, home2) -> range(me, home1) - range(me, home2))
+                .map(boll -> range(me, boll) <= VISIBLE_ZONE ? boll : null);
     }
 
-    private VisibleEntity hasAResource(Person me, Map<Class<?>, Integer> classIntegerMap) {
+    protected Optional<VisibleEntity> hasAResource(Person me, Map<Class<?>, Integer> buildCost) {
 
         return null;
     }
@@ -112,23 +103,23 @@ public abstract class RuleHelper implements Rule {
         return closestEntity;
     }
 
-    private List<? extends VisibleEntity> getEntityList(Class<?> entity) {
+    private Set<? extends VisibleEntity> getEntityList(Class<?> entity) {
         return StateHolder.instance().getEntities(entity);
     }
 
-    protected List<Person> getPersons() {
+    protected Set<Person> getPersons() {
         return StateHolder.instance().getPersons();
     }
 
-    protected List<Home> getHomes() {
+    protected Set<Home> getHomes() {
         return StateHolder.instance().getHomes();
     }
 
-    protected List<Tree> getTrees() {
+    protected Set<Tree> getTrees() {
         return StateHolder.instance().getTrees();
     }
 
-    protected List<Rock> getRocks() {
+    protected Set<Rock> getRocks() {
         return StateHolder.instance().getRocks();
     }
 }

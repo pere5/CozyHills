@@ -2,11 +2,13 @@ package com.cozyhills.rules;
 
 import com.cozyhills.actions.*;
 import com.cozyhills.cozy.Util;
-import com.cozyhills.things.*;
 import com.cozyhills.rules.support.RuleHelper;
-import com.cozyhills.things.items.Item;
+import com.cozyhills.things.BasicHut;
+import com.cozyhills.things.Home;
+import com.cozyhills.things.Person;
+import com.cozyhills.things.VisibleEntity;
 
-import java.util.Map;
+import java.util.Optional;
 import java.util.Queue;
 
 /**
@@ -47,20 +49,20 @@ public class Household extends RuleHelper {
             actionQueue.add(new Wait(10));
             Util.print("NOT IMPLEMENTED, improve home!");
         } else if (me.searchForHome()) {
-            Home closestUnvisitedHome = getClosestUnvisitedVisibleHome(me, VISIBLE_ZONE);
-            if (closestUnvisitedHome != null) {
-                actionQueue.add(new Path(me.xy, closestUnvisitedHome.xy));
-                actionQueue.add(new MoveIn(closestUnvisitedHome));
+            Optional<Home> closestUnvisitedHome = getClosestUnvisitedVisibleHome(me, VISIBLE_ZONE);
+            if (closestUnvisitedHome.isPresent()) {
+                actionQueue.add(new Path(me.xy, closestUnvisitedHome.get().xy));
+                actionQueue.add(new MoveIn(closestUnvisitedHome.get()));
             } else {
                 actionQueue.add(new Path(me.xy, randomDestination(me, VISIBLE_ZONE * 2)));
             }
         } else {
-            VisibleEntity resource = hasAResource(me, BasicHut.buildCost());
-            if (resource != null) {
-                actionQueue.add(new Path(me.xy, resource.xy));
-                actionQueue.add(new PickUp(resource));
-                actionQueue.add(new Path(resource.xy, me.xy));
-                actionQueue.add(new Build(BasicHut.class, resource));
+            Optional<VisibleEntity> resource = hasAResource(me, BasicHut.buildCost());
+            if (resource.isPresent()) {
+                actionQueue.add(new Path(me.xy, resource.get().xy));
+                actionQueue.add(new PickUp(resource.get()));
+                actionQueue.add(new Path(resource.get().xy, me.xy));
+                actionQueue.add(new Build(BasicHut.class, resource.get()));
             } else {
                 actionQueue.add(new Gather(BasicHut.buildCost()));
             }

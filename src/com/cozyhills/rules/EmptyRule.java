@@ -1,7 +1,7 @@
 package com.cozyhills.rules;
 
-import com.cozyhills.things.Person;
 import com.cozyhills.rules.support.RuleHelper;
+import com.cozyhills.things.Person;
 
 /**
  * Created by pere5 on 02/01/16.

@@ -8,7 +8,7 @@ import com.cozyhills.things.VisibleEntity;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -112,7 +112,7 @@ public class GraphicsHandler extends JFrame {
 
     private void drawAllObjects(Graphics bbg) {
         StateHolder stateHolder = StateHolder.instance();
-        for (List<? extends VisibleEntity> types: stateHolder.getState().values()) {
+        for (Set<? extends VisibleEntity> types: stateHolder.getState().values()) {
             for (VisibleEntity type: types) {
                 bbg.setColor(type.color);
                 bbg.fillRect(type.xy[0], type.xy[1], type.size, type.size);

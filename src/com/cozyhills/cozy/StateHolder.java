@@ -2,10 +2,10 @@ package com.cozyhills.cozy;
 
 import com.cozyhills.things.*;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by pere5 on 23/12/15.
@@ -15,7 +15,7 @@ public class StateHolder {
     private static int idGenerator = 0;
 
     private static StateHolder instance = new StateHolder();
-    Map<Class<?>, List<? extends VisibleEntity>> state = new HashMap<>();
+    Map<Class<?>, Set<? extends VisibleEntity>> state = new HashMap<>();
 
     public StateHolder() {
         createPersons();
@@ -27,12 +27,12 @@ public class StateHolder {
         return instance;
     }
 
-    public Map<Class<?>, List<? extends VisibleEntity>> getState() {
+    public Map<Class<?>, Set<? extends VisibleEntity>> getState() {
         return state;
     }
 
     private void createTrees() {
-        List<VisibleEntity> trees = new ArrayList<>();
+        Set<VisibleEntity> trees = new HashSet<>();
         for (int i = 0; i < 40; i++) {
             trees.add(new Tree());
         }
@@ -40,7 +40,7 @@ public class StateHolder {
     }
 
     private void createRocks() {
-        List<VisibleEntity> rocks = new ArrayList<>();
+        Set<VisibleEntity> rocks = new HashSet<>();
         for (int i = 0; i < 20; i++) {
             rocks.add(new Rock());
         }
@@ -48,30 +48,30 @@ public class StateHolder {
     }
 
     private void createPersons() {
-        List<VisibleEntity> persons = new ArrayList<>();
+        Set<VisibleEntity> persons = new HashSet<>();
         for (int i = 0; i < 40; i++) {
             persons.add(new Person());
         }
         state.put(Person.class, persons);
     }
 
-    public List<Person> getPersons() {
-        return (List<Person>)state.get(Person.class);
+    public Set<Person> getPersons() {
+        return (Set<Person>)state.get(Person.class);
     }
 
-    public List<Home> getHomes() {
-        return (List<Home>)state.get(Home.class);
+    public Set<Home> getHomes() {
+        return (Set<Home>)state.get(Home.class);
     }
 
-    public List<Tree> getTrees() {
-        return (List<Tree>)state.get(Tree.class);
+    public Set<Tree> getTrees() {
+        return (Set<Tree>)state.get(Tree.class);
     }
 
-    public List<Rock> getRocks() {
-        return (List<Rock>)state.get(Rock.class);
+    public Set<Rock> getRocks() {
+        return (Set<Rock>)state.get(Rock.class);
     }
 
-    public List<? extends VisibleEntity> getEntities(Class<?> classType) {
+    public Set<? extends VisibleEntity> getEntities(Class<?> classType) {
         return state.get(classType);
     }
 

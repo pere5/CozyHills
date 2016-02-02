@@ -1,22 +1,22 @@
 package com.cozyhills.cozy;
 
-import com.cozyhills.things.Person;
-import com.cozyhills.things.VisibleEntity;
 import com.cozyhills.rules.CozyUp;
 import com.cozyhills.rules.EmptyRule;
 import com.cozyhills.rules.Household;
 import com.cozyhills.rules.support.Rule;
+import com.cozyhills.things.Person;
+import com.cozyhills.things.VisibleEntity;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by pere5 on 21/12/15.
  */
 public class CozyHills {
 
-    public static List<Rule> rules = new ArrayList<>();
+    public static Set<Rule> rules = new HashSet<>();
     static {
         int rank = Integer.MAX_VALUE;
         rules.add(new CozyUp(--rank));
