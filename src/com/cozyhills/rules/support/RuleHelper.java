@@ -41,6 +41,10 @@ public abstract class RuleHelper implements Rule {
         return (int)Math.sqrt(Math.pow((visibleEntity.xy[0] - me.xy[0]), 2) + Math.pow((visibleEntity.xy[1] - me.xy[1]), 2));
     }
 
+    protected int rangeSimplified(VisibleEntity visibleEntity, VisibleEntity me) {
+        return (int)(Math.pow((visibleEntity.xy[0] - me.xy[0]), 2) + Math.pow((visibleEntity.xy[1] - me.xy[1]), 2));
+    }
+
     protected int[] centroid(Set<VisibleEntity> visibleEntityList) {
         int[] centroid = { 0, 0 };
 
@@ -79,13 +83,8 @@ public abstract class RuleHelper implements Rule {
         Set<Home> allHomes = getHomes();
         return allHomes.stream().parallel()
                 .filter(home -> !visitedHomes.contains(home))
-                .min((home1, home2) -> range(me, home1) - range(me, home2))
-                .map(result -> range(me, result) <= VISIBLE_ZONE ? result : null);
-    }
-
-    protected Optional<VisibleEntity> hasAResource(Person me, Map<Class<?>, Integer> buildCost) {
-        Util.print("NOT IMPLEMENTED, hasAResource!");
-        return Optional.empty();
+                .min((home1, home2) -> rangeSimplified(me, home1) - rangeSimplified(me, home2))
+                .map(result -> rangeSimplified(me, result) <= VISIBLE_ZONE ? result : null);
     }
 
     private VisibleEntity getClosestVisibleEntity(Person me, final int VISIBLE_ZONE, Class<?> type) {

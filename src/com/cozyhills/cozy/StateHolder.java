@@ -37,11 +37,11 @@ public class StateHolder {
 
 
     private void createHomes() {
-        Set<Home> trees = new HashSet<>();
-        for (int i = 0; i < 2; i++) {
-            trees.add(new Home());
+        Set<Home> homes = new HashSet<>();
+        for (int i = 0; i < 8; i++) {
+            homes.add(new BasicHut());
         }
-        state.put(Home.class, trees);
+        state.put(Home.class, homes);
     }
 
     private void createTrees() {

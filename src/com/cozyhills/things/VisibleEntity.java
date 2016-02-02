@@ -1,6 +1,7 @@
 package com.cozyhills.things;
 
 import com.cozyhills.cozy.StateHolder;
+import com.cozyhills.cozy.Util;
 
 import java.awt.*;
 
@@ -15,6 +16,8 @@ public abstract class VisibleEntity {
 
     protected VisibleEntity() {
         this.id = StateHolder.getNewId();
+        this.xy[0] = Util.generateWidth();
+        this.xy[1] = Util.generateHeight();
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.cozyhills.things;
 
+import com.cozyhills.cozy.Util;
 import com.cozyhills.things.items.Stone;
 import com.cozyhills.things.items.Wood;
 
@@ -10,12 +11,12 @@ import java.util.Map;
  * Created by pere5 on 28/01/16.
  */
 public class BasicHut extends Home {
-    private static Map<Class<?>, Integer> buildCost = new HashMap<>();
 
     final static int ROOMS = 1;
+    final private static int STATUS = 1;
 
     public BasicHut () {
-        super(ROOMS);
+        super(ROOMS, STATUS);
     }
 
     static {

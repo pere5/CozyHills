@@ -7,23 +7,17 @@ import java.awt.*;
 /**
  * Created by periks15 on 2016-01-13.
  */
-public class Home extends VisibleEntity {
+public abstract class Home extends Building {
 
     private final Person[] tenants;
-    private int status = 1;
+    private final int STATUS;
     private int takenRooms = 0;
 
-    public Home() {
-        super();
-        tenants = new Person[2];
-        setDefaults();
-        this.xy[0] = Util.generateWidth();
-        this.xy[1] = Util.generateHeight();
-    }
-
-    public Home(final int ROOMS) {
+    public Home(final int ROOMS, final int STATUS) {
         super();
         tenants = new Person[ROOMS];
+        this.STATUS = STATUS;
+        setDefaults();
     }
 
     private void setDefaults() {
@@ -31,12 +25,8 @@ public class Home extends VisibleEntity {
         this.color = Color.PINK;
     }
 
-    public boolean exists() {
-        return false;
-    }
-
     public int getStatus() {
-        return status;
+        return STATUS;
     }
 
     public boolean availableRooms() {
@@ -50,6 +40,7 @@ public class Home extends VisibleEntity {
                     tenants[i] = me;
                     takenRooms++;
                     me.setHome(this);
+                    Util.print("MOVED IN!");
                     return;
                 }
             }

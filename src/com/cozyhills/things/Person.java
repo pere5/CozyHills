@@ -3,12 +3,10 @@ package com.cozyhills.things;
 import com.cozyhills.actions.Action;
 import com.cozyhills.cozy.Util;
 import com.cozyhills.rules.support.Rule;
+import com.cozyhills.things.items.Item;
 
 import java.awt.*;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by pere5 on 21/12/15.
@@ -18,9 +16,10 @@ public class Person extends VisibleEntity {
     private final Set<VisibleEntity> targets = new HashSet<>();
     private final Queue<Action> actionQueue = new LinkedList<>();
     private Set<Home> visitedHomes = new HashSet<>();
-    private Home home = new Home();
+    private Optional<Home> home = Optional.empty();
     private Rule currentRule = null;
-    private int searchForHome = 10;
+    private int searchForHome = 5;
+    private Optional<Item> carrying = Optional.empty();
 
     public Person () {
         super();
@@ -69,7 +68,7 @@ public class Person extends VisibleEntity {
         return targets;
     }
 
-    public Home getHome() {
+    public Optional<Home> getHome() {
         return home;
     }
 
@@ -91,6 +90,11 @@ public class Person extends VisibleEntity {
     }
 
     public void setHome(Home home) {
-        this.home = home;
+        this.home = Optional.of(home);
+    }
+
+    public Optional<VisibleEntity> carryingAResource(Map<Class<?>, Integer> buildCost) {
+        Util.print("carrying a resource");
+        return Optional.empty();
     }
 }

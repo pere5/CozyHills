@@ -25,12 +25,12 @@ public class Household extends RuleHelper {
 
     @Override
     public int calculateStatus(Person me) {
-        Home myHome = me.getHome();
-        if (myHome.exists()) {
+        Optional<Home> myHome = me.getHome();
+        if (myHome.isPresent()) {
             int result = 0;
             for (VisibleEntity visibleEntity: getHomes()) {
                 Home someHome = (Home)visibleEntity;
-                int range = range(someHome, myHome); //include my own home
+                int range = range(someHome, myHome.get()); //include my own home
                 if (range < NEIGHBORHOOD_ZONE) {
                     result += someHome.getStatus();
                 }
@@ -44,21 +44,22 @@ public class Household extends RuleHelper {
     @Override
     public void initWork(Person me, int status) {
         Queue<Action> actionQueue = me.getActionQueue();
-        if (me.getHome().exists()) {
+        if (me.getHome().isPresent()) {
             //improve home: end
             actionQueue.add(new Wait(10));
             Util.print("NOT IMPLEMENTED, improve home!");
         } else if (me.searchForHome()) {
+            Util.print("PEEEEEEEEEEEEER");
             Optional<Home> closestUnvisitedHome = getClosestUnvisitedVisibleHome(me, VISIBLE_ZONE);
-
             if (closestUnvisitedHome.isPresent()) {
+                Util.print("LOOOOOOL");
                 actionQueue.add(new Path(me.xy, closestUnvisitedHome.get().xy));
                 actionQueue.add(new MoveIn(closestUnvisitedHome.get()));
             } else {
-                actionQueue.add(new Path(me.xy, randomDestination(me, VISIBLE_ZONE * 2)));
+                actionQueue.add(new Path(me.xy, randomDestination(me, VISIBLE_ZONE / 2)));
             }
         } else {
-            Optional<VisibleEntity> resource = hasAResource(me, BasicHut.buildCost());
+            Optional<VisibleEntity> resource = me.carryingAResource(BasicHut.buildCost());
             if (resource.isPresent()) {
                 actionQueue.add(new Path(me.xy, resource.get().xy));
                 actionQueue.add(new PickUp(resource.get()));
