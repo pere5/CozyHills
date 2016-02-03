@@ -1,7 +1,7 @@
 package com.cozyhills.actions;
 
 import com.cozyhills.things.Person;
-import com.cozyhills.things.Rock;
+import com.cozyhills.things.resources.Rock;
 
 /**
  * Created by periks15 on 2016-01-28.

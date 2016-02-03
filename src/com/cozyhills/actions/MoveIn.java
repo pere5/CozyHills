@@ -1,6 +1,6 @@
 package com.cozyhills.actions;
 
-import com.cozyhills.things.Home;
+import com.cozyhills.things.buildings.Home;
 import com.cozyhills.things.Person;
 
 /**

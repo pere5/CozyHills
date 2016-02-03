@@ -2,13 +2,13 @@ package com.cozyhills.rules;
 
 import com.cozyhills.actions.*;
 import com.cozyhills.cozy.Util;
-import com.cozyhills.rules.support.RuleHelper;
-import com.cozyhills.things.BasicHut;
-import com.cozyhills.things.Home;
+import com.cozyhills.things.buildings.BasicHut;
+import com.cozyhills.things.buildings.Home;
 import com.cozyhills.things.Person;
-import com.cozyhills.things.VisibleEntity;
 import com.cozyhills.things.items.Item;
+import com.cozyhills.things.resources.Resource;
 
+import java.util.Map;
 import java.util.Optional;
 import java.util.Queue;
 
@@ -57,14 +57,22 @@ public class Household extends RuleHelper {
                 actionQueue.add(new Path(me.xy, randomDestination(me, VISIBLE_ZONE / 2)));
             }
         } else {
-            Optional<Item> resource = me.carryingAResource(BasicHut.buildCost());
-            if (resource.isPresent()) {
-                actionQueue.add(new Path(me.xy, resource.get().xy));
-                actionQueue.add(new PickUp(resource.get()));
-                actionQueue.add(new Path(resource.get().xy, me.xy));
-                actionQueue.add(new Build(BasicHut.class, resource.get()));
+            Optional<Item> item = me.carryingAnItem(BasicHut.buildCost());
+            if (item.isPresent()) {
+                if (me.getSafeSpot().isPresent()) {
+                    actionQueue.add(new Path(me.xy, me.getSafeSpot().get()));
+                    actionQueue.add(new Build(BasicHut.class, item.get()));
+                } else {
+                    actionQueue.add(new Build(BasicHut.class, item.get()));
+                }
             } else {
-                actionQueue.add(new Gather(BasicHut.buildCost()));
+                item = getClosestVisibleItem(me, VISIBLE_ZONE, BasicHut.buildCost());
+                if (item.isPresent()) {
+                    actionQueue.add(new Path(me.xy, item.get().xy));
+                    actionQueue.add(new PickUp(item.get()));
+                } else {
+                    Optional<Resource> resource = getClosestVisibleResource(me, VISIBLE_ZONE, BasicHut.buildCost());
+                }
             }
         }
     }

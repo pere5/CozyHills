@@ -1,4 +1,6 @@
-package com.cozyhills.things;
+package com.cozyhills.things.buildings;
+
+import com.cozyhills.things.Person;
 
 import java.awt.*;
 

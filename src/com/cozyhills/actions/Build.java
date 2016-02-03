@@ -1,8 +1,7 @@
 package com.cozyhills.actions;
 
-import com.cozyhills.things.BasicHut;
+import com.cozyhills.things.buildings.BasicHut;
 import com.cozyhills.things.Person;
-import com.cozyhills.things.VisibleEntity;
 import com.cozyhills.things.items.Item;
 
 /**

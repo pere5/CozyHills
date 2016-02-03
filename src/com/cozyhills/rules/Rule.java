@@ -1,4 +1,4 @@
-package com.cozyhills.rules.support;
+package com.cozyhills.rules;
 
 import com.cozyhills.things.Person;
 

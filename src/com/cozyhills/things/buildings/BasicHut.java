@@ -1,4 +1,4 @@
-package com.cozyhills.things;
+package com.cozyhills.things.buildings;
 
 import com.cozyhills.things.items.Stone;
 import com.cozyhills.things.items.Wood;

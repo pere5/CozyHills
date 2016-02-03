@@ -2,7 +2,8 @@ package com.cozyhills.things;
 
 import com.cozyhills.actions.Action;
 import com.cozyhills.cozy.Util;
-import com.cozyhills.rules.support.Rule;
+import com.cozyhills.rules.Rule;
+import com.cozyhills.things.buildings.Home;
 import com.cozyhills.things.items.Item;
 
 import java.awt.*;
@@ -21,6 +22,7 @@ public class Person extends VisibleEntity {
     private Rule currentRule = null;
     private int searchForHome = 5;
     private Optional<Item> carrying = Optional.empty();
+    private Optional<int[]> safeSpot = Optional.empty();
 
     public Person () {
         super();
@@ -48,7 +50,7 @@ public class Person extends VisibleEntity {
     public void work() {
         boolean continueWorking = actionQueue.peek().doIt(this);
         if (!continueWorking) {
-            Action discard = actionQueue.poll();
+            Action completed = actionQueue.poll();
         }
     }
 
@@ -94,8 +96,16 @@ public class Person extends VisibleEntity {
         this.home = Optional.of(home);
     }
 
-    public Optional<Item> carryingAResource(Map<Class<?>, Integer> buildCost) {
-        Util.print("carrying a resource");
+    public Optional<Item> carryingAnItem(Map<Class<?>, Integer> buildCost) {
+        Util.print("Not implemented yet: carryingAnItem");
         return Optional.empty();
+    }
+
+    public void safeSpot(int[] safeSpot) {
+        this.safeSpot = Optional.of(safeSpot);
+    }
+
+    public Optional<int[]> getSafeSpot() {
+        return safeSpot;
     }
 }

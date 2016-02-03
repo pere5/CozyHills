@@ -3,7 +3,7 @@ package com.cozyhills.cozy;
 import com.cozyhills.rules.CozyUp;
 import com.cozyhills.rules.EmptyRule;
 import com.cozyhills.rules.Household;
-import com.cozyhills.rules.support.Rule;
+import com.cozyhills.rules.Rule;
 import com.cozyhills.things.Person;
 import com.cozyhills.things.VisibleEntity;
 

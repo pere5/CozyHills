@@ -1,7 +1,7 @@
 package com.cozyhills.actions;
 
 import com.cozyhills.things.Person;
-import com.cozyhills.things.Tree;
+import com.cozyhills.things.resources.Tree;
 
 /**
  * Created by periks15 on 2016-01-14.

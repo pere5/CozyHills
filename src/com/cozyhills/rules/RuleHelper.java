@@ -1,12 +1,15 @@
-package com.cozyhills.rules.support;
+package com.cozyhills.rules;
 
 import com.cozyhills.cozy.StateHolder;
 import com.cozyhills.cozy.Util;
 import com.cozyhills.things.*;
+import com.cozyhills.things.buildings.Home;
+import com.cozyhills.things.items.Item;
+import com.cozyhills.things.resources.Resource;
+import com.cozyhills.things.resources.Rock;
+import com.cozyhills.things.resources.Tree;
 
-import java.util.Comparator;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -76,6 +79,19 @@ public abstract class RuleHelper implements Rule {
 
     protected Home getClosestVisibleHome(Person me, final int VISIBLE_ZONE) {
         return (Home)getClosestVisibleEntity(me, VISIBLE_ZONE, Home.class);
+    }
+
+    protected Optional<Item> getClosestVisibleItem(Person me, final int VISIBLE_ZONE, Map<Class<?>, Integer> itemTypes) {
+        Util.print("Not implemented yet: getClosestVisibleItem");
+        for (Class classType : itemTypes.keySet()) {
+            Item item = (Item)getClosestVisibleEntity(me, VISIBLE_ZONE, classType);
+        }
+        return Optional.empty();
+    }
+
+    protected Optional<Resource> getClosestVisibleResource(Person me, int visibleZone, Map<Class<?>, Integer> resourceTypes) {
+        Util.print("Not implemented yet: getClosestVisibleResource");
+        return Optional.empty();
     }
 
     protected Optional<Home> getClosestUnvisitedVisibleHome(Person me, final int VISIBLE_ZONE) {

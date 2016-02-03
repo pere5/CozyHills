@@ -1,6 +1,10 @@
 package com.cozyhills.cozy;
 
 import com.cozyhills.things.*;
+import com.cozyhills.things.buildings.BasicHut;
+import com.cozyhills.things.buildings.Home;
+import com.cozyhills.things.resources.Rock;
+import com.cozyhills.things.resources.Tree;
 
 import java.util.HashMap;
 import java.util.HashSet;

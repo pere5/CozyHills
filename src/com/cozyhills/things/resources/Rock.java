@@ -1,4 +1,4 @@
-package com.cozyhills.things;
+package com.cozyhills.things.resources;
 
 import com.cozyhills.cozy.Util;
 
@@ -7,7 +7,7 @@ import java.awt.*;
 /**
  * Created by pere5 on 02/01/16.
  */
-public class Rock extends VisibleEntity {
+public class Rock extends Resource {
     public Rock () {
         super();
         setDefaults();

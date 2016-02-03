@@ -2,7 +2,6 @@ package com.cozyhills.rules;
 
 import com.cozyhills.actions.Action;
 import com.cozyhills.actions.Path;
-import com.cozyhills.rules.support.RuleHelper;
 import com.cozyhills.things.Person;
 import com.cozyhills.things.VisibleEntity;
 
@@ -39,7 +38,12 @@ public class CozyUp extends RuleHelper {
         final int ME = 1;
         final int MARGIN = 1;
         result -= (COZY_GROUP - ME - MARGIN);
-        return result > 0 ? result : 0;
+        if (result > 0) {
+            me.safeSpot(me.xy);
+            return result;
+        } else {
+            return 0;
+        }
     }
 
     @Override
