@@ -94,7 +94,7 @@ public class Person extends VisibleEntity {
         this.home = Optional.of(home);
     }
 
-    public Optional<VisibleEntity> carryingAResource(Map<Class<?>, Integer> buildCost) {
+    public Optional<Item> carryingAResource(Map<Class<?>, Integer> buildCost) {
         Util.print("carrying a resource");
         return Optional.empty();
     }

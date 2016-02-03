@@ -5,5 +5,5 @@ import com.cozyhills.things.VisibleEntity;
 /**
  * Created by pere5 on 21/12/15.
  */
-public class Clothes extends VisibleEntity implements Item {
+public class Clothes extends Item {
 }

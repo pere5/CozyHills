@@ -7,6 +7,7 @@ import com.cozyhills.things.BasicHut;
 import com.cozyhills.things.Home;
 import com.cozyhills.things.Person;
 import com.cozyhills.things.VisibleEntity;
+import com.cozyhills.things.items.Item;
 
 import java.util.Optional;
 import java.util.Queue;
@@ -28,11 +29,10 @@ public class Household extends RuleHelper {
         Optional<Home> myHome = me.getHome();
         if (myHome.isPresent()) {
             int result = 0;
-            for (VisibleEntity visibleEntity: getHomes()) {
-                Home someHome = (Home)visibleEntity;
-                double range = range(someHome, myHome.get()); //include my own home
+            for (Home home: getHomes()) {
+                double range = range(home, myHome.get()); //include my own home
                 if (range < NEIGHBORHOOD_ZONE) {
-                    result += someHome.getStatus();
+                    result += home.getStatus();
                 }
             }
             return result;
@@ -49,15 +49,15 @@ public class Household extends RuleHelper {
             actionQueue.add(new Wait(10));
             Util.print("NOT IMPLEMENTED, improve home!");
         } else if (me.searchForHome()) {
-            Optional<Home> closestUnvisitedHome = getClosestUnvisitedVisibleHome(me, VISIBLE_ZONE);
-            if (closestUnvisitedHome.isPresent()) {
-                actionQueue.add(new Path(me.xy, closestUnvisitedHome.get().xy));
-                actionQueue.add(new MoveIn(closestUnvisitedHome.get()));
+            Optional<Home> home = getClosestUnvisitedVisibleHome(me, VISIBLE_ZONE);
+            if (home.isPresent()) {
+                actionQueue.add(new Path(me.xy, home.get().xy));
+                actionQueue.add(new MoveIn(home.get()));
             } else {
                 actionQueue.add(new Path(me.xy, randomDestination(me, VISIBLE_ZONE / 2)));
             }
         } else {
-            Optional<VisibleEntity> resource = me.carryingAResource(BasicHut.buildCost());
+            Optional<Item> resource = me.carryingAResource(BasicHut.buildCost());
             if (resource.isPresent()) {
                 actionQueue.add(new Path(me.xy, resource.get().xy));
                 actionQueue.add(new PickUp(resource.get()));

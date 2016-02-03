@@ -5,6 +5,6 @@ import com.cozyhills.things.VisibleEntity;
 /**
  * Created by pere5 on 28/01/16.
  */
-public class Wood extends VisibleEntity implements Item {
+public class Wood extends Item {
 
 }
