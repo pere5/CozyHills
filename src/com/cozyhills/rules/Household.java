@@ -30,7 +30,7 @@ public class Household extends RuleHelper {
             int result = 0;
             for (VisibleEntity visibleEntity: getHomes()) {
                 Home someHome = (Home)visibleEntity;
-                int range = range(someHome, myHome.get()); //include my own home
+                double range = range(someHome, myHome.get()); //include my own home
                 if (range < NEIGHBORHOOD_ZONE) {
                     result += someHome.getStatus();
                 }
@@ -49,10 +49,8 @@ public class Household extends RuleHelper {
             actionQueue.add(new Wait(10));
             Util.print("NOT IMPLEMENTED, improve home!");
         } else if (me.searchForHome()) {
-            Util.print("PEEEEEEEEEEEEER");
             Optional<Home> closestUnvisitedHome = getClosestUnvisitedVisibleHome(me, VISIBLE_ZONE);
             if (closestUnvisitedHome.isPresent()) {
-                Util.print("LOOOOOOL");
                 actionQueue.add(new Path(me.xy, closestUnvisitedHome.get().xy));
                 actionQueue.add(new MoveIn(closestUnvisitedHome.get()));
             } else {

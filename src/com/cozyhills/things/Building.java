@@ -1,7 +1,5 @@
 package com.cozyhills.things;
 
-import com.cozyhills.actions.Build;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,8 +8,14 @@ import java.util.Map;
  */
 public abstract class Building extends VisibleEntity {
     protected static Map<Class<?>, Integer> buildCost = new HashMap<>();
+    private final int STATUS;
 
-    public Building () {
+    public Building (int STATUS) {
         super();
+        this.STATUS = STATUS;
+    }
+
+    public int getStatus() {
+        return STATUS;
     }
 }

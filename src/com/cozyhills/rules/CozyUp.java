@@ -28,7 +28,7 @@ public class CozyUp extends RuleHelper {
         int result = 0;
         me.clearTarget();
         for (Person person: getPersons()) {
-            int range = person != me ? range(person, me): Integer.MAX_VALUE;
+            double range = person != me ? range(person, me): Double.MAX_VALUE;
             if (range < COMFORT_ZONE) {
                 result += 1;
             }

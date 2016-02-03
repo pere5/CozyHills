@@ -4,7 +4,7 @@ import com.cozyhills.cozy.StateHolder;
 import com.cozyhills.cozy.Util;
 import com.cozyhills.things.*;
 
-import java.util.Map;
+import java.util.Comparator;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
@@ -37,15 +37,15 @@ public abstract class RuleHelper implements Rule {
         Util.print(id + ":" + status);
     }
 
-    protected int range(VisibleEntity visibleEntity, VisibleEntity me) {
-        return (int)Math.sqrt(Math.pow((visibleEntity.xy[0] - me.xy[0]), 2) + Math.pow((visibleEntity.xy[1] - me.xy[1]), 2));
+    protected static double range(VisibleEntity visibleEntity, VisibleEntity me) {
+        return Math.sqrt(Math.pow((visibleEntity.xy[0] - me.xy[0]), 2) + Math.pow((visibleEntity.xy[1] - me.xy[1]), 2));
     }
 
-    protected int rangeSimplified(VisibleEntity visibleEntity, VisibleEntity me) {
-        return (int)(Math.pow((visibleEntity.xy[0] - me.xy[0]), 2) + Math.pow((visibleEntity.xy[1] - me.xy[1]), 2));
+    protected static double rangeSimplified(VisibleEntity visibleEntity, VisibleEntity me) {
+        return Math.pow((visibleEntity.xy[0] - me.xy[0]), 2) + Math.pow((visibleEntity.xy[1] - me.xy[1]), 2);
     }
 
-    protected int[] centroid(Set<VisibleEntity> visibleEntityList) {
+    protected static int[] centroid(Set<VisibleEntity> visibleEntityList) {
         int[] centroid = { 0, 0 };
 
         for (VisibleEntity visibleEntity: visibleEntityList) {
@@ -60,7 +60,7 @@ public abstract class RuleHelper implements Rule {
         return centroid;
     }
 
-    protected int[] randomDestination(Person me, final int DISTANCE) {
+    protected static int[] randomDestination(Person me, final int DISTANCE) {
         int r1 = 1 - ThreadLocalRandom.current().nextInt(0, 2 + 1);
         int r2 = 1 - ThreadLocalRandom.current().nextInt(0, 2 + 1);
         return new int[]{me.xy[0] + DISTANCE * r1, me.xy[1] + DISTANCE * r2};
@@ -83,15 +83,15 @@ public abstract class RuleHelper implements Rule {
         Set<Home> allHomes = getHomes();
         return allHomes.stream().parallel()
                 .filter(home -> !visitedHomes.contains(home))
-                .min((home1, home2) -> rangeSimplified(me, home1) - rangeSimplified(me, home2))
-                .map(result -> rangeSimplified(me, result) <= VISIBLE_ZONE ? result : null);
+                .min(Comparator.comparingDouble(home -> rangeSimplified(me, home)))
+                .map(result -> range(me, result) <= VISIBLE_ZONE ? result : null);
     }
 
     private VisibleEntity getClosestVisibleEntity(Person me, final int VISIBLE_ZONE, Class<?> type) {
         VisibleEntity closestEntity = null;
-        Integer closestRange = Integer.MAX_VALUE;
+        double closestRange = Double.MAX_VALUE;
         for (VisibleEntity entity: getEntityList(type)) {
-            int range = range(me, entity);
+            double range = range(me, entity);
             if (range < closestRange) {
                 closestRange = range;
                 if (closestRange < VISIBLE_ZONE) {

@@ -1,10 +1,8 @@
 package com.cozyhills.things;
 
-import com.cozyhills.cozy.Util;
 import com.cozyhills.things.items.Stone;
 import com.cozyhills.things.items.Wood;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
