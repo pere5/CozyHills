@@ -72,6 +72,7 @@ public class Household extends RuleHelper {
                     actionQueue.add(new PickUp(item.get()));
                 } else {
                     Optional<Resource> resource = getClosestVisibleResource(me, VISIBLE_ZONE, BasicHut.buildCost());
+                    actionQueue.add(new Wait(10));
                 }
             }
         }

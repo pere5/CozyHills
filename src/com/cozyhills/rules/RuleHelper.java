@@ -69,22 +69,22 @@ public abstract class RuleHelper implements Rule {
         return new int[]{me.xy[0] + DISTANCE * r1, me.xy[1] + DISTANCE * r2};
     }
 
-    protected Rock getClosestVisibleRock(Person me, final int VISIBLE_ZONE) {
-        return (Rock)getClosestVisibleEntity(me, VISIBLE_ZONE, Rock.class);
+    protected Optional<Rock> getClosestVisibleRock(Person me, final int VISIBLE_ZONE) {
+        return (Optional<Rock>)getClosestVisibleEntity(me, VISIBLE_ZONE, Rock.class);
     }
 
-    protected Tree getClosestVisibleTree(Person me, final int VISIBLE_ZONE) {
-        return (Tree)getClosestVisibleEntity(me, VISIBLE_ZONE, Tree.class);
+    protected Optional<Tree> getClosestVisibleTree(Person me, final int VISIBLE_ZONE) {
+        return (Optional<Tree>)getClosestVisibleEntity(me, VISIBLE_ZONE, Tree.class);
     }
 
-    protected Home getClosestVisibleHome(Person me, final int VISIBLE_ZONE) {
-        return (Home)getClosestVisibleEntity(me, VISIBLE_ZONE, Home.class);
+    protected Optional<Home> getClosestVisibleHome(Person me, final int VISIBLE_ZONE) {
+        return (Optional<Home>)getClosestVisibleEntity(me, VISIBLE_ZONE, Home.class);
     }
 
     protected Optional<Item> getClosestVisibleItem(Person me, final int VISIBLE_ZONE, Map<Class<?>, Integer> itemTypes) {
         Util.print("Not implemented yet: getClosestVisibleItem");
         for (Class classType : itemTypes.keySet()) {
-            Item item = (Item)getClosestVisibleEntity(me, VISIBLE_ZONE, classType);
+            Optional<Item> items = (Optional<Item>)getClosestVisibleEntity(me, VISIBLE_ZONE, classType);
         }
         return Optional.empty();
     }
@@ -95,27 +95,16 @@ public abstract class RuleHelper implements Rule {
     }
 
     protected Optional<Home> getClosestUnvisitedVisibleHome(Person me, final int VISIBLE_ZONE) {
-        Set<Home> visitedHomes = me.getVisitedHomes();
-        Set<Home> allHomes = getHomes();
-        return allHomes.stream().parallel()
-                .filter(home -> !visitedHomes.contains(home))
-                .min(Comparator.comparingDouble(home -> rangeSimplified(me, home)))
-                .map(result -> range(me, result) <= VISIBLE_ZONE ? result : null);
+        return getHomes().stream().parallel()
+                .filter(home -> !me.getVisitedHomes().contains(home)) //Unvisited
+                .min(Comparator.comparingDouble(home -> rangeSimplified(me, home))) //Closest
+                .map(result -> range(me, result) <= VISIBLE_ZONE ? result : null); //Visible
     }
 
-    private VisibleEntity getClosestVisibleEntity(Person me, final int VISIBLE_ZONE, Class<?> type) {
-        VisibleEntity closestEntity = null;
-        double closestRange = Double.MAX_VALUE;
-        for (VisibleEntity entity: getEntityList(type)) {
-            double range = range(me, entity);
-            if (range < closestRange) {
-                closestRange = range;
-                if (closestRange < VISIBLE_ZONE) {
-                    closestEntity = entity;
-                }
-            }
-        }
-        return closestEntity;
+    private Optional<? extends VisibleEntity> getClosestVisibleEntity(Person me, final int VISIBLE_ZONE, Class<?> type) {
+        return getEntityList(type).stream().parallel()
+                .min(Comparator.comparingDouble(entity -> rangeSimplified(me, (VisibleEntity) entity))) //Closest
+                .map(result -> range(me, result) <= VISIBLE_ZONE ? result : null); //Visible
     }
 
     private Set<? extends VisibleEntity> getEntityList(Class<?> entity) {

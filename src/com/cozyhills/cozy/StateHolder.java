@@ -3,6 +3,10 @@ package com.cozyhills.cozy;
 import com.cozyhills.things.*;
 import com.cozyhills.things.buildings.BasicHut;
 import com.cozyhills.things.buildings.Home;
+import com.cozyhills.things.items.Clothes;
+import com.cozyhills.things.items.Food;
+import com.cozyhills.things.items.Stone;
+import com.cozyhills.things.items.Wood;
 import com.cozyhills.things.resources.Rock;
 import com.cozyhills.things.resources.Tree;
 
@@ -28,7 +32,10 @@ public class StateHolder {
 
         createHomes();
 
-        //state.put(Home.class, new HashSet<Home>());
+        state.put(Clothes.class, new HashSet<Clothes>());
+        state.put(Food.class, new HashSet<Food>());
+        state.put(Stone.class, new HashSet<Stone>());
+        state.put(Wood.class, new HashSet<Wood>());
     }
 
     public static StateHolder instance() {
