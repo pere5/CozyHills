@@ -69,14 +69,17 @@ public abstract class RuleHelper implements Rule {
         return new int[]{me.xy[0] + DISTANCE * r1, me.xy[1] + DISTANCE * r2};
     }
 
+    @SuppressWarnings("unchecked")
     protected Optional<Rock> getClosestVisibleRock(Person me, final int VISIBLE_ZONE) {
         return (Optional<Rock>)getClosestVisibleEntity(me, VISIBLE_ZONE, Rock.class);
     }
 
+    @SuppressWarnings("unchecked")
     protected Optional<Tree> getClosestVisibleTree(Person me, final int VISIBLE_ZONE) {
         return (Optional<Tree>)getClosestVisibleEntity(me, VISIBLE_ZONE, Tree.class);
     }
 
+    @SuppressWarnings("unchecked")
     protected Optional<Home> getClosestVisibleHome(Person me, final int VISIBLE_ZONE) {
         return (Optional<Home>)getClosestVisibleEntity(me, VISIBLE_ZONE, Home.class);
     }
@@ -84,6 +87,7 @@ public abstract class RuleHelper implements Rule {
     protected Optional<Item> getClosestVisibleItem(Person me, final int VISIBLE_ZONE, Map<Class<?>, Integer> itemTypes) {
         Util.print("Not implemented yet: getClosestVisibleItem");
         for (Class classType : itemTypes.keySet()) {
+            @SuppressWarnings("unchecked")
             Optional<Item> items = (Optional<Item>)getClosestVisibleEntity(me, VISIBLE_ZONE, classType);
         }
         return Optional.empty();
