@@ -96,9 +96,8 @@ public class Person extends VisibleEntity {
         this.home = Optional.of(home);
     }
 
-    public Optional<Item> carryingAnItem(Map<Class<?>, Integer> buildCost) {
-        Util.print("Not implemented yet: carryingAnItem");
-        return Optional.empty();
+    public boolean carryingOneOfItems(Map<Class, Integer> items) {
+        return carrying.isPresent() && items.get(carrying.get().getClass()) != null;
     }
 
     public void safeSpot(int[] safeSpot) {

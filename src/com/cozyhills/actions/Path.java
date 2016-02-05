@@ -9,7 +9,7 @@ import java.util.Queue;
  * Created by pere5 on 06/01/16.
  */
 public class Path implements Action {
-    private static final int STEP = 3;
+    private static final int STEP = 2;
     private static final int CLOSE_ENOUGH = 5;
     private final Queue<int[]> path = new LinkedList<>();
 

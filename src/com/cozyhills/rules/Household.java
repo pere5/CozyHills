@@ -8,7 +8,6 @@ import com.cozyhills.things.Person;
 import com.cozyhills.things.items.Item;
 import com.cozyhills.things.resources.Resource;
 
-import java.util.Map;
 import java.util.Optional;
 import java.util.Queue;
 
@@ -45,10 +44,11 @@ public class Household extends RuleHelper {
     public void initWork(Person me, int status) {
         Queue<Action> actionQueue = me.getActionQueue();
         if (me.getHome().isPresent()) {
-            //improve home: end
+            //improve home
             actionQueue.add(new Wait(10));
             Util.print("NOT IMPLEMENTED, improve home!");
         } else if (me.searchForHome()) {
+            //move in to home
             Optional<Home> home = getClosestUnvisitedVisibleHome(me, VISIBLE_ZONE);
             if (home.isPresent()) {
                 actionQueue.add(new Path(me.xy, home.get().xy));
@@ -57,40 +57,32 @@ public class Household extends RuleHelper {
                 actionQueue.add(new Path(me.xy, randomDestination(me, VISIBLE_ZONE / 2)));
             }
         } else {
-            Optional<Item> item = me.carryingAnItem(BasicHut.buildCost());
-            if (item.isPresent()) {
+            //build home
+            if (me.carryingOneOfItems(BasicHut.buildCost())) {
+                //build
                 if (me.getSafeSpot().isPresent()) {
                     actionQueue.add(new Path(me.xy, me.getSafeSpot().get()));
-                    actionQueue.add(new Build(BasicHut.class, item.get()));
+                    actionQueue.add(new Build(BasicHut.class));
                 } else {
-                    actionQueue.add(new Build(BasicHut.class, item.get()));
+                    actionQueue.add(new Build(BasicHut.class));
                 }
             } else {
-                item = getClosestVisibleItem(me, VISIBLE_ZONE, BasicHut.buildCost());
+                //gather resources
+                Optional<Item> item = getClosestVisibleItemFromSet(me, VISIBLE_ZONE, BasicHut.buildCost());
                 if (item.isPresent()) {
+                    //take an item
                     actionQueue.add(new Path(me.xy, item.get().xy));
                     actionQueue.add(new PickUp(item.get()));
                 } else {
-                    Optional<Resource> resource = getClosestVisibleResource(me, VISIBLE_ZONE, BasicHut.buildCost());
-                    actionQueue.add(new Wait(10));
+                    //gather resource
+                    Optional<Resource> resource = getClosestVisibleResourceFromItemSet(me, VISIBLE_ZONE, BasicHut.buildCost());
+                    if (resource.isPresent()) {
+                        actionQueue.add(new Path(me.xy, resource.get().xy));
+                    } else {
+                        actionQueue.add(new Path(me.xy, randomDestination(me, VISIBLE_ZONE / 2)));
+                    }
                 }
             }
         }
     }
 }
-
-/*
-                //build
-        Tree closestTree = getClosestVisibleTree(me, VISIBLE_ZONE);
-        if (closestTree == null) {
-            int[] destination;
-            destination = randomDestination(me, VISIBLE_ZONE);
-            actionQueue.add(new Path(me.xy, destination));
-        } else {
-            actionQueue.add(new Path(me.xy, closestTree.xy));
-            actionQueue.add(new CutTree(closestTree));
-            actionQueue.add(new Path(closestTree.xy, me.xy));
-        }
-    }
-}
-*/

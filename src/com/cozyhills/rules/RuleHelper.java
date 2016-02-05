@@ -9,6 +9,7 @@ import com.cozyhills.things.resources.Resource;
 import com.cozyhills.things.resources.Rock;
 import com.cozyhills.things.resources.Tree;
 
+import java.lang.reflect.Method;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -70,48 +71,50 @@ public abstract class RuleHelper implements Rule {
     }
 
     @SuppressWarnings("unchecked")
-    protected Optional<Rock> getClosestVisibleRock(Person me, final int VISIBLE_ZONE) {
-        return (Optional<Rock>)getClosestVisibleEntity(me, VISIBLE_ZONE, Rock.class);
-    }
-
-    @SuppressWarnings("unchecked")
-    protected Optional<Tree> getClosestVisibleTree(Person me, final int VISIBLE_ZONE) {
-        return (Optional<Tree>)getClosestVisibleEntity(me, VISIBLE_ZONE, Tree.class);
-    }
-
-    @SuppressWarnings("unchecked")
-    protected Optional<Home> getClosestVisibleHome(Person me, final int VISIBLE_ZONE) {
-        return (Optional<Home>)getClosestVisibleEntity(me, VISIBLE_ZONE, Home.class);
-    }
-
-    protected Optional<Item> getClosestVisibleItem(Person me, final int VISIBLE_ZONE, Map<Class<?>, Integer> itemTypes) {
-        Util.print("Not implemented yet: getClosestVisibleItem");
+    protected Optional<Item> getClosestVisibleItemFromSet(Person me, final int VISIBLE_ZONE, Map<Class, Integer> itemTypes) {
         for (Class classType : itemTypes.keySet()) {
-            @SuppressWarnings("unchecked")
-            Optional<Item> items = (Optional<Item>)getClosestVisibleEntity(me, VISIBLE_ZONE, classType);
+            Optional<Item> item = (Optional<Item>)getClosestVisibleEntity(me, VISIBLE_ZONE, classType);
+            if (item.isPresent()) {
+                return item;
+            }
         }
         return Optional.empty();
     }
 
-    protected Optional<Resource> getClosestVisibleResource(Person me, int visibleZone, Map<Class<?>, Integer> resourceTypes) {
-        Util.print("Not implemented yet: getClosestVisibleResource");
+    @SuppressWarnings("unchecked")
+    protected Optional<Resource> getClosestVisibleResourceFromItemSet(Person me, final int VISIBLE_ZONE, Map<Class, Integer> itemTypes) {
+        for (Class itemClassType : itemTypes.keySet()) {
+            Class resourceType = getCorrespondingResource(itemClassType);
+            Optional<Resource> item = (Optional<Resource>)getClosestVisibleEntity(me, VISIBLE_ZONE, resourceType);
+            if (item.isPresent()) {
+                return item;
+            }
+        }
         return Optional.empty();
     }
 
+    private Class getCorrespondingResource(Class<? extends Item> itemType) {
+        try {
+            return itemType.newInstance().getCorrespondingResource();
+        } catch (IllegalAccessException | InstantiationException e) {
+            return null;
+        }
+    }
+
     protected Optional<Home> getClosestUnvisitedVisibleHome(Person me, final int VISIBLE_ZONE) {
-        return getHomes().stream().parallel()
+        return getHomes().parallelStream()
                 .filter(home -> !me.getVisitedHomes().contains(home)) //Unvisited
                 .min(Comparator.comparingDouble(home -> rangeSimplified(me, home))) //Closest
                 .map(result -> range(me, result) <= VISIBLE_ZONE ? result : null); //Visible
     }
 
-    private Optional<? extends VisibleEntity> getClosestVisibleEntity(Person me, final int VISIBLE_ZONE, Class<?> type) {
-        return getEntityList(type).stream().parallel()
+    private Optional getClosestVisibleEntity(Person me, final int VISIBLE_ZONE, Class entityType) {
+        return getEntityList(entityType).parallelStream()
                 .min(Comparator.comparingDouble(entity -> rangeSimplified(me, (VisibleEntity) entity))) //Closest
                 .map(result -> range(me, result) <= VISIBLE_ZONE ? result : null); //Visible
     }
 
-    private Set<? extends VisibleEntity> getEntityList(Class<?> entity) {
+    private Set<? extends VisibleEntity> getEntityList(Class entity) {
         return StateHolder.getEntities(entity);
     }
 
@@ -121,13 +124,5 @@ public abstract class RuleHelper implements Rule {
 
     protected Set<Home> getHomes() {
         return StateHolder.getHomes();
-    }
-
-    protected Set<Tree> getTrees() {
-        return StateHolder.getTrees();
-    }
-
-    protected Set<Rock> getRocks() {
-        return StateHolder.getRocks();
     }
 }

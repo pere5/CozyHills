@@ -1,8 +1,11 @@
 package com.cozyhills.things.buildings;
 
+import com.cozyhills.Const;
+import com.cozyhills.things.items.Item;
 import com.cozyhills.things.items.Stone;
 import com.cozyhills.things.items.Wood;
 
+import java.awt.*;
 import java.util.Map;
 
 /**
@@ -15,6 +18,13 @@ public class BasicHut extends Home {
 
     public BasicHut () {
         super(ROOMS, STATUS);
+        setDefaults();
+    }
+
+    private void setDefaults() {
+        this.size = 10;
+        this.color = Color.decode("#DEB887");
+        this.SHAPE = Const.SHAPES.CIRCLE;
     }
 
     static {
@@ -22,7 +32,7 @@ public class BasicHut extends Home {
         buildCost.put(Wood.class, 2);
     }
 
-    public static Map<Class<?>, Integer> buildCost() {
+    public static Map<Class, Integer> buildCost() {
         return buildCost;
     }
 }

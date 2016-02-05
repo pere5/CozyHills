@@ -1,5 +1,6 @@
 package com.cozyhills.things.buildings;
 
+import com.cozyhills.cozy.Util;
 import com.cozyhills.things.Person;
 
 import java.awt.*;
@@ -15,12 +16,6 @@ public abstract class Home extends Building {
     public Home(final int ROOMS, final int STATUS) {
         super(STATUS);
         tenants = new Person[ROOMS];
-        setDefaults();
-    }
-
-    private void setDefaults() {
-        this.size = 20;
-        this.color = Color.PINK;
     }
 
     public boolean availableRooms() {
@@ -34,6 +29,7 @@ public abstract class Home extends Building {
                     tenants[i] = me;
                     takenRooms++;
                     me.setHome(this);
+                    Util.print("Moved in!");
                     return;
                 }
             }

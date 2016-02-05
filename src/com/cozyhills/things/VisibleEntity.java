@@ -1,5 +1,6 @@
 package com.cozyhills.things;
 
+import com.cozyhills.Const;
 import com.cozyhills.cozy.StateHolder;
 import com.cozyhills.cozy.Util;
 
@@ -13,6 +14,7 @@ public abstract class VisibleEntity {
     public int[] xy = new int[2];
     public int size = 0;
     public Color color = null;
+    public Const.SHAPES SHAPE = Const.SHAPES.RECT;
 
     protected VisibleEntity() {
         this.id = StateHolder.getNewId();

@@ -114,7 +114,11 @@ public class GraphicsHandler extends JFrame {
         for (Set<? extends VisibleEntity> types: StateHolder.getState().values()) {
             for (VisibleEntity type: types) {
                 bbg.setColor(type.color);
-                bbg.fillRect(type.xy[0], type.xy[1], type.size, type.size);
+                if (type.SHAPE.equals(Const.SHAPES.RECT)) {
+                    bbg.fillRect(type.xy[0], type.xy[1], type.size, type.size);
+                } else {
+                    bbg.fillOval(type.xy[0], type.xy[1], type.size, type.size);
+                }
             }
         }
     }
