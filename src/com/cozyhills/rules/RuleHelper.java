@@ -112,22 +112,22 @@ public abstract class RuleHelper implements Rule {
     }
 
     private Set<? extends VisibleEntity> getEntityList(Class<?> entity) {
-        return StateHolder.instance().getEntities(entity);
+        return StateHolder.getEntities(entity);
     }
 
     protected Set<Person> getPersons() {
-        return StateHolder.instance().getPersons();
+        return StateHolder.getPersons();
     }
 
     protected Set<Home> getHomes() {
-        return StateHolder.instance().getHomes();
+        return StateHolder.getHomes();
     }
 
     protected Set<Tree> getTrees() {
-        return StateHolder.instance().getTrees();
+        return StateHolder.getTrees();
     }
 
     protected Set<Rock> getRocks() {
-        return StateHolder.instance().getRocks();
+        return StateHolder.getRocks();
     }
 }

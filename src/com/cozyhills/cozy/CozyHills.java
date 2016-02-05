@@ -23,11 +23,10 @@ public class CozyHills {
         rules.add(new Household(--rank));
     }
 
-    StateHolder stateHolder = StateHolder.instance();
     Rule selectedRule = new EmptyRule();
 
     public void update() {
-        for (VisibleEntity visibleEntity : stateHolder.getPersons()) {
+        for (VisibleEntity visibleEntity : StateHolder.getPersons()) {
             Person person = (Person) visibleEntity;
             boolean working = person.working();
             if (!working) {

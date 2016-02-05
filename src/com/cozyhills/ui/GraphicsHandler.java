@@ -111,8 +111,7 @@ public class GraphicsHandler extends JFrame {
     }
 
     private void drawAllObjects(Graphics bbg) {
-        StateHolder stateHolder = StateHolder.instance();
-        for (Set<? extends VisibleEntity> types: stateHolder.getState().values()) {
+        for (Set<? extends VisibleEntity> types: StateHolder.getState().values()) {
             for (VisibleEntity type: types) {
                 bbg.setColor(type.color);
                 bbg.fillRect(type.xy[0], type.xy[1], type.size, type.size);

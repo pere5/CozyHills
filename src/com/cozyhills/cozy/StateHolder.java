@@ -22,10 +22,9 @@ public class StateHolder {
 
     private static int idGenerator = 0;
 
-    private static StateHolder instance = new StateHolder();
-    Map<Class<?>, Set<? extends VisibleEntity>> state = new HashMap<>();
+    private static Map<Class<?>, Set<? extends VisibleEntity>> state = new HashMap<>();
 
-    public StateHolder() {
+    static {
         createPersons();
         createTrees();
         createRocks();
@@ -38,16 +37,12 @@ public class StateHolder {
         state.put(Wood.class, new HashSet<Wood>());
     }
 
-    public static StateHolder instance() {
-        return instance;
-    }
-
-    public Map<Class<?>, Set<? extends VisibleEntity>> getState() {
+    public static Map<Class<?>, Set<? extends VisibleEntity>> getState() {
         return state;
     }
 
 
-    private void createHomes() {
+    private static void createHomes() {
         Set<Home> homes = new HashSet<>();
         for (int i = 0; i < 8; i++) {
             homes.add(new BasicHut());
@@ -55,7 +50,7 @@ public class StateHolder {
         state.put(Home.class, homes);
     }
 
-    private void createTrees() {
+    private static void createTrees() {
         Set<Tree> trees = new HashSet<>();
         for (int i = 0; i < 40; i++) {
             trees.add(new Tree());
@@ -63,7 +58,7 @@ public class StateHolder {
         state.put(Tree.class, trees);
     }
 
-    private void createRocks() {
+    private static void createRocks() {
         Set<Rock> rocks = new HashSet<>();
         for (int i = 0; i < 20; i++) {
             rocks.add(new Rock());
@@ -71,7 +66,7 @@ public class StateHolder {
         state.put(Rock.class, rocks);
     }
 
-    private void createPersons() {
+    private static void createPersons() {
         Set<Person> persons = new HashSet<>();
         for (int i = 0; i < 40; i++) {
             persons.add(new Person());
@@ -79,23 +74,23 @@ public class StateHolder {
         state.put(Person.class, persons);
     }
 
-    public Set<Person> getPersons() {
+    public static Set<Person> getPersons() {
         return (Set<Person>)state.get(Person.class);
     }
 
-    public Set<Home> getHomes() {
+    public static Set<Home> getHomes() {
         return (Set<Home>)state.get(Home.class);
     }
 
-    public Set<Tree> getTrees() {
+    public static Set<Tree> getTrees() {
         return (Set<Tree>)state.get(Tree.class);
     }
 
-    public Set<Rock> getRocks() {
+    public static Set<Rock> getRocks() {
         return (Set<Rock>)state.get(Rock.class);
     }
 
-    public Set<? extends VisibleEntity> getEntities(Class<?> classType) {
+    public static Set<? extends VisibleEntity> getEntities(Class<?> classType) {
         return state.get(classType);
     }
 
