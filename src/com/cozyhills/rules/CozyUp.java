@@ -50,7 +50,7 @@ public class CozyUp extends RuleHelper {
     public void initWork(Person me, int status) {
         Queue<Action> actionQueue = me.getActionQueue();
         Set<VisibleEntity> targets = me.getTargets();
-        int[] destination;
+        double[] destination;
         if (targets.size() == 0) {
             destination = randomDestination(me, WALK_DISTANCE);
         } else if (status == 0) {

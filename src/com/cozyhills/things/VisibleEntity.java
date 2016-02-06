@@ -11,7 +11,7 @@ import java.awt.*;
  */
 public abstract class VisibleEntity {
     private final int id;
-    public int[] xy = new int[2];
+    public double[] xy = new double[2];
     public int size = 0;
     public Color color = null;
     public Const.SHAPES SHAPE = Const.SHAPES.RECT;

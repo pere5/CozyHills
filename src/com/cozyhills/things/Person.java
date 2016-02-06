@@ -22,7 +22,7 @@ public class Person extends VisibleEntity {
     private Rule currentRule = null;
     private int searchForHome = 5;
     private Optional<Item> carrying = Optional.empty();
-    private Optional<int[]> safeSpot = Optional.empty();
+    private Optional<double[]> safeSpot = Optional.empty();
 
     public Person () {
         super();
@@ -100,11 +100,11 @@ public class Person extends VisibleEntity {
         return carrying.isPresent() && items.get(carrying.get().getClass()) != null;
     }
 
-    public void safeSpot(int[] safeSpot) {
+    public void safeSpot(double[] safeSpot) {
         this.safeSpot = Optional.of(safeSpot);
     }
 
-    public Optional<int[]> getSafeSpot() {
+    public Optional<double[]> getSafeSpot() {
         return safeSpot;
     }
 }

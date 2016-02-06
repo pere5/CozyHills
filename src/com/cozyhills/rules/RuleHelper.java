@@ -5,11 +5,7 @@ import com.cozyhills.cozy.Util;
 import com.cozyhills.things.*;
 import com.cozyhills.things.buildings.Home;
 import com.cozyhills.things.items.Item;
-import com.cozyhills.things.resources.Resource;
-import com.cozyhills.things.resources.Rock;
-import com.cozyhills.things.resources.Tree;
 
-import java.lang.reflect.Method;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -49,8 +45,8 @@ public abstract class RuleHelper implements Rule {
         return Math.pow((visibleEntity.xy[0] - me.xy[0]), 2) + Math.pow((visibleEntity.xy[1] - me.xy[1]), 2);
     }
 
-    protected static int[] centroid(Set<VisibleEntity> visibleEntityList) {
-        int[] centroid = { 0, 0 };
+    protected static double[] centroid(Set<VisibleEntity> visibleEntityList) {
+        double[] centroid = { 0, 0 };
 
         for (VisibleEntity visibleEntity: visibleEntityList) {
             centroid[0] += visibleEntity.xy[0];
@@ -64,41 +60,34 @@ public abstract class RuleHelper implements Rule {
         return centroid;
     }
 
-    protected static int[] randomDestination(Person me, final int DISTANCE) {
-        int r1 = 1 - ThreadLocalRandom.current().nextInt(0, 2 + 1);
-        int r2 = 1 - ThreadLocalRandom.current().nextInt(0, 2 + 1);
-        return new int[]{me.xy[0] + DISTANCE * r1, me.xy[1] + DISTANCE * r2};
+    protected static double[] randomDestination(Person me, final int DISTANCE) {
+        double r1 = 1 - ThreadLocalRandom.current().nextInt(0, 2 + 1);
+        double r2 = 1 - ThreadLocalRandom.current().nextInt(0, 2 + 1);
+        return new double[]{me.xy[0] + DISTANCE * r1, me.xy[1] + DISTANCE * r2};
     }
 
-    @SuppressWarnings("unchecked")
-    protected Optional<Item> getClosestVisibleItemFromSet(Person me, final int VISIBLE_ZONE, Map<Class, Integer> itemTypes) {
-        for (Class classType : itemTypes.keySet()) {
-            Optional<Item> item = (Optional<Item>)getClosestVisibleEntity(me, VISIBLE_ZONE, classType);
-            if (item.isPresent()) {
-                return item;
-            }
-        }
-        return Optional.empty();
+    protected Optional getClosestVisibleResourceFromItemSet(Person me, final int VISIBLE_ZONE, Set<Class> itemTypes) {
+        return itemTypes.parallelStream()
+                .map(this::getCorrespondingResourceFromItemType)
+                .filter(Optional::isPresent)
+                .map(type -> getClosestVisibleEntity(me, VISIBLE_ZONE, type.get()))
+                .filter(Optional::isPresent)
+                .min(Comparator.comparingDouble(optional -> rangeSimplified(me, optional.get()))).get();
     }
 
-    @SuppressWarnings("unchecked")
-    protected Optional<Resource> getClosestVisibleResourceFromItemSet(Person me, final int VISIBLE_ZONE, Map<Class, Integer> itemTypes) {
-        for (Class itemClassType : itemTypes.keySet()) {
-            Class resourceType = getCorrespondingResource(itemClassType);
-            Optional<Resource> item = (Optional<Resource>)getClosestVisibleEntity(me, VISIBLE_ZONE, resourceType);
-            if (item.isPresent()) {
-                return item;
-            }
-        }
-        return Optional.empty();
-    }
-
-    private Class getCorrespondingResource(Class<? extends Item> itemType) {
+    private Optional<Class> getCorrespondingResourceFromItemType(Class itemType) {
         try {
-            return itemType.newInstance().getCorrespondingResource();
+            return Optional.of(((Item)itemType.newInstance()).getCorrespondingResource());
         } catch (IllegalAccessException | InstantiationException e) {
-            return null;
+            return Optional.empty();
         }
+    }
+
+    protected Optional getClosestVisibleEntityOfTypeSet(Person me, final int VISIBLE_ZONE, Set<Class> typeSet) {
+        return typeSet.parallelStream()
+                .map(type -> getClosestVisibleEntity(me, VISIBLE_ZONE, type)) //all closest entities
+                .filter(Optional::isPresent)
+                .min(Comparator.comparingDouble(optional -> rangeSimplified(me, optional.get()))); //closest
     }
 
     protected Optional<Home> getClosestUnvisitedVisibleHome(Person me, final int VISIBLE_ZONE) {
@@ -108,7 +97,7 @@ public abstract class RuleHelper implements Rule {
                 .map(result -> range(me, result) <= VISIBLE_ZONE ? result : null); //Visible
     }
 
-    private Optional getClosestVisibleEntity(Person me, final int VISIBLE_ZONE, Class entityType) {
+    protected Optional<VisibleEntity> getClosestVisibleEntity(Person me, final int VISIBLE_ZONE, Class entityType) {
         return getEntityList(entityType).parallelStream()
                 .min(Comparator.comparingDouble(entity -> rangeSimplified(me, (VisibleEntity) entity))) //Closest
                 .map(result -> range(me, result) <= VISIBLE_ZONE ? result : null); //Visible

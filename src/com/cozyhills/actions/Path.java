@@ -9,12 +9,12 @@ import java.util.Queue;
  * Created by pere5 on 06/01/16.
  */
 public class Path implements Action {
-    private static final int STEP = 2;
-    private static final int CLOSE_ENOUGH = 5;
-    private final Queue<int[]> path = new LinkedList<>();
+    private static final double STEP = 2;
+    private static final double CLOSE_ENOUGH = 1.5;
+    private final Queue<double[]> path = new LinkedList<>();
 
-    public Path(int[] start, int[] destination) {
-        int[] nextStep;
+    public Path(double[] start, double[] destination) {
+        double[] nextStep;
         while (!arrived(start, destination)) {
             double vx = destination[0] - start[0];
             double vy = destination[1] - start[1];
@@ -23,9 +23,9 @@ public class Path implements Action {
 
             vx /= mag;
             vy /= mag;
-            int px = (int)(start[0] + vx * STEP);
-            int py = (int)(start[1] + vy * STEP);
-            nextStep = new int[] {px, py};
+            double px = (start[0] + vx * STEP);
+            double py = (start[1] + vy * STEP);
+            nextStep = new double[] {px, py};
             path.add(nextStep);
             start = nextStep;
         }
@@ -38,11 +38,11 @@ public class Path implements Action {
         return path.size() > 0;
     }
 
-    private boolean arrived(int[] pointA, int[] pointB) {
-        int xBig = pointA[0] + CLOSE_ENOUGH;
-        int xSmall = pointA[0] - CLOSE_ENOUGH;
-        int yBig = pointA[1] + CLOSE_ENOUGH;
-        int ySmall = pointA[1] - CLOSE_ENOUGH;
+    private boolean arrived(double[] pointA, double[] pointB) {
+        double xBig = pointA[0] + CLOSE_ENOUGH;
+        double xSmall = pointA[0] - CLOSE_ENOUGH;
+        double yBig = pointA[1] + CLOSE_ENOUGH;
+        double ySmall = pointA[1] - CLOSE_ENOUGH;
         return pointB[0] < xBig && pointB[0] > xSmall && pointB[1] < yBig && pointB[1] > ySmall;
     }
 }

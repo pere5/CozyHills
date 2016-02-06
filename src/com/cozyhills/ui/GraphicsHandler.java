@@ -44,8 +44,6 @@ public class GraphicsHandler extends JFrame {
             System.out.print(character == 1 ? " - " : character == 2 ? " + " : " * ");
             System.out.println(System.currentTimeMillis() - time);
 
-
-
             //  delay for each frame  -   time it took for one frame
             time = (1000 / intendedFps) - (System.currentTimeMillis() - time);
             if (time > 0) {
@@ -115,9 +113,9 @@ public class GraphicsHandler extends JFrame {
             for (VisibleEntity type: types) {
                 bbg.setColor(type.color);
                 if (type.SHAPE.equals(Const.SHAPES.RECT)) {
-                    bbg.fillRect(type.xy[0], type.xy[1], type.size, type.size);
+                    bbg.fillRect((int)type.xy[0], (int)type.xy[1], type.size, type.size);
                 } else {
-                    bbg.fillOval(type.xy[0], type.xy[1], type.size, type.size);
+                    bbg.fillOval((int)type.xy[0], (int)type.xy[1], type.size, type.size);
                 }
             }
         }

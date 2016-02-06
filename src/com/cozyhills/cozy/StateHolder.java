@@ -22,7 +22,7 @@ public class StateHolder {
 
     private static int idGenerator = 0;
 
-    private static Map<Class<?>, Set<? extends VisibleEntity>> state = new HashMap<>();
+    private static Map<Class, Set> state = new HashMap<>();
 
     static {
         createPersons();
@@ -37,14 +37,14 @@ public class StateHolder {
         state.put(Wood.class, new HashSet<Wood>());
     }
 
-    public static Map<Class<?>, Set<? extends VisibleEntity>> getState() {
+    public static Map<Class, Set> getState() {
         return state;
     }
 
 
     private static void createHomes() {
         Set<Home> homes = new HashSet<>();
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 40; i++) {
             homes.add(new BasicHut());
         }
         state.put(Home.class, homes);
@@ -68,7 +68,7 @@ public class StateHolder {
 
     private static void createPersons() {
         Set<Person> persons = new HashSet<>();
-        for (int i = 0; i < 40; i++) {
+        for (int i = 0; i < 100; i++) {
             persons.add(new Person());
         }
         state.put(Person.class, persons);
