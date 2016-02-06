@@ -1,7 +1,10 @@
 package com.cozyhills.cozy;
 
 import com.cozyhills.Const;
+import com.cozyhills.things.VisibleEntity;
+import com.cozyhills.things.items.Item;
 
+import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -30,6 +33,14 @@ public class Util {
         }
     }
 
+    public static Optional<Class> getCorrespondingResourceFromItemType(Class itemType) {
+        try {
+            return Optional.of(((Item)itemType.newInstance()).getCorrespondingResource());
+        } catch (IllegalAccessException | InstantiationException e) {
+            return Optional.empty();
+        }
+    }
+
     public static void print(double value) {
         System.out.print(value + " ");
     }
@@ -52,5 +63,17 @@ public class Util {
 
     public static void print(boolean value) {
         System.out.print(value + " ");
+    }
+
+    public static void print(VisibleEntity value) {
+        System.out.print(value);
+    }
+
+    public static void printNotImplemented(String value) {
+        System.out.print("NOT IMPLEMENTED: " + value);
+    }
+
+    public static void printPerIsStupidMessage(String value) {
+        System.out.print("Per is stupid: " + value);
     }
 }

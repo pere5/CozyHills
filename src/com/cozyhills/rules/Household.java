@@ -44,35 +44,37 @@ public class Household extends RuleHelper {
     public void initWork(Person me, int status) {
         Queue<Action> actionQueue = me.getActionQueue();
         if (me.getHome().isPresent()) {
-            //improve home
-            actionQueue.add(new Wait(10));
-            Util.print("NOT IMPLEMENTED, improve home!");
+            improveHome(actionQueue);
         } else if (me.searchForHome()) {
             moveInToHome(me, actionQueue);
+        } else if (me.carryingOneOfItems(BasicHut.buildCost())) {
+            buildHome(me, actionQueue);
         } else {
-            if (me.carryingOneOfItems(BasicHut.buildCost())) {
-                buildHome(me, actionQueue);
+            @SuppressWarnings("unchecked") Optional<Item> item = getClosestVisibleEntityOfTypeSet(me, VISIBLE_ZONE, BasicHut.buildCost().keySet());
+            if (item.isPresent()) {
+                takeItem(me, actionQueue, item);
             } else {
-                @SuppressWarnings("unchecked") Optional<Item> item = getClosestVisibleEntityOfTypeSet(me, VISIBLE_ZONE, BasicHut.buildCost().keySet());
-                if (item.isPresent()) {
-                    takeAnItem(me, actionQueue, item);
-                } else {
-                    gatherResource(me, actionQueue);
-                }
+                gatherResource(me, actionQueue);
             }
         }
+    }
+
+    private void improveHome(Queue<Action> actionQueue) {
+        Util.printNotImplemented("improve home!");
+        actionQueue.add(new Wait(10));
     }
 
     private void gatherResource(Person me, Queue<Action> actionQueue) {
         @SuppressWarnings("unchecked") Optional<Resource> resource = getClosestVisibleResourceFromItemSet(me, VISIBLE_ZONE, BasicHut.buildCost().keySet());
         if (resource.isPresent()) {
             actionQueue.add(new Path(me.xy, resource.get().xy));
+            actionQueue.add(new Gather(resource.get()));
         } else {
             actionQueue.add(new Path(me.xy, randomDestination(me, VISIBLE_ZONE / 2)));
         }
     }
 
-    private void takeAnItem(Person me, Queue<Action> actionQueue, Optional<Item> item) {
+    private void takeItem(Person me, Queue<Action> actionQueue, Optional<Item> item) {
         actionQueue.add(new Path(me.xy, item.get().xy));
         actionQueue.add(new PickUp(item.get()));
     }

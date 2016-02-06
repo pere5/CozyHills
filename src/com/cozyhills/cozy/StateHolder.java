@@ -102,4 +102,8 @@ public class StateHolder {
     public static int getNewId() {
         return idGenerator++;
     }
+
+    public static void removeEntity(VisibleEntity visibleEntity) {
+        Util.printNotImplemented("StateHolder.removeEntity()");
+    }
 }

@@ -5,7 +5,7 @@ import com.cozyhills.things.Person;
 /**
  * Created by pere5 on 14/01/16.
  */
-public class Wait implements Action {
+public class Wait extends Action {
 
     private int wait;
 

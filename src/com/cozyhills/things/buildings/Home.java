@@ -29,7 +29,6 @@ public abstract class Home extends Building {
                     tenants[i] = me;
                     takenRooms++;
                     me.setHome(this);
-                    Util.print("Moved in!");
                     return;
                 }
             }

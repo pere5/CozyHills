@@ -72,7 +72,7 @@ public abstract class RuleHelper implements Rule {
                 .filter(Optional::isPresent)
                 .map(type -> getClosestVisibleEntity(me, VISIBLE_ZONE, type.get()))
                 .filter(Optional::isPresent)
-                .min(Comparator.comparingDouble(optional -> rangeSimplified(me, optional.get()))).get();
+                .min(Comparator.comparingDouble(optional -> rangeSimplified(me, optional.get()))).orElse(Optional.empty());
     }
 
     private Optional<Class> getCorrespondingResourceFromItemType(Class itemType) {

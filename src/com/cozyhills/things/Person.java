@@ -5,6 +5,7 @@ import com.cozyhills.cozy.Util;
 import com.cozyhills.rules.Rule;
 import com.cozyhills.things.buildings.Home;
 import com.cozyhills.things.items.Item;
+import com.cozyhills.things.resources.Resource;
 
 import java.awt.*;
 import java.util.*;
@@ -19,7 +20,6 @@ public class Person extends VisibleEntity {
     private final Queue<Action> actionQueue = new LinkedList<>();
     private Set<Home> visitedHomes = new HashSet<>();
     private Optional<Home> home = Optional.empty();
-    private Rule currentRule = null;
     private int searchForHome = 5;
     private Optional<Item> carrying = Optional.empty();
     private Optional<double[]> safeSpot = Optional.empty();
@@ -55,7 +55,6 @@ public class Person extends VisibleEntity {
     }
 
     public void startWorking(Rule selectedRule, int status) {
-        currentRule = selectedRule;
         selectedRule.initWork(this, status);
     }
 
@@ -73,10 +72,6 @@ public class Person extends VisibleEntity {
 
     public Optional<Home> getHome() {
         return home;
-    }
-
-    public Rule getCurrentRule () {
-        return currentRule;
     }
 
     public boolean searchForHome() {
@@ -105,6 +100,6 @@ public class Person extends VisibleEntity {
     }
 
     public Optional<double[]> getSafeSpot() {
-        return safeSpot;
+        return home.isPresent() ? Optional.of(home.get().xy) : safeSpot;
     }
 }

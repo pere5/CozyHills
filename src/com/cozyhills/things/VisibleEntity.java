@@ -22,6 +22,10 @@ public abstract class VisibleEntity {
         this.xy[1] = Util.generateHeight();
     }
 
+    protected void removeVisibleEntity(VisibleEntity visibleEntity) {
+        StateHolder.removeEntity(visibleEntity);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
