@@ -53,7 +53,7 @@ public class Household extends RuleHelper {
             if (me.carryingOneOfItems(BasicHut.buildCost())) {
                 buildHome(me, actionQueue);
             } else {
-                Optional<Item> item = getClosestVisibleEntityOfTypeSet(me, VISIBLE_ZONE, BasicHut.buildCost().keySet());
+                @SuppressWarnings("unchecked") Optional<Item> item = getClosestVisibleEntityOfTypeSet(me, VISIBLE_ZONE, BasicHut.buildCost().keySet());
                 if (item.isPresent()) {
                     takeAnItem(me, actionQueue, item);
                 } else {
@@ -64,7 +64,7 @@ public class Household extends RuleHelper {
     }
 
     private void gatherResource(Person me, Queue<Action> actionQueue) {
-        Optional<Resource> resource = getClosestVisibleResourceFromItemSet(me, VISIBLE_ZONE, BasicHut.buildCost().keySet());
+        @SuppressWarnings("unchecked") Optional<Resource> resource = getClosestVisibleResourceFromItemSet(me, VISIBLE_ZONE, BasicHut.buildCost().keySet());
         if (resource.isPresent()) {
             actionQueue.add(new Path(me.xy, resource.get().xy));
         } else {
