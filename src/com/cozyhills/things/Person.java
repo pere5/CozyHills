@@ -1,6 +1,7 @@
 package com.cozyhills.things;
 
 import com.cozyhills.actions.Action;
+import com.cozyhills.cozy.StateHolder;
 import com.cozyhills.cozy.Util;
 import com.cozyhills.rules.Rule;
 import com.cozyhills.things.buildings.Home;
@@ -18,7 +19,8 @@ public class Person extends VisibleEntity {
 
     private final Set<VisibleEntity> targets = new HashSet<>();
     private final Queue<Action> actionQueue = new LinkedList<>();
-    private Set<Home> visitedHomes = new HashSet<>();
+    private final Map<Class, Integer> levels = new HashMap<>();
+    private final Set<Home> visitedHomes = new HashSet<>();
     private Optional<Home> home = Optional.empty();
     private int searchForHome = 5;
     private Optional<Item> carrying = Optional.empty();
@@ -95,11 +97,38 @@ public class Person extends VisibleEntity {
         return carrying.isPresent() && items.get(carrying.get().getClass()) != null;
     }
 
+    public boolean carryingSomething() {
+        return carrying.isPresent();
+    }
+
     public void safeSpot(double[] safeSpot) {
         this.safeSpot = Optional.of(safeSpot);
     }
 
     public Optional<double[]> getSafeSpot() {
         return home.isPresent() ? Optional.of(home.get().xy) : safeSpot;
+    }
+
+    public void carry(Item item) {
+        carrying = Optional.of(item);
+    }
+
+    public void levelUp(Item item) {
+        Integer level = levels.get(item.getClass());
+        if (level == null) {
+            levels.put(item.getClass(), 1);
+        } else {
+            levels.put(item.getClass(), level + 1);
+        }
+    }
+
+    public void dropCarrying() {
+        if (carrying.isPresent()) {
+            Item item = carrying.get();
+            item.xy = this.xy;
+
+            StateHolder.getState().get(item.getClass()).add(item);
+            carrying = Optional.empty();
+        }
     }
 }

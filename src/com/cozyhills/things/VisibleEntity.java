@@ -23,7 +23,7 @@ public abstract class VisibleEntity {
     }
 
     protected void removeVisibleEntity(VisibleEntity visibleEntity) {
-        StateHolder.removeEntity(visibleEntity);
+        StateHolder.removeVisibleEntity(visibleEntity);
     }
 
     @Override

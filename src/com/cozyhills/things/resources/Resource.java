@@ -3,6 +3,8 @@ package com.cozyhills.things.resources;
 import com.cozyhills.things.VisibleEntity;
 import com.cozyhills.things.items.Item;
 
+import java.util.Optional;
+
 /**
  * Created by pere5 on 03/02/16.
  */
@@ -14,11 +16,13 @@ public abstract class Resource extends VisibleEntity {
 
     protected abstract Item getItemType();
 
-    public Item gathered() {
+    public Optional<Item> gathered() {
         numberOfItems--;
         if (numberOfItems < 0) {
             removeVisibleEntity(this);
+            return Optional.empty();
+        } else {
+            return Optional.of(getItemType());
         }
-        return getItemType();
     }
 }

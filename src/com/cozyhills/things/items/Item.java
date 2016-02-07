@@ -8,5 +8,9 @@ import com.cozyhills.things.resources.Resource;
  */
 public abstract class Item extends VisibleEntity {
 
+    public Item () {
+        super();
+    }
+
     public abstract Class<? extends Resource> getCorrespondingResource();
 }

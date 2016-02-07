@@ -67,6 +67,7 @@ public class Household extends RuleHelper {
     private void gatherResource(Person me, Queue<Action> actionQueue) {
         @SuppressWarnings("unchecked") Optional<Resource> resource = getClosestVisibleResourceFromItemSet(me, VISIBLE_ZONE, BasicHut.buildCost().keySet());
         if (resource.isPresent()) {
+            actionQueue.add(new DropCarrying());
             actionQueue.add(new Path(me.xy, resource.get().xy));
             actionQueue.add(new Gather(resource.get()));
         } else {
@@ -82,9 +83,9 @@ public class Household extends RuleHelper {
     private void buildHome(Person me, Queue<Action> actionQueue) {
         if (me.getSafeSpot().isPresent()) {
             actionQueue.add(new Path(me.xy, me.getSafeSpot().get()));
-            actionQueue.add(new Build(BasicHut.class));
+            actionQueue.add(new BuildHome(BasicHut.class));
         } else {
-            actionQueue.add(new Build(BasicHut.class));
+            actionQueue.add(new BuildHome(BasicHut.class));
         }
     }
 

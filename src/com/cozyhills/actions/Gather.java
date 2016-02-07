@@ -22,15 +22,21 @@ public class Gather extends Action {
 
     @Override
     public boolean doIt(Person me) {
-        if (closeEnough(me.xy, resource.xy)) {
+        if (closeEnough(me.xy, resource.xy) && !me.carryingSomething()) {
             turnsToGatherResource--;
             if (turnsToGatherResource < 0) {
-                @SuppressWarnings("unchecked") Item item = resource.gathered();
+                Optional<Item> item = resource.gathered();
+                if (item.isPresent()) {
+                    me.carry(item.get());
+                    me.levelUp(item.get());
+                }
+                return false;
+            } else {
+                return true;
             }
-            return false;
         } else {
             Util.printPerIsStupidMessage("Gather.doIt()");
+            return false;
         }
-        return false;
     }
 }

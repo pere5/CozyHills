@@ -28,7 +28,6 @@ public class StateHolder {
         createPersons();
         createTrees();
         createRocks();
-
         createHomes();
 
         state.put(Clothes.class, new HashSet<Clothes>());
@@ -103,7 +102,9 @@ public class StateHolder {
         return idGenerator++;
     }
 
-    public static void removeEntity(VisibleEntity visibleEntity) {
-        Util.printNotImplemented("StateHolder.removeEntity()");
+    public static void removeVisibleEntity(VisibleEntity visibleEntity) {
+        Util.print("Removing entity: ");
+        Util.print(visibleEntity);
+        state.get(visibleEntity.getClass()).remove(visibleEntity);
     }
 }
