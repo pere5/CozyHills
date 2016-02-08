@@ -135,4 +135,14 @@ public class Person extends VisibleEntity {
             carrying = Optional.empty();
         }
     }
+
+    public void visited(Home home) {
+        visitedHomes.add(home);
+    }
+
+    public Item useCarryingItem() {
+        Item item = carrying.get();
+        carrying = Optional.empty();
+        return item;
+    }
 }

@@ -22,6 +22,11 @@ public abstract class VisibleEntity {
         this.xy[1] = Util.generateHeight();
     }
 
+    public VisibleEntity(double[] position) {
+        this.id = StateHolder.getNewId();
+        this.xy = position;
+    }
+
     protected void removeVisibleEntity(VisibleEntity visibleEntity) {
         StateHolder.removeVisibleEntity(visibleEntity);
     }

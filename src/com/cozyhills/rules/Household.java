@@ -87,9 +87,9 @@ public class Household extends RuleHelper {
     private void buildHome(Person me, Optional<Item> carryingItem, Queue<Action> actionQueue) {
         if (me.getSafeSpot().isPresent()) {
             actionQueue.add(new Path(me.xy, me.getSafeSpot().get()));
-            actionQueue.add(new BuildHome(BasicHut.class, carryingItem));
+            actionQueue.add(new BuildHome(new BasicHut(me.getSafeSpot().get()), carryingItem));
         } else {
-            actionQueue.add(new BuildHome(BasicHut.class, carryingItem));
+            actionQueue.add(new BuildHome(new BasicHut(me.getSafeSpot().get()), carryingItem));
         }
     }
 

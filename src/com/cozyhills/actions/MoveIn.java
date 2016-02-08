@@ -8,7 +8,7 @@ import com.cozyhills.things.Person;
  * Created by pere5 on 30/01/16.
  */
 public class MoveIn extends Action {
-    Home home;
+    private final Home home;
 
     public MoveIn(Home home) {
         this.home = home;
@@ -18,6 +18,7 @@ public class MoveIn extends Action {
     public boolean doIt(Person me) {
         if (closeEnough(me.xy, home.xy)) {
             home.moveIn(me);
+            me.visited(home);
             return DONE;
         } else {
             Util.printPerIsStupidMessage("MoveIn.doIt()");

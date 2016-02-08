@@ -1,11 +1,11 @@
 package com.cozyhills.things.buildings;
 
 import com.cozyhills.Const;
-import com.cozyhills.things.items.Item;
 import com.cozyhills.things.items.Stone;
 import com.cozyhills.things.items.Wood;
 
 import java.awt.*;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -13,26 +13,37 @@ import java.util.Map;
  */
 public class BasicHut extends Home {
 
-    final static int ROOMS = 1;
-    final private static int STATUS = 1;
+    private static final int ROOMS = 1;
+    private static final int STATUS = 1;
+    protected static final Color CONSTRUCTING_COLOR = Color.decode("#DE8D87");
+    protected static final Color FINISHED_COLOR = Color.decode("#DEB887");
 
-    public BasicHut () {
+    protected static final Map<Class, Integer> BUILD_COST = new HashMap<>();
+    static {
+        BUILD_COST.put(Stone.class, 1);
+        BUILD_COST.put(Wood.class, 2);
+    }
+
+    public BasicHut() {
         super(ROOMS, STATUS);
+        this.color = FINISHED_COLOR;
+        this.finished = true;
+        setDefaults();
+    }
+
+    public BasicHut(double[] position) {
+        super(ROOMS, STATUS, BUILD_COST, position);
+        this.color = CONSTRUCTING_COLOR;
+        this.finished = false;
         setDefaults();
     }
 
     private void setDefaults() {
         this.size = 10;
-        this.color = Color.decode("#DEB887");
         this.SHAPE = Const.SHAPES.CIRCLE;
     }
 
-    static {
-        buildCost.put(Stone.class, 1);
-        buildCost.put(Wood.class, 2);
-    }
-
     public static Map<Class, Integer> buildCost() {
-        return buildCost;
+        return BUILD_COST;
     }
 }
