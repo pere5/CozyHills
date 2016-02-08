@@ -93,12 +93,16 @@ public class Person extends VisibleEntity {
         this.home = Optional.of(home);
     }
 
-    public boolean carryingOneOfItems(Map<Class, Integer> items) {
-        return carrying.isPresent() && items.get(carrying.get().getClass()) != null;
+    public Optional<Item> carryingOneOfItems(Map<Class, Integer> items) {
+        if (carrying.isPresent() && items.get(carrying.get().getClass()) != null) {
+            return carrying;
+        } else {
+            return Optional.empty();
+        }
     }
 
-    public boolean carryingSomething() {
-        return carrying.isPresent();
+    public Optional<Item> carrying() {
+        return carrying;
     }
 
     public void safeSpot(double[] safeSpot) {

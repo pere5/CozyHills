@@ -47,14 +47,18 @@ public class Household extends RuleHelper {
             improveHome(actionQueue);
         } else if (me.searchForHome()) {
             moveInToHome(me, actionQueue);
-        } else if (me.carryingOneOfItems(BasicHut.buildCost())) {
-            buildHome(me, actionQueue);
         } else {
-            @SuppressWarnings("unchecked") Optional<Item> item = getClosestVisibleEntityOfTypeSet(me, VISIBLE_ZONE, BasicHut.buildCost().keySet());
-            if (item.isPresent()) {
-                takeItem(me, actionQueue, item);
+            Optional<Item> carryingItem = me.carryingOneOfItems(BasicHut.buildCost());
+            if (carryingItem.isPresent()) {
+                buildHome(me, carryingItem, actionQueue);
             } else {
-                gatherResource(me, actionQueue);
+                @SuppressWarnings("unchecked")
+                Optional<Item> visibleItem = getClosestVisibleEntityOfTypeSet(me, VISIBLE_ZONE, BasicHut.buildCost().keySet());
+                if (visibleItem.isPresent()) {
+                    pickUpItem(me, actionQueue, visibleItem);
+                } else {
+                    gatherResource(me, actionQueue);
+                }
             }
         }
     }
@@ -75,17 +79,17 @@ public class Household extends RuleHelper {
         }
     }
 
-    private void takeItem(Person me, Queue<Action> actionQueue, Optional<Item> item) {
+    private void pickUpItem(Person me, Queue<Action> actionQueue, Optional<Item> item) {
         actionQueue.add(new Path(me.xy, item.get().xy));
         actionQueue.add(new PickUp(item.get()));
     }
 
-    private void buildHome(Person me, Queue<Action> actionQueue) {
+    private void buildHome(Person me, Optional<Item> carryingItem, Queue<Action> actionQueue) {
         if (me.getSafeSpot().isPresent()) {
             actionQueue.add(new Path(me.xy, me.getSafeSpot().get()));
-            actionQueue.add(new BuildHome(BasicHut.class));
+            actionQueue.add(new BuildHome(BasicHut.class, carryingItem));
         } else {
-            actionQueue.add(new BuildHome(BasicHut.class));
+            actionQueue.add(new BuildHome(BasicHut.class, carryingItem));
         }
     }
 

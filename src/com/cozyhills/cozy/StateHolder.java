@@ -103,8 +103,6 @@ public class StateHolder {
     }
 
     public static void removeVisibleEntity(VisibleEntity visibleEntity) {
-        Util.print("Removing entity: ");
-        Util.print(visibleEntity);
         state.get(visibleEntity.getClass()).remove(visibleEntity);
     }
 }

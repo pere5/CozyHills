@@ -5,7 +5,6 @@ import com.cozyhills.things.Person;
 import com.cozyhills.things.items.Item;
 import com.cozyhills.things.resources.Resource;
 
-import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -22,7 +21,7 @@ public class Gather extends Action {
 
     @Override
     public boolean doIt(Person me) {
-        if (closeEnough(me.xy, resource.xy) && !me.carryingSomething()) {
+        if (closeEnough(me.xy, resource.xy) && me.carrying().isPresent()) {
             turnsToGatherResource--;
             if (turnsToGatherResource < 0) {
                 Optional<Item> item = resource.gathered();
