@@ -29,13 +29,13 @@ public class Gather extends Action {
                     me.carry(item.get());
                     me.levelUp(item.get());
                 }
-                return false;
+                return DONE;
             } else {
-                return true;
+                return CONTINUE;
             }
         } else {
             Util.printPerIsStupidMessage("Gather.doIt()");
-            return false;
+            return DONE;
         }
     }
 }

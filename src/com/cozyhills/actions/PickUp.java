@@ -20,9 +20,10 @@ public class PickUp extends Action {
     public boolean doIt(Person me) {
         if (closeEnough(me.xy, resource.xy)) {
             //resource.moveIn(me);
+            return CONTINUE;
         } else {
             Util.printPerIsStupidMessage("PickUp.doIt()");
+            return DONE;
         }
-        return false;
     }
 }

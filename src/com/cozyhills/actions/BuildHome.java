@@ -22,10 +22,10 @@ public class BuildHome extends Action {
     @Override
     public boolean doIt(Person me) {
         if (carryingItem == me.carrying()) {
-
+            return CONTINUE;
         } else {
             Util.printPerIsStupidMessage("BuildHome.doIt()");
-            return false;
+            return DONE;
         }
     }
 }

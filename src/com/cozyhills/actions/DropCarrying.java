@@ -9,6 +9,6 @@ public class DropCarrying extends Action {
     @Override
     public boolean doIt(Person me) {
         me.dropCarrying();
-        return false;
+        return DONE;
     }
 }

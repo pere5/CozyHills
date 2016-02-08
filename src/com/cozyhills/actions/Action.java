@@ -7,6 +7,8 @@ import com.cozyhills.things.Person;
  */
 public abstract class Action {
 
+    public static final boolean CONTINUE = true;
+    public static final boolean DONE = false;
     private static final double CLOSE_ENOUGH = 1.5;
 
     protected boolean closeEnough(double[] pointA, double[] pointB) {

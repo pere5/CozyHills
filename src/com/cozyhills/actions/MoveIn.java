@@ -18,9 +18,10 @@ public class MoveIn extends Action {
     public boolean doIt(Person me) {
         if (closeEnough(me.xy, home.xy)) {
             home.moveIn(me);
+            return DONE;
         } else {
             Util.printPerIsStupidMessage("MoveIn.doIt()");
+            return DONE;
         }
-        return false;
     }
 }
