@@ -39,7 +39,6 @@ public abstract class VisibleEntity {
         VisibleEntity that = (VisibleEntity) o;
 
         return id == that.id;
-
     }
 
     @Override

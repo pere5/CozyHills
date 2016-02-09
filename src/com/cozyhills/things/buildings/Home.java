@@ -17,9 +17,9 @@ public abstract class Home extends Building {
         tenants = new Person[ROOMS];
     }
 
-    public Home(final int rooms, final int STATUS) {
+    public Home(final int ROOMS, final int STATUS) {
         super(STATUS);
-        tenants = new Person[rooms];
+        tenants = new Person[ROOMS];
     }
 
     public void moveIn(Person me) {

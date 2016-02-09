@@ -17,8 +17,8 @@ public class BasicHut extends Home {
     private static final int STATUS = 1;
     private static final Color CONSTRUCTING_COLOR = Color.decode("#DE8D87");
     private static final Color FINISHED_COLOR = Color.decode("#DEB887");
+    private static final Map<Class, Integer> BUILD_COST = new HashMap<>();
 
-    protected static final Map<Class, Integer> BUILD_COST = new HashMap<>();
     static {
         BUILD_COST.put(Stone.class, 1);
         BUILD_COST.put(Wood.class, 2);

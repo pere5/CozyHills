@@ -11,7 +11,7 @@ import java.util.Map;
  */
 public abstract class Building extends VisibleEntity {
 
-    protected final Map<Class, Integer> constructionMaterials;
+    private final Map<Class, Integer> constructionMaterials;
     private final int STATUS;
 
     protected boolean finished;
@@ -22,16 +22,16 @@ public abstract class Building extends VisibleEntity {
         this.STATUS = STATUS;
     }
 
+    public Building(final int STATUS) {
+        super();
+        constructionMaterials = null;
+        this.STATUS = STATUS;
+    }
+
     private Map<Class, Integer> clone(Map<Class, Integer> BUILD_COST) {
         Map<Class, Integer> clone = new HashMap<>();
         BUILD_COST.forEach(clone::put);
         return clone;
-    }
-
-    public Building(final int STATUS) {
-        super();
-        constructionMaterials = new HashMap<>();
-        this.STATUS = STATUS;
     }
 
     public int getStatus() {
