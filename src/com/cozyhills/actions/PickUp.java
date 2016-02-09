@@ -2,7 +2,6 @@ package com.cozyhills.actions;
 
 import com.cozyhills.cozy.Util;
 import com.cozyhills.things.Person;
-import com.cozyhills.things.VisibleEntity;
 import com.cozyhills.things.items.Item;
 
 /**

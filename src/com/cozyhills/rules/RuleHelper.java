@@ -2,11 +2,14 @@ package com.cozyhills.rules;
 
 import com.cozyhills.cozy.StateHolder;
 import com.cozyhills.cozy.Util;
-import com.cozyhills.things.*;
+import com.cozyhills.things.Person;
+import com.cozyhills.things.VisibleEntity;
 import com.cozyhills.things.buildings.Home;
 import com.cozyhills.things.items.Item;
 
-import java.util.*;
+import java.util.Comparator;
+import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**

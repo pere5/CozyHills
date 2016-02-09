@@ -1,12 +1,9 @@
 package com.cozyhills.things.resources;
 
 import com.cozyhills.cozy.Util;
-import com.cozyhills.things.items.Item;
 import com.cozyhills.things.items.Stone;
-import com.cozyhills.things.items.Wood;
 
 import java.awt.*;
-import java.util.Optional;
 
 /**
  * Created by pere5 on 02/01/16.

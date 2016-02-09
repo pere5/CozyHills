@@ -1,6 +1,7 @@
 package com.cozyhills.cozy;
 
-import com.cozyhills.things.*;
+import com.cozyhills.things.Person;
+import com.cozyhills.things.VisibleEntity;
 import com.cozyhills.things.buildings.BasicHut;
 import com.cozyhills.things.buildings.Home;
 import com.cozyhills.things.items.Clothes;
@@ -22,7 +23,7 @@ public class StateHolder {
 
     private static int idGenerator = 0;
 
-    private static Map<Class, Set> state = new HashMap<>();
+    private static final Map<Class, Set> state = new HashMap<>();
 
     static {
         createPersons();

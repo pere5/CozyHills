@@ -1,8 +1,8 @@
 package com.cozyhills.actions;
 
 import com.cozyhills.cozy.Util;
-import com.cozyhills.things.buildings.Home;
 import com.cozyhills.things.Person;
+import com.cozyhills.things.buildings.Home;
 
 /**
  * Created by pere5 on 30/01/16.

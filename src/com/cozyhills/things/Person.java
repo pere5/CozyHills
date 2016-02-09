@@ -6,7 +6,6 @@ import com.cozyhills.cozy.Util;
 import com.cozyhills.rules.Rule;
 import com.cozyhills.things.buildings.Home;
 import com.cozyhills.things.items.Item;
-import com.cozyhills.things.resources.Resource;
 
 import java.awt.*;
 import java.util.*;

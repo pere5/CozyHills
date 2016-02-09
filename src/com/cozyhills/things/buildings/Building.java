@@ -1,10 +1,8 @@
 package com.cozyhills.things.buildings;
 
-import com.cozyhills.Const;
 import com.cozyhills.things.VisibleEntity;
 import com.cozyhills.things.items.Item;
 
-import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 

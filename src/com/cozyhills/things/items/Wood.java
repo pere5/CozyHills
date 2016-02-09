@@ -1,7 +1,5 @@
 package com.cozyhills.things.items;
 
-import com.cozyhills.cozy.Util;
-import com.cozyhills.things.VisibleEntity;
 import com.cozyhills.things.resources.Resource;
 import com.cozyhills.things.resources.Tree;
 
