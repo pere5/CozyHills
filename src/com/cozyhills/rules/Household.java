@@ -53,7 +53,7 @@ public class Household extends RuleHelper {
     }
 
     private void buildNewHut(Person me, Queue<Action> actionQueue) {
-        Optional<Item> carryingItem = me.carryingOneOfItems(BasicHut.buildCost());
+        Optional<Item> carryingItem = me.getAnCarryingItemOfTypes(BasicHut.buildCost());
         if (carryingItem.isPresent()) {
             buildNewHut(me, carryingItem.get(), actionQueue);
         } else {
@@ -69,8 +69,8 @@ public class Household extends RuleHelper {
 
     private void improveHome(Person me, Queue<Action> actionQueue) {
         Home home = me.getHome().get();
-        if (home.underConstruction()) {
-            Optional<Item> carryingItem = me.carryingOneOfItems(home.remainingBuildCost());
+        if (!home.completed()) {
+            Optional<Item> carryingItem = me.getAnCarryingItemOfTypes(home.remainingBuildCost());
             if (carryingItem.isPresent()) {
                 continueConstruction(me, home, carryingItem.get(), actionQueue);
             } else {

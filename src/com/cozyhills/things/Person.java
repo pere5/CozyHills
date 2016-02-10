@@ -84,17 +84,15 @@ public class Person extends VisibleEntity {
         return actionQueue;
     }
 
-    public Set<Home> getVisitedHomes() {
-        return visitedHomes;
-    }
-
-    public void setHome(Home home) {
+    public void moveIn(Home home) {
         this.home = Optional.of(home);
     }
 
-    public Optional<Item> carryingOneOfItems(Map<Class, Integer> items) {
+    public Optional<Item> getAnCarryingItemOfTypes(Map<Class, Integer> items) {
         if (carrying.isPresent() && items.get(carrying.get().getClass()) != null) {
-            return carrying;
+            Optional<Item> item = carrying;
+            carrying = Optional.empty();
+            return item;
         } else {
             return Optional.empty();
         }
@@ -129,7 +127,6 @@ public class Person extends VisibleEntity {
         if (carrying.isPresent()) {
             Item item = carrying.get();
             item.xy = this.xy;
-
             StateHolder.getState().get(item.getClass()).add(item);
             carrying = Optional.empty();
         }
@@ -139,9 +136,7 @@ public class Person extends VisibleEntity {
         visitedHomes.add(home);
     }
 
-    public Item useCarryingItem() {
-        Item item = carrying.get();
-        carrying = Optional.empty();
-        return item;
+    public boolean notVisited(Home home) {
+        return !visitedHomes.contains(home);
     }
 }

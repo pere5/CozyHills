@@ -45,6 +45,14 @@ public class BasicHut extends Home {
         this.SHAPE = Const.SHAPES.CIRCLE;
     }
 
+    protected Color getConstructingColor() {
+        return CONSTRUCTING_COLOR;
+    }
+
+    protected Color getFinishedColor() {
+        return FINISHED_COLOR;
+    }
+
     public static Map<Class, Integer> buildCost() {
         return BUILD_COST;
     }

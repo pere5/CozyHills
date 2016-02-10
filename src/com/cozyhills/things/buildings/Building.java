@@ -4,8 +4,10 @@ import com.cozyhills.cozy.Util;
 import com.cozyhills.things.VisibleEntity;
 import com.cozyhills.things.items.Item;
 
+import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Created by pere5 on 02/02/16.
@@ -25,13 +27,13 @@ public abstract class Building extends VisibleEntity {
 
     public Building(int status) {
         super();
-        this.constructionMaterials = null;
+        this.constructionMaterials = new HashMap<>();
         this.status = status;
     }
 
-    private Map<Class, Integer> clone(Map<Class, Integer> BUILD_COST) {
+    private Map<Class, Integer> clone(Map<Class, Integer> buildCost) {
         Map<Class, Integer> clone = new HashMap<>();
-        BUILD_COST.forEach(clone::put);
+        buildCost.forEach(clone::put);
         return clone;
     }
 
@@ -39,17 +41,22 @@ public abstract class Building extends VisibleEntity {
         return status;
     }
 
-    public boolean buildWith(Item item) {
-        constructionMaterials.blahaBlaha!;
-        if (klar) {
+    protected abstract Color getFinishedColor();
+    protected abstract Color getConstructingColor();
+
+    public void buildWith(Item item) {
+        Integer buildCost = constructionMaterials.get(item.getClass());
+        buildCost--;
+        if (buildCost == 0) {
             finished = true;
+            color = getFinishedColor();
+            constructionMaterials.clear();
         } else {
-            finished = false;
+            constructionMaterials.put(item.getClass(), buildCost);
         }
-        return false;
     }
 
-    public boolean underConstruction() {
+    public boolean completed() {
         return finished;
     }
 

@@ -95,7 +95,7 @@ public abstract class RuleHelper implements Rule {
 
     protected Optional<Home> getClosestUnvisitedVisibleHome(Person me, int visibleZone) {
         return getHomes().parallelStream()
-                .filter(home -> !me.getVisitedHomes().contains(home)) //Unvisited
+                .filter(me::notVisited) //Unvisited
                 .min(Comparator.comparingDouble(home -> rangeSimplified(me, home))) //Closest
                 .map(result -> range(me, result) <= visibleZone ? result : null); //Visible
     }
