@@ -50,7 +50,7 @@ public class Household extends RuleHelper {
         } else {
             Optional<Item> carryingItem = me.carryingOneOfItems(BasicHut.buildCost());
             if (carryingItem.isPresent()) {
-                buildHome(me, carryingItem, actionQueue);
+                buildHome(me, carryingItem.get(), actionQueue);
             } else {
                 @SuppressWarnings("unchecked")
                 Optional<Item> visibleItem = getClosestVisibleEntityOfTypeSet(me, VISIBLE_ZONE, BasicHut.buildCost().keySet());
@@ -84,12 +84,13 @@ public class Household extends RuleHelper {
         actionQueue.add(new PickUp(item.get()));
     }
 
-    private void buildHome(Person me, Optional<Item> carryingItem, Queue<Action> actionQueue) {
+    private void buildHome(Person me, Item carryingItem, Queue<Action> actionQueue) {
         if (me.getSafeSpot().isPresent()) {
             actionQueue.add(new Path(me.xy, me.getSafeSpot().get()));
-            actionQueue.add(new BuildHome(new BasicHut(me.getSafeSpot().get()), carryingItem));
+            ska jag bygga nytt eller fortsätta på befintlig
+            actionQueue.add(new Build(new BasicHut()));
         } else {
-            actionQueue.add(new BuildHome(new BasicHut(me.getSafeSpot().get()), carryingItem));
+            actionQueue.add(new Build(new BasicHut()));
         }
     }
 

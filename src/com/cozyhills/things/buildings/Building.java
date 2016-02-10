@@ -12,20 +12,20 @@ import java.util.Map;
 public abstract class Building extends VisibleEntity {
 
     private final Map<Class, Integer> constructionMaterials;
-    private final int STATUS;
+    private final int status;
 
     protected boolean finished;
 
-    public Building(final int STATUS, final Map<Class, Integer> BUILD_COST, double[] position) {
-        super(position);
-        constructionMaterials = clone(BUILD_COST);
-        this.STATUS = STATUS;
+    public Building(int status, Map<Class, Integer> buildCost) {
+        super();
+        this.constructionMaterials = clone(buildCost);
+        this.status = status;
     }
 
-    public Building(final int STATUS) {
+    public Building(int status) {
         super();
-        constructionMaterials = null;
-        this.STATUS = STATUS;
+        this.constructionMaterials = null;
+        this.status = status;
     }
 
     private Map<Class, Integer> clone(Map<Class, Integer> BUILD_COST) {
@@ -35,11 +35,11 @@ public abstract class Building extends VisibleEntity {
     }
 
     public int getStatus() {
-        return STATUS;
+        return status;
     }
 
     public boolean buildWith(Item item) {
-        constructionMaterials.blahaBlaha!
+        //constructionMaterials.blahaBlaha!
         return false;
     }
 }

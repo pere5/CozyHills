@@ -1,6 +1,7 @@
 package com.cozyhills.things.buildings;
 
 import com.cozyhills.Const;
+import com.cozyhills.things.items.Item;
 import com.cozyhills.things.items.Stone;
 import com.cozyhills.things.items.Wood;
 
@@ -32,7 +33,8 @@ public class BasicHut extends Home {
     }
 
     public BasicHut(double[] position) {
-        super(ROOMS, STATUS, BUILD_COST, position);
+        super(ROOMS, STATUS, BUILD_COST);
+        this.xy = position;
         this.color = CONSTRUCTING_COLOR;
         this.finished = false;
         setDefaults();

@@ -1,6 +1,7 @@
 package com.cozyhills.things.buildings;
 
 import com.cozyhills.things.Person;
+import com.cozyhills.things.items.Item;
 
 import java.util.Map;
 
@@ -12,14 +13,14 @@ public abstract class Home extends Building {
     private final Person[] tenants;
     private int takenRooms = 0;
 
-    public Home(final int ROOMS, final int STATUS, final Map<Class, Integer> BUILD_COST, double[] position) {
-        super(STATUS, BUILD_COST, position);
-        tenants = new Person[ROOMS];
+    public Home(final int rooms, final int status) {
+        super(status);
+        tenants = new Person[rooms];
     }
 
-    public Home(final int ROOMS, final int STATUS) {
-        super(STATUS);
-        tenants = new Person[ROOMS];
+    public Home(int rooms, int status, Map<Class, Integer> buildCost) {
+        super(status, buildCost);
+        tenants = new Person[rooms];
     }
 
     public void moveIn(Person me) {
