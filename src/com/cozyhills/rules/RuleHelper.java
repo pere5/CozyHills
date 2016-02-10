@@ -40,12 +40,12 @@ public abstract class RuleHelper implements Rule {
         Util.print(id + ":" + status);
     }
 
-    protected static double range(VisibleEntity visibleEntity, VisibleEntity me) {
-        return Math.sqrt(Math.pow((visibleEntity.xy[0] - me.xy[0]), 2) + Math.pow((visibleEntity.xy[1] - me.xy[1]), 2));
+    protected static double range(VisibleEntity entity1, VisibleEntity entity2) {
+        return Math.sqrt(Math.pow((entity1.xy[0] - entity2.xy[0]), 2) + Math.pow((entity1.xy[1] - entity2.xy[1]), 2));
     }
 
-    protected static double rangeSimplified(VisibleEntity visibleEntity, VisibleEntity me) {
-        return Math.pow((visibleEntity.xy[0] - me.xy[0]), 2) + Math.pow((visibleEntity.xy[1] - me.xy[1]), 2);
+    protected static double rangeSimplified(VisibleEntity entity1, VisibleEntity entity2) {
+        return Math.pow((entity1.xy[0] - entity2.xy[0]), 2) + Math.pow((entity1.xy[1] - entity2.xy[1]), 2);
     }
 
     protected static double[] centroid(Set<VisibleEntity> visibleEntityList) {
@@ -63,17 +63,17 @@ public abstract class RuleHelper implements Rule {
         return centroid;
     }
 
-    protected static double[] randomDestination(Person me, final int DISTANCE) {
+    protected static double[] randomDestination(Person me, int distance) {
         double r1 = 1 - ThreadLocalRandom.current().nextInt(0, 2 + 1);
         double r2 = 1 - ThreadLocalRandom.current().nextInt(0, 2 + 1);
-        return new double[]{me.xy[0] + DISTANCE * r1, me.xy[1] + DISTANCE * r2};
+        return new double[]{me.xy[0] + distance * r1, me.xy[1] + distance * r2};
     }
 
-    protected Optional getClosestVisibleResourceFromItemSet(Person me, final int VISIBLE_ZONE, Set<Class> itemTypes) {
+    protected Optional getClosestVisibleResourceFromItemSet(Person me, int visibleZone, Set<Class> itemTypes) {
         return itemTypes.parallelStream()
                 .map(this::getCorrespondingResourceFromItemType)
                 .filter(Optional::isPresent)
-                .map(type -> getClosestVisibleEntity(me, VISIBLE_ZONE, type.get()))
+                .map(type -> getClosestVisibleEntity(me, visibleZone, type.get()))
                 .filter(Optional::isPresent)
                 .min(Comparator.comparingDouble(optional -> rangeSimplified(me, optional.get()))).orElse(Optional.empty());
     }
@@ -86,24 +86,24 @@ public abstract class RuleHelper implements Rule {
         }
     }
 
-    protected Optional getClosestVisibleEntityOfTypeSet(Person me, final int VISIBLE_ZONE, Set<Class> typeSet) {
+    protected Optional getClosestVisibleEntityOfTypeSet(Person me, int visibleZone, Set<Class> typeSet) {
         return typeSet.parallelStream()
-                .map(type -> getClosestVisibleEntity(me, VISIBLE_ZONE, type)) //all closest entities
+                .map(type -> getClosestVisibleEntity(me, visibleZone, type)) //all closest entities
                 .filter(Optional::isPresent)
                 .min(Comparator.comparingDouble(optional -> rangeSimplified(me, optional.get()))); //closest
     }
 
-    protected Optional<Home> getClosestUnvisitedVisibleHome(Person me, final int VISIBLE_ZONE) {
+    protected Optional<Home> getClosestUnvisitedVisibleHome(Person me, int visibleZone) {
         return getHomes().parallelStream()
                 .filter(home -> !me.getVisitedHomes().contains(home)) //Unvisited
                 .min(Comparator.comparingDouble(home -> rangeSimplified(me, home))) //Closest
-                .map(result -> range(me, result) <= VISIBLE_ZONE ? result : null); //Visible
+                .map(result -> range(me, result) <= visibleZone ? result : null); //Visible
     }
 
-    protected Optional<VisibleEntity> getClosestVisibleEntity(Person me, final int VISIBLE_ZONE, Class entityType) {
+    protected Optional<VisibleEntity> getClosestVisibleEntity(Person me, int visibleZone, Class entityType) {
         return getEntityList(entityType).parallelStream()
                 .min(Comparator.comparingDouble(entity -> rangeSimplified(me, (VisibleEntity) entity))) //Closest
-                .map(result -> range(me, result) <= VISIBLE_ZONE ? result : null); //Visible
+                .map(result -> range(me, result) <= visibleZone ? result : null); //Visible
     }
 
     private Set<? extends VisibleEntity> getEntityList(Class entity) {
