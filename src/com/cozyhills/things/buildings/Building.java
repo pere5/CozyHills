@@ -1,5 +1,6 @@
 package com.cozyhills.things.buildings;
 
+import com.cozyhills.cozy.Util;
 import com.cozyhills.things.VisibleEntity;
 import com.cozyhills.things.items.Item;
 
@@ -39,7 +40,20 @@ public abstract class Building extends VisibleEntity {
     }
 
     public boolean buildWith(Item item) {
-        //constructionMaterials.blahaBlaha!
+        constructionMaterials.blahaBlaha!;
+        if (klar) {
+            finished = true;
+        } else {
+            finished = false;
+        }
         return false;
+    }
+
+    public boolean underConstruction() {
+        return finished;
+    }
+
+    public Map<Class, Integer> remainingBuildCost() {
+        return constructionMaterials;
     }
 }

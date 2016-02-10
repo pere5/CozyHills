@@ -44,13 +44,35 @@ public class Household extends RuleHelper {
     public void initWork(Person me, int status) {
         Queue<Action> actionQueue = me.getActionQueue();
         if (me.getHome().isPresent()) {
-            improveHome(actionQueue);
+            improveHome(me, actionQueue);
         } else if (me.searchForHome()) {
             moveInToHome(me, actionQueue);
         } else {
-            Optional<Item> carryingItem = me.carryingOneOfItems(BasicHut.buildCost());
+            buildNewHut(me, actionQueue);
+        }
+    }
+
+    private void buildNewHut(Person me, Queue<Action> actionQueue) {
+        Optional<Item> carryingItem = me.carryingOneOfItems(BasicHut.buildCost());
+        if (carryingItem.isPresent()) {
+            buildNewHut(me, carryingItem.get(), actionQueue);
+        } else {
+            @SuppressWarnings("unchecked")
+            Optional<Item> visibleItem = getClosestVisibleEntityOfTypeSet(me, VISIBLE_ZONE, BasicHut.buildCost().keySet());
+            if (visibleItem.isPresent()) {
+                pickUpItem(me, actionQueue, visibleItem);
+            } else {
+                gatherResource(me, actionQueue);
+            }
+        }
+    }
+
+    private void improveHome(Person me, Queue<Action> actionQueue) {
+        Home home = me.getHome().get();
+        if (home.underConstruction()) {
+            Optional<Item> carryingItem = me.carryingOneOfItems(home.remainingBuildCost());
             if (carryingItem.isPresent()) {
-                buildHome(me, carryingItem.get(), actionQueue);
+                continueConstruction(me, home, carryingItem.get(), actionQueue);
             } else {
                 @SuppressWarnings("unchecked")
                 Optional<Item> visibleItem = getClosestVisibleEntityOfTypeSet(me, VISIBLE_ZONE, BasicHut.buildCost().keySet());
@@ -60,12 +82,19 @@ public class Household extends RuleHelper {
                     gatherResource(me, actionQueue);
                 }
             }
+        } else {
+            improveExistingHome(actionQueue);
         }
     }
 
-    private void improveHome(Queue<Action> actionQueue) {
-        Util.printNotImplemented("improve home!");
+    private void improveExistingHome(Queue<Action> actionQueue) {
+        Util.printNotImplemented("Household.improveExistingHome()");
         actionQueue.add(new Wait(10));
+    }
+
+    private void continueConstruction(Person me, Home home, Item item, Queue<Action> actionQueue) {
+        actionQueue.add(new Path(me.xy, home.xy));
+        actionQueue.add(new Build(home, item));
     }
 
     private void gatherResource(Person me, Queue<Action> actionQueue) {
@@ -84,13 +113,13 @@ public class Household extends RuleHelper {
         actionQueue.add(new PickUp(item.get()));
     }
 
-    private void buildHome(Person me, Item carryingItem, Queue<Action> actionQueue) {
+    private void buildNewHut(Person me, Item item, Queue<Action> actionQueue) {
         if (me.getSafeSpot().isPresent()) {
-            actionQueue.add(new Path(me.xy, me.getSafeSpot().get()));
-            ska jag bygga nytt eller fortsätta på befintlig
-            actionQueue.add(new Build(new BasicHut()));
+            double[] safeSpot = me.getSafeSpot().get();
+            actionQueue.add(new Path(me.xy, safeSpot));
+            actionQueue.add(new Build(new BasicHut(safeSpot), item));
         } else {
-            actionQueue.add(new Build(new BasicHut()));
+            actionQueue.add(new Build(new BasicHut(me.xy), item));
         }
     }
 

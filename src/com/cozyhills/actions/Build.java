@@ -21,7 +21,6 @@ public class Build extends Action {
     @Override
     public boolean doIt(Person me) {
         building.buildWith(item);
-        //ska jag sätta mitt hem här eller var?
         return DONE;
     }
 }
