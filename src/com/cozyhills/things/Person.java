@@ -88,7 +88,7 @@ public class Person extends VisibleEntity {
         this.home = Optional.of(home);
     }
 
-    public Optional<Item> getAnCarryingItemOfTypes(Map<Class, Integer> items) {
+    public Optional<Item> getAnCarryingItemOfTypes(Map<Class<? extends Item>, Integer> items) {
         if (carrying.isPresent() && items.get(carrying.get().getClass()) != null) {
             Optional<Item> item = carrying;
             carrying = Optional.empty();

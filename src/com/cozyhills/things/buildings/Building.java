@@ -14,12 +14,12 @@ import java.util.Optional;
  */
 public abstract class Building extends VisibleEntity {
 
-    private final Map<Class, Integer> constructionMaterials;
+    private final Map<Class<? extends Item>, Integer> constructionMaterials;
     private final int status;
 
     protected boolean finished;
 
-    public Building(int status, Map<Class, Integer> buildCost) {
+    public Building(int status, Map<Class<? extends Item>, Integer> buildCost) {
         super();
         this.constructionMaterials = clone(buildCost);
         this.status = status;
@@ -31,8 +31,8 @@ public abstract class Building extends VisibleEntity {
         this.status = status;
     }
 
-    private Map<Class, Integer> clone(Map<Class, Integer> buildCost) {
-        Map<Class, Integer> clone = new HashMap<>();
+    private Map<Class<? extends Item>, Integer> clone(Map<Class<? extends Item>, Integer> buildCost) {
+        Map<Class<? extends Item>, Integer> clone = new HashMap<>();
         buildCost.forEach(clone::put);
         return clone;
     }
@@ -60,7 +60,7 @@ public abstract class Building extends VisibleEntity {
         return finished;
     }
 
-    public Map<Class, Integer> remainingBuildCost() {
+    public Map<Class<? extends Item>, Integer> remainingBuildCost() {
         return constructionMaterials;
     }
 }

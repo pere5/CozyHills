@@ -71,7 +71,7 @@ public abstract class RuleHelper implements Rule {
         return new double[]{me.xy[0] + distance * r1, me.xy[1] + distance * r2};
     }
 
-    protected Optional getClosestVisibleResourceFromItemSet(Person me, int visibleZone, Set<Class> itemTypes) {
+    protected Optional getClosestVisibleResourceFromItemSet(Person me, int visibleZone, Set<Class<? extends Item>> itemTypes) {
         return itemTypes.parallelStream()
                 .map(this::getCorrespondingResourceFromItemType)
                 .filter(Optional::isPresent)
@@ -81,20 +81,20 @@ public abstract class RuleHelper implements Rule {
     }
 
     @SuppressWarnings("unchecked")
-    protected Optional<Class> getCorrespondingResourceFromItemType(Class itemType) {
+    protected Optional<Class<? extends Resource>> getCorrespondingResourceFromItemType(Class<? extends Item> itemType) {
         try {
-            return Optional.of(((Item)itemType.getDeclaredConstructor().newInstance()).getCorrespondingResource());
+            return Optional.of((itemType.getDeclaredConstructor().newInstance()).getCorrespondingResource());
         } catch (IllegalAccessException | InstantiationException | NoSuchMethodException | InvocationTargetException e) {
             Util.printPerIsStupidMessage("getCorrespondingResourceFromItemType");
             return Optional.empty();
         }
     }
 
-    protected Optional getClosestVisibleEntityOfTypeSet(Person me, int visibleZone, Set<Class> typeSet) {
+    protected Optional getClosestVisibleEntityOfTypeSet(Person me, int visibleZone, Set<Class<? extends Item>> typeSet) {
         return typeSet.parallelStream()
                 .map(type -> getClosestVisibleEntity(me, visibleZone, type)) //all closest entities
                 .filter(Optional::isPresent)
-                .min(Comparator.comparingDouble(optional -> rangeSimplified(me, optional.get()))); //closest
+                .min(Comparator.comparingDouble(optional -> rangeSimplified(me, (VisibleEntity) optional.get()))); //closest
     }
 
     protected Optional<Home> getClosestUnvisitedVisibleHome(Person me, int visibleZone) {

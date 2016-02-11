@@ -1,6 +1,7 @@
 package com.cozyhills.things.buildings;
 
 import com.cozyhills.things.Person;
+import com.cozyhills.things.items.Item;
 
 import java.util.Map;
 
@@ -17,7 +18,7 @@ public abstract class Home extends Building {
         tenants = new Person[rooms];
     }
 
-    public Home(int rooms, int status, Map<Class, Integer> buildCost) {
+    public Home(int rooms, int status, Map<Class<? extends Item>, Integer> buildCost) {
         super(status, buildCost);
         tenants = new Person[rooms];
     }
