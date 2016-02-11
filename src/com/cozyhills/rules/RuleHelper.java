@@ -6,7 +6,9 @@ import com.cozyhills.things.Person;
 import com.cozyhills.things.VisibleEntity;
 import com.cozyhills.things.buildings.Home;
 import com.cozyhills.things.items.Item;
+import com.cozyhills.things.resources.Resource;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Comparator;
 import java.util.Optional;
 import java.util.Set;
@@ -78,10 +80,12 @@ public abstract class RuleHelper implements Rule {
                 .min(Comparator.comparingDouble(optional -> rangeSimplified(me, optional.get()))).orElse(Optional.empty());
     }
 
-    private Optional<Class> getCorrespondingResourceFromItemType(Class itemType) {
+    @SuppressWarnings("unchecked")
+    protected Optional<Class> getCorrespondingResourceFromItemType(Class itemType) {
         try {
-            return Optional.of(((Item)itemType.newInstance()).getCorrespondingResource());
-        } catch (IllegalAccessException | InstantiationException e) {
+            return Optional.of(((Item)itemType.getDeclaredConstructor().newInstance()).getCorrespondingResource());
+        } catch (IllegalAccessException | InstantiationException | NoSuchMethodException | InvocationTargetException e) {
+            Util.printPerIsStupidMessage("getCorrespondingResourceFromItemType");
             return Optional.empty();
         }
     }
