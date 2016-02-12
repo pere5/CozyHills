@@ -18,7 +18,7 @@ public abstract class VisibleEntity {
 
     protected VisibleEntity() {
         this.id = StateHolder.getNewId();
-        if (xy[0] != 0 && xy[1] != 0) {
+        if (xy[0] == 0 && xy[1] == 0) {
             this.xy[0] = Util.generateWidth();
             this.xy[1] = Util.generateHeight();
         }

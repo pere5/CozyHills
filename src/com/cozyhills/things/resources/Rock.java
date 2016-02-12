@@ -12,8 +12,6 @@ public class Rock extends Resource {
     public Rock () {
         super();
         setDefaults();
-        this.xy[0] = Util.generateWidth();
-        this.xy[1] = Util.generateHeight();
     }
 
     private void setDefaults() {

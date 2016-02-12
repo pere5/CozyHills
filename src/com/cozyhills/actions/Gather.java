@@ -34,7 +34,6 @@ public class Gather extends Action {
                 return CONTINUE;
             }
         } else {
-            Util.printPerIsStupidMessage("Gather.doIt()");
             return DONE;
         }
     }

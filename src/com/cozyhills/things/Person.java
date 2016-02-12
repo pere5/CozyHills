@@ -28,15 +28,6 @@ public class Person extends VisibleEntity {
     public Person () {
         super();
         setDefaults();
-        this.xy[0] = Util.generateWidth();
-        this.xy[1] = Util.generateHeight();
-    }
-
-    public Person (int x, int y) {
-        super();
-        setDefaults();
-        this.xy[0] = x;
-        this.xy[1] = y;
     }
 
     private void setDefaults() {
