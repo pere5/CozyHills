@@ -7,7 +7,7 @@ import com.cozyhills.things.resources.Resource;
  */
 public class Clothes extends Item {
     @Override
-    public Class<? extends Resource> getCorrespondingResource() {
+    public Class<Resource> getCorrespondingResourceType() {
         return null;
     }
 }

@@ -12,5 +12,5 @@ public abstract class Item extends VisibleEntity {
         super();
     }
 
-    public abstract Class<? extends Resource> getCorrespondingResource();
+    public abstract Class<Resource> getCorrespondingResourceType();
 }

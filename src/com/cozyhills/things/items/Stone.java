@@ -21,7 +21,7 @@ public class Stone extends Item {
     }
 
     @Override
-    public Class<? extends Resource> getCorrespondingResource() {
-        return Rock.class;
+    public Class<Resource> getCorrespondingResourceType() {
+        return (Class<Resource>)((Class<? extends Resource>)Rock.class);
     }
 }

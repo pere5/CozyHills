@@ -35,7 +35,7 @@ public class Util {
 
     public static Optional<Class> getCorrespondingResourceFromItemType(Class itemType) {
         try {
-            return Optional.of(((Item)itemType.newInstance()).getCorrespondingResource());
+            return Optional.of(((Item)itemType.newInstance()).getCorrespondingResourceType());
         } catch (IllegalAccessException | InstantiationException e) {
             return Optional.empty();
         }

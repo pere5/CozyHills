@@ -3,6 +3,7 @@ package com.cozyhills.rules;
 import com.cozyhills.actions.*;
 import com.cozyhills.cozy.Util;
 import com.cozyhills.things.Person;
+import com.cozyhills.things.VisibleEntity;
 import com.cozyhills.things.buildings.BasicHut;
 import com.cozyhills.things.buildings.Home;
 import com.cozyhills.things.items.Item;
@@ -10,6 +11,7 @@ import com.cozyhills.things.resources.Resource;
 
 import java.util.Optional;
 import java.util.Queue;
+import java.util.Set;
 
 /**
  * Created by pere5 on 02/01/16.
@@ -57,7 +59,7 @@ public class Household extends RuleHelper {
         if (carryingItem.isPresent()) {
             buildNewHut(me, carryingItem.get(), actionQueue);
         } else {
-            Optional<Item> visibleItem = getClosestVisibleEntityOfTypeSet(me, VISIBLE_ZONE, BasicHut.buildCost().keySet());
+            Optional<Item> visibleItem = (Optional<Item>) getClosestVisibleEntityOfTypeSet(me, VISIBLE_ZONE, BasicHut.buildCost().keySet());
             if (visibleItem.isPresent()) {
                 pickUpItem(me, actionQueue, visibleItem);
             } else {
@@ -73,7 +75,7 @@ public class Household extends RuleHelper {
             if (carryingItem.isPresent()) {
                 continueConstruction(me, home, carryingItem.get(), actionQueue);
             } else {
-                Optional<Item> visibleItem = getClosestVisibleEntityOfTypeSet(me, VISIBLE_ZONE, BasicHut.buildCost().keySet());
+                Optional<Item> visibleItem = (Optional<Item>) getClosestVisibleEntityOfTypeSet(me, VISIBLE_ZONE, BasicHut.buildCost().keySet());
                 if (visibleItem.isPresent()) {
                     pickUpItem(me, actionQueue, visibleItem);
                 } else {

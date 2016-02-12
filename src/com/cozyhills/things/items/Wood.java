@@ -21,7 +21,7 @@ public class Wood extends Item {
     }
 
     @Override
-    public Class<? extends Resource> getCorrespondingResource() {
-        return Tree.class;
+    public Class<Resource> getCorrespondingResourceType() {
+        return (Class<Resource>)((Class<? extends Resource>)Tree.class);
     }
 }

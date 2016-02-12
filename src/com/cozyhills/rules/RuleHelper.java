@@ -71,29 +71,30 @@ public abstract class RuleHelper implements Rule {
         return new double[]{me.xy[0] + distance * r1, me.xy[1] + distance * r2};
     }
 
-    protected Optional getClosestVisibleResourceFromItemSet(Person me, int visibleZone, Set<Class<? extends Item>> itemTypes) {
+    protected Optional<Resource> getClosestVisibleResourceFromItemSet(Person me, int visibleZone, Set<Class<? extends Item>> itemTypes) {
         return itemTypes.parallelStream()
                 .map(this::getCorrespondingResourceFromItemType)
-                .filter(Optional::isPresent)
-                .map(type -> getClosestVisibleEntity(me, visibleZone, type.get()))
-                .filter(Optional::isPresent)
-                .min(Comparator.comparingDouble(optional -> rangeSimplified(me, optional.get()))).orElse(Optional.empty());
+                .filter(Optional::isPresent).map(Optional::get)
+                .map(type -> getClosestVisibleEntity(me, visibleZone, type))
+                .filter(Optional::isPresent).map(Optional::get)
+                .min(Comparator.comparingDouble(entity -> rangeSimplified(me, entity)))
+                .map(resource -> (Resource)resource);
     }
 
-    protected Optional<Class<? extends Resource>> getCorrespondingResourceFromItemType(Class<? extends Item> itemType) {
+    protected Optional<Class<Resource>> getCorrespondingResourceFromItemType(Class<? extends Item> itemType) {
         try {
-            return Optional.of((itemType.getDeclaredConstructor().newInstance()).getCorrespondingResource());
+            return Optional.of((itemType.getDeclaredConstructor().newInstance()).getCorrespondingResourceType());
         } catch (IllegalAccessException | InstantiationException | NoSuchMethodException | InvocationTargetException e) {
             Util.printPerIsStupidMessage("getCorrespondingResourceFromItemType");
             return Optional.empty();
         }
     }
 
-    protected Optional getClosestVisibleEntityOfTypeSet(Person me, int visibleZone, Set<Class<? extends Item>> typeSet) {
+    protected Optional<? extends VisibleEntity> getClosestVisibleEntityOfTypeSet(Person me, int visibleZone, Set<Class<? extends Item>> typeSet) {
         return typeSet.parallelStream()
                 .map(type -> getClosestVisibleEntity(me, visibleZone, type)) //all closest entities
-                .filter(Optional::isPresent)
-                .min(Comparator.comparingDouble(optional -> rangeSimplified(me, (VisibleEntity) optional.get()))); //closest
+                .filter(Optional::isPresent).map(Optional::get)
+                .min(Comparator.comparingDouble(entity -> rangeSimplified(me, entity))); //closest
     }
 
     protected Optional<Home> getClosestUnvisitedVisibleHome(Person me, int visibleZone) {
@@ -103,13 +104,13 @@ public abstract class RuleHelper implements Rule {
                 .map(result -> range(me, result) <= visibleZone ? result : null); //Visible
     }
 
-    protected Optional<VisibleEntity> getClosestVisibleEntity(Person me, int visibleZone, Class entityType) {
+    protected Optional<VisibleEntity> getClosestVisibleEntity(Person me, int visibleZone, Class<? extends VisibleEntity> entityType) {
         return getEntityList(entityType).parallelStream()
                 .min(Comparator.comparingDouble(entity -> rangeSimplified(me, (VisibleEntity) entity))) //Closest
                 .map(result -> range(me, result) <= visibleZone ? result : null); //Visible
     }
 
-    private Set<? extends VisibleEntity> getEntityList(Class entity) {
+    private Set<? extends VisibleEntity> getEntityList(Class<? extends VisibleEntity> entity) {
         return StateHolder.getEntities(entity);
     }
 
