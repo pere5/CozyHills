@@ -42,7 +42,7 @@ public class StateHolder {
     }
 
     public static void addVisibleEntity(VisibleEntity visibleEntity) {
-        state.get(visibleEntity.getClass()).add(visibleEntity);
+        ((Set)(state.get(visibleEntity.getClass()))).add(visibleEntity);
     }
 
     private static void createHomes() {
@@ -77,22 +77,18 @@ public class StateHolder {
         state.put(Person.class, persons);
     }
 
-    @SuppressWarnings("unchecked")
     public static Set<Person> getPersons() {
         return (Set<Person>)state.get(Person.class);
     }
 
-    @SuppressWarnings("unchecked")
     public static Set<Home> getHomes() {
         return (Set<Home>)state.get(Home.class);
     }
 
-    @SuppressWarnings("unchecked")
     public static Set<Tree> getTrees() {
         return (Set<Tree>)state.get(Tree.class);
     }
 
-    @SuppressWarnings("unchecked")
     public static Set<Rock> getRocks() {
         return (Set<Rock>)state.get(Rock.class);
     }

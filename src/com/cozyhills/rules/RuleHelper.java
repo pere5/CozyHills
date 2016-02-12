@@ -104,7 +104,7 @@ public abstract class RuleHelper implements Rule {
                 .map(result -> range(me, result) <= visibleZone ? result : null); //Visible
     }
 
-    protected Optional<VisibleEntity> getClosestVisibleEntity(Person me, int visibleZone, Class<? extends VisibleEntity> entityType) {
+    protected Optional<? extends VisibleEntity> getClosestVisibleEntity(Person me, int visibleZone, Class<? extends VisibleEntity> entityType) {
         return getEntityList(entityType).parallelStream()
                 .min(Comparator.comparingDouble(entity -> rangeSimplified(me, (VisibleEntity) entity))) //Closest
                 .map(result -> range(me, result) <= visibleZone ? result : null); //Visible
