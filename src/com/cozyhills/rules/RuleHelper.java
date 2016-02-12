@@ -80,7 +80,6 @@ public abstract class RuleHelper implements Rule {
                 .min(Comparator.comparingDouble(optional -> rangeSimplified(me, optional.get()))).orElse(Optional.empty());
     }
 
-    @SuppressWarnings("unchecked")
     protected Optional<Class<? extends Resource>> getCorrespondingResourceFromItemType(Class<? extends Item> itemType) {
         try {
             return Optional.of((itemType.getDeclaredConstructor().newInstance()).getCorrespondingResource());

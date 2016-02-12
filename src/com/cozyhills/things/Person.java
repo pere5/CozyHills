@@ -127,7 +127,7 @@ public class Person extends VisibleEntity {
         if (carrying.isPresent()) {
             Item item = carrying.get();
             item.xy = this.xy;
-            StateHolder.getState().get(item.getClass()).add(item);
+            StateHolder.addVisibleEntity(item);
             carrying = Optional.empty();
         }
     }

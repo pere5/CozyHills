@@ -1,13 +1,11 @@
 package com.cozyhills.things.buildings;
 
-import com.cozyhills.cozy.Util;
 import com.cozyhills.things.VisibleEntity;
 import com.cozyhills.things.items.Item;
 
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 /**
  * Created by pere5 on 02/02/16.

@@ -23,7 +23,7 @@ public class StateHolder {
 
     private static int idGenerator = 0;
 
-    private static final Map<Class, Set> state = new HashMap<>();
+    private static final Map<Class<? extends VisibleEntity>, Set<? extends VisibleEntity>> state = new HashMap<>();
 
     static {
         createPersons();
@@ -37,10 +37,13 @@ public class StateHolder {
         state.put(Wood.class, new HashSet<Wood>());
     }
 
-    public static Map<Class, Set> getState() {
+    public static Map<Class<? extends VisibleEntity>, Set<? extends VisibleEntity>> getState() {
         return state;
     }
 
+    public static void addVisibleEntity(VisibleEntity visibleEntity) {
+        state.get(visibleEntity.getClass()).add(visibleEntity);
+    }
 
     private static void createHomes() {
         Set<Home> homes = new HashSet<>();
@@ -94,8 +97,7 @@ public class StateHolder {
         return (Set<Rock>)state.get(Rock.class);
     }
 
-    @SuppressWarnings("unchecked")
-    public static Set<? extends VisibleEntity> getEntities(Class<?> classType) {
+    public static Set<? extends VisibleEntity> getEntities(Class<? extends VisibleEntity> classType) {
         return state.get(classType);
     }
 
