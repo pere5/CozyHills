@@ -20,7 +20,7 @@ public class Util {
         return Const.WINDOW_WIDTH / 2 + generateInt();
     }
 
-    public static int generateInt () {
+    private static int generateInt() {
         return 250 - ThreadLocalRandom.current().nextInt(0, 500 + 1);
     }
 

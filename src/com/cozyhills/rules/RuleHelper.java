@@ -20,7 +20,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public abstract class RuleHelper implements Rule {
 
     private final int rank;
-    protected final int id;
+    private final int id;
 
     public RuleHelper(int rank) {
         this.rank = rank;

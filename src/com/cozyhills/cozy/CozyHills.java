@@ -16,7 +16,7 @@ import java.util.Set;
  */
 public class CozyHills {
 
-    public static Set<Rule> rules = new HashSet<>();
+    private static final Set<Rule> rules = new HashSet<>();
     static {
         int rank = Integer.MAX_VALUE;
         rules.add(new CozyUp(--rank));

@@ -2,7 +2,6 @@ package com.cozyhills.things;
 
 import com.cozyhills.actions.Action;
 import com.cozyhills.cozy.StateHolder;
-import com.cozyhills.cozy.Util;
 import com.cozyhills.rules.Rule;
 import com.cozyhills.things.buildings.Home;
 import com.cozyhills.things.items.Item;

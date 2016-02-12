@@ -1,6 +1,5 @@
 package com.cozyhills.things.resources;
 
-import com.cozyhills.cozy.Util;
 import com.cozyhills.things.items.Stone;
 
 import java.awt.*;

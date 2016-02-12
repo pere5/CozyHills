@@ -15,15 +15,15 @@ import java.util.concurrent.ThreadLocalRandom;
  * Created by pere5 on 21/12/15.
  */
 public class GraphicsHandler extends JFrame {
-    boolean isRunning = true;
-    int windowWidth = Const.WINDOW_WIDTH;
-    int windowHeight = Const.WINDOW_HEIGHT;
+    private boolean isRunning = true;
+    private int windowWidth = Const.WINDOW_WIDTH;
+    private int windowHeight = Const.WINDOW_HEIGHT;
 
-    BufferedImage backBuffer;
-    Insets insets;
-    InputHandler input;
+    private BufferedImage backBuffer;
+    private Insets insets;
+    private InputHandler input;
 
-    CozyHills cozyHills = new CozyHills();
+    private CozyHills cozyHills = new CozyHills();
 
     int x = 0;
 
@@ -32,7 +32,7 @@ public class GraphicsHandler extends JFrame {
      */
     public void run() {
         initialize();
-        int character = 0;
+        int character;
         int intendedFps = 6;
 
         while(isRunning) {
@@ -60,7 +60,7 @@ public class GraphicsHandler extends JFrame {
     /**
      * This method will set up everything need for the game to run
      */
-    void initialize() {
+    private void initialize() {
         setTitle("CozyHills");
         setSize(windowWidth, windowHeight);
         setResizable(false);
@@ -79,7 +79,7 @@ public class GraphicsHandler extends JFrame {
      * This method will check for input, move things
      * around and check for win conditions, etc
      */
-    void update() {
+    private void update() {
         cozyHills.update();
         /*
         if (input.isKeyDown(KeyEvent.VK_RIGHT)) {
@@ -94,7 +94,7 @@ public class GraphicsHandler extends JFrame {
     /**
      * This method will draw everything
      */
-    void draw() {
+    private void draw() {
         Graphics g = getGraphics();
 
         Graphics bbg = backBuffer.getGraphics();
