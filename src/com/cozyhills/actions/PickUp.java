@@ -17,7 +17,7 @@ public class PickUp extends Action {
 
     @Override
     public boolean doIt(Person me) {
-        if (closeEnough(me.xy, resource.xy)) {
+        if (closeEnough(me.xy, resource.xy, Path.STEP)) {
             //resource.moveIn(me);
             return CONTINUE;
         } else {

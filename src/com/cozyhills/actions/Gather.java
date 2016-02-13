@@ -20,7 +20,7 @@ public class Gather extends Action {
 
     @Override
     public boolean doIt(Person me) {
-        if (closeEnough(me.xy, resource.xy) && me.carrying().isPresent()) {
+        if (closeEnough(me.xy, resource.xy, Path.STEP) && !me.carrying().isPresent()) {
             turnsToGatherResource--;
             if (turnsToGatherResource < 0) {
                 Optional<Item> item = resource.gathered();

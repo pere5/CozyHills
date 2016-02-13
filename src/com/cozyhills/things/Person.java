@@ -23,6 +23,7 @@ public class Person extends VisibleEntity {
     private int searchForHome = 5;
     private Optional<Item> carrying = Optional.empty();
     private Optional<double[]> safeSpot = Optional.empty();
+    private Rule selectedRule;
 
     public Person () {
         super();
@@ -46,6 +47,7 @@ public class Person extends VisibleEntity {
     }
 
     public void startWorking(Rule selectedRule, int status) {
+        this.selectedRule = selectedRule;
         selectedRule.initWork(this, status);
     }
 
@@ -128,5 +130,9 @@ public class Person extends VisibleEntity {
 
     public boolean notVisited(Home home) {
         return !visitedHomes.contains(home);
+    }
+
+    public Rule getCurrentRule() {
+        return selectedRule;
     }
 }

@@ -1,5 +1,7 @@
 package com.cozyhills.things.buildings;
 
+import com.cozyhills.cozy.StateHolder;
+import com.cozyhills.cozy.Util;
 import com.cozyhills.things.VisibleEntity;
 import com.cozyhills.things.items.Item;
 

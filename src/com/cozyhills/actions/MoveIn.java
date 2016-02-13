@@ -16,7 +16,7 @@ public class MoveIn extends Action {
 
     @Override
     public boolean doIt(Person me) {
-        if (closeEnough(me.xy, home.xy)) {
+        if (closeEnough(me.xy, home.xy, Path.STEP)) {
             home.moveIn(me);
             me.visited(home);
             return DONE;

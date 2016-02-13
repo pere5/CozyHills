@@ -3,18 +3,15 @@ package com.cozyhills.cozy;
 import com.cozyhills.things.Person;
 import com.cozyhills.things.VisibleEntity;
 import com.cozyhills.things.buildings.BasicHut;
+import com.cozyhills.things.buildings.Building;
 import com.cozyhills.things.buildings.Home;
-import com.cozyhills.things.items.Clothes;
-import com.cozyhills.things.items.Food;
-import com.cozyhills.things.items.Stone;
-import com.cozyhills.things.items.Wood;
+import com.cozyhills.things.items.*;
+import com.cozyhills.things.resources.Resource;
 import com.cozyhills.things.resources.Rock;
 import com.cozyhills.things.resources.Tree;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by pere5 on 23/12/15.
@@ -23,21 +20,51 @@ public class StateHolder {
 
     private static int idGenerator = 0;
 
-    private static final Map<Class<? extends VisibleEntity>, Set<? extends VisibleEntity>> state = new HashMap<>();
+    private static final Map<Class, Set<? extends VisibleEntity>> state = new HashMap<>();
+
+    private static final Set<Set<? extends Home>> homeSet = new HashSet<>();
+    private static final Set<Set<? extends Building>> buildingSet = new HashSet<>();
+    private static final Set<Set<? extends Item>> itemSet = new HashSet<>();
+    private static final Set<Set<? extends Resource>> resourceSet = new HashSet<>();
+
+    private static final Set<Person> persons = new HashSet<>();
+    private static final Set<BasicHut> basicHuts = new HashSet<>();
+    private static final Set<Rock> rocks = new HashSet<>();
+    private static final Set<Tree> trees = new HashSet<>();
+    private static final Set<Stone> stones = new HashSet<>();
+    private static final Set<Wood> woods = new HashSet<>();
+    private static final Set<Clothes> clothes = new HashSet<>();
+    private static final Set<Food> food = new HashSet<>();
 
     static {
-        createPersons();
-        createTrees();
-        createRocks();
-        createHomes();
+        state.put(Person.class, persons);
+        state.put(BasicHut.class, basicHuts);
+        state.put(Rock.class, rocks);
+        state.put(Tree.class, trees);
+        state.put(Stone.class, stones);
+        state.put(Wood.class, woods);
+        state.put(Clothes.class, clothes);
+        state.put(Food.class, food);
 
-        state.put(Clothes.class, new HashSet<Clothes>());
-        state.put(Food.class, new HashSet<Food>());
-        state.put(Stone.class, new HashSet<Stone>());
-        state.put(Wood.class, new HashSet<Wood>());
+        homeSet.add(basicHuts);
+
+        buildingSet.add(basicHuts);
+
+        itemSet.add(stones);
+        itemSet.add(woods);
+        itemSet.add(clothes);
+        itemSet.add(food);
+
+        resourceSet.add(rocks);
+        resourceSet.add(trees);
+
+        createPersons(persons);
+        createTrees(trees);
+        createRocks(rocks);
+        createBasicHuts(basicHuts);
     }
 
-    public static Map<Class<? extends VisibleEntity>, Set<? extends VisibleEntity>> getState() {
+    public static Map<Class, Set<? extends VisibleEntity>> getState() {
         return state;
     }
 
@@ -45,55 +72,39 @@ public class StateHolder {
         ((Set)(state.get(visibleEntity.getClass()))).add(visibleEntity);
     }
 
-    private static void createHomes() {
-        Set<Home> homes = new HashSet<>();
-        for (int i = 0; i < 40; i++) {
-            homes.add(new BasicHut());
+    private static void createBasicHuts(Set<BasicHut> basicHuts) {
+        for (int i = 0; i < 8; i++) {
+            basicHuts.add(new BasicHut());
         }
-        state.put(Home.class, homes);
     }
 
-    private static void createTrees() {
-        Set<Tree> trees = new HashSet<>();
+    private static void createTrees(Set<Tree> trees) {
         for (int i = 0; i < 40; i++) {
             trees.add(new Tree());
         }
-        state.put(Tree.class, trees);
     }
 
-    private static void createRocks() {
-        Set<Rock> rocks = new HashSet<>();
-        for (int i = 0; i < 20; i++) {
+    private static void createRocks(Set<Rock> rocks) {
+        for (int i = 0; i < 40; i++) {
             rocks.add(new Rock());
         }
-        state.put(Rock.class, rocks);
     }
 
-    private static void createPersons() {
-        Set<Person> persons = new HashSet<>();
-        for (int i = 0; i < 100; i++) {
+    private static void createPersons(Set<Person> persons) {
+        for (int i = 0; i < 40; i++) {
             persons.add(new Person());
         }
-        state.put(Person.class, persons);
     }
 
     public static Set<Person> getPersons() {
-        return (Set<Person>)state.get(Person.class);
+        return persons;
     }
 
     public static Set<Home> getHomes() {
-        return (Set<Home>)state.get(Home.class);
+        return homeSet.stream().flatMap(Collection::stream).collect(Collectors.toSet());
     }
 
-    public static Set<Tree> getTrees() {
-        return (Set<Tree>)state.get(Tree.class);
-    }
-
-    public static Set<Rock> getRocks() {
-        return (Set<Rock>)state.get(Rock.class);
-    }
-
-    public static Set<? extends VisibleEntity> getEntities(Class<? extends VisibleEntity> classType) {
+    public static Set<? extends VisibleEntity> getEntities(Class classType) {
         return state.get(classType);
     }
 

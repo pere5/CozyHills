@@ -9,12 +9,12 @@ import java.util.Queue;
  * Created by pere5 on 06/01/16.
  */
 public class Path extends Action {
-    private static final double STEP = 2;
+    public static final double STEP = 4.5;
     private final Queue<double[]> path = new LinkedList<>();
 
     public Path(double[] start, double[] destination) {
         double[] nextStep;
-        while (!closeEnough(start, destination)) {
+        while (!closeEnough(start, destination, STEP)) {
             double vx = destination[0] - start[0];
             double vy = destination[1] - start[1];
 
