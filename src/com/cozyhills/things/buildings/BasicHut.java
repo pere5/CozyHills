@@ -2,6 +2,7 @@ package com.cozyhills.things.buildings;
 
 import com.cozyhills.Const;
 import com.cozyhills.cozy.StateHolder;
+import com.cozyhills.things.Person;
 import com.cozyhills.things.items.Item;
 import com.cozyhills.things.items.Stone;
 import com.cozyhills.things.items.Wood;
@@ -33,12 +34,13 @@ public class BasicHut extends Home {
         setDefaults();
     }
 
-    public BasicHut(double[] position) {
+    public BasicHut(Person me, double[] position) {
         super(ROOMS, STATUS, BUILD_COST);
         this.xy = position;
         this.color = CONSTRUCTING_COLOR;
         this.finished = false;
         setDefaults();
+        moveIn(me);
         StateHolder.addVisibleEntity(this);
     }
 

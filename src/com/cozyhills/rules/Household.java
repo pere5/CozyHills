@@ -131,14 +131,12 @@ public class Household extends RuleHelper {
     private void buildNewHut(Person me, Item item, Queue<Action> actionQueue) {
         if (me.getSafeSpot().isPresent()) {
             double[] safeSpot = me.getSafeSpot().get();
-            BasicHut basicHut = new BasicHut(safeSpot);
+            BasicHut basicHut = new BasicHut(me, safeSpot);
             actionQueue.add(new Path(me.xy, safeSpot));
             actionQueue.add(new Build(basicHut, item));
-            me.moveIn(basicHut);
         } else {
-            BasicHut basicHut = new BasicHut(me.xy);
+            BasicHut basicHut = new BasicHut(me, me.xy);
             actionQueue.add(new Build(basicHut, item));
-            me.moveIn(basicHut);
         }
     }
 }

@@ -95,7 +95,9 @@ public class Person extends VisibleEntity {
     }
 
     public void safeSpot(double[] safeSpot) {
-        this.safeSpot = Optional.of(safeSpot);
+        if (!this.safeSpot.isPresent()) {
+            this.safeSpot = Optional.of(safeSpot);
+        }
     }
 
     public Optional<double[]> getSafeSpot() {
