@@ -16,7 +16,7 @@ public class Stone extends Item {
     }
 
     private void setDefaults() {
-        this.size = 3;
+        this.size = 50;
         this.color = Color.decode("#DEB887");
     }
 

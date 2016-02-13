@@ -1,5 +1,6 @@
 package com.cozyhills.actions;
 
+import com.cozyhills.cozy.Util;
 import com.cozyhills.things.Person;
 
 /**
@@ -8,6 +9,7 @@ import com.cozyhills.things.Person;
 public class Wait extends Action {
 
     private int wait;
+    private final int id = 1;
 
     public Wait(int frames) {
         wait = frames;
@@ -15,6 +17,7 @@ public class Wait extends Action {
 
     @Override
     public boolean doIt(Person me) {
+        Util.printActionId(id);
         wait--;
         return wait > 0;
     }

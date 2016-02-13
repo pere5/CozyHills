@@ -4,6 +4,7 @@ import com.cozyhills.cozy.StateHolder;
 import com.cozyhills.cozy.Util;
 import com.cozyhills.things.Person;
 import com.cozyhills.things.VisibleEntity;
+import com.cozyhills.things.buildings.Building;
 import com.cozyhills.things.buildings.Home;
 import com.cozyhills.things.items.Item;
 import com.cozyhills.things.resources.Resource;
@@ -100,6 +101,7 @@ public abstract class RuleHelper implements Rule {
     protected Optional<Home> getClosestUnvisitedVisibleHome(Person me, int visibleZone) {
         return getHomes().parallelStream()
                 .filter(me::notVisited) //Unvisited
+                .filter(Building::completed) //Completed
                 .min(Comparator.comparingDouble(home -> rangeSimplified(me, home))) //Closest
                 .map(result -> range(me, result) <= visibleZone ? result : null); //Visible
     }

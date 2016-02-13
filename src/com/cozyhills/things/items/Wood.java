@@ -16,8 +16,8 @@ public class Wood extends Item {
     }
 
     private void setDefaults() {
-        this.size = 3;
-        this.color = Color.decode("#DEB887");
+        this.size = 4;
+        this.color = Color.decode("#8D87DE");
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.cozyhills.actions;
 
+import com.cozyhills.cozy.Util;
 import com.cozyhills.things.Person;
 
 import java.util.LinkedList;
@@ -11,6 +12,7 @@ import java.util.Queue;
 public class Path extends Action {
     public static final double STEP = 4.5;
     private final Queue<double[]> path = new LinkedList<>();
+    private final int id = 3;
 
     public Path(double[] start, double[] destination) {
         double[] nextStep;

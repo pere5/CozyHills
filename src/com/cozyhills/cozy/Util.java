@@ -76,4 +76,8 @@ public class Util {
     public static void printPerIsStupidMessage(String value) {
         System.out.print("Per is stupid: " + value);
     }
+
+    public static void printActionId(int id) {
+        //System.out.print(id);
+    }
 }

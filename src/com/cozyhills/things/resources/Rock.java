@@ -8,12 +8,14 @@ import java.awt.*;
  * Created by pere5 on 02/01/16.
  */
 public class Rock extends Resource {
+
     public Rock () {
         super();
         setDefaults();
     }
 
     private void setDefaults() {
+        this.numberOfItems = 400;
         this.size = 10;
         this.color = Color.GRAY;
     }

@@ -46,13 +46,15 @@ public abstract class Building extends VisibleEntity {
 
     public void buildWith(Item item) {
         Integer buildCost = constructionMaterials.get(item.getClass());
-        buildCost--;
+        buildCost = buildCost - 1;
         if (buildCost == 0) {
-            finished = true;
-            color = getFinishedColor();
-            constructionMaterials.clear();
+            constructionMaterials.remove(item.getClass());
+            if (constructionMaterials.size() == 0) {
+                finished = true;
+                color = getFinishedColor();
+            }
         } else {
-            constructionMaterials.put(item.getClass(), buildCost);
+            constructionMaterials.replace(item.getClass(), buildCost);
         }
     }
 

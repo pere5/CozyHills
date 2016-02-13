@@ -9,6 +9,7 @@ import com.cozyhills.things.buildings.Home;
  */
 public class MoveIn extends Action {
     private final Home home;
+    private final int id = 4;
 
     public MoveIn(Home home) {
         this.home = home;
@@ -16,6 +17,7 @@ public class MoveIn extends Action {
 
     @Override
     public boolean doIt(Person me) {
+        Util.printActionId(id);
         if (closeEnough(me.xy, home.xy, Path.STEP)) {
             home.moveIn(me);
             me.visited(home);

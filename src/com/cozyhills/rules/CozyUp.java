@@ -13,7 +13,7 @@ import java.util.Set;
  */
 public class CozyUp extends RuleHelper {
 
-    private static final int COMFORT_ZONE = 25;
+    private static final int COMFORT_ZONE = 40;
     private static final int VISIBLE_ZONE = 80;
     private static final int WALK_DISTANCE = 20;
     private static final int COZY_GROUP = 4;
@@ -61,7 +61,6 @@ public class CozyUp extends RuleHelper {
         } else {
             destination = centroid(targets);
         }
-        Action path = new Path(me.xy, destination);
-        actionQueue.add(path);
+        actionQueue.add(new Path(me.xy, destination));
     }
 }
