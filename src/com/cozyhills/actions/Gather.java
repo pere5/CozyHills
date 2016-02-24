@@ -1,5 +1,6 @@
 package com.cozyhills.actions;
 
+import com.cozyhills.Const;
 import com.cozyhills.cozy.Util;
 import com.cozyhills.things.Person;
 import com.cozyhills.things.items.Item;
@@ -23,7 +24,7 @@ public class Gather extends Action {
     @Override
     public boolean doIt(Person me) {
         Util.printActionId(id);
-        if (closeEnough(me.xy, resource.xy, Path.STEP) && !me.carrying().isPresent()) {
+        if (closeEnough(me.xy, resource.xy, Const.STEP) && !me.carrying().isPresent()) {
             turnsToGatherResource--;
             if (turnsToGatherResource < 0) {
                 Optional<Item> item = resource.gathered();

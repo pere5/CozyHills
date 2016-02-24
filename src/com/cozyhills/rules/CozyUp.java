@@ -1,5 +1,6 @@
 package com.cozyhills.rules;
 
+import com.cozyhills.Const;
 import com.cozyhills.actions.Action;
 import com.cozyhills.actions.Path;
 import com.cozyhills.things.Person;
@@ -13,11 +14,6 @@ import java.util.Set;
  */
 public class CozyUp extends RuleHelper {
 
-    private static final int COMFORT_ZONE = 40;
-    private static final int VISIBLE_ZONE = 80;
-    private static final int WALK_DISTANCE = 20;
-    private static final int COZY_GROUP = 4;
-
     public CozyUp(int rank) {
         super(rank);
     }
@@ -28,16 +24,16 @@ public class CozyUp extends RuleHelper {
         me.clearTarget();
         for (Person person: getPersons()) {
             double range = person != me ? range(person, me): Double.MAX_VALUE;
-            if (range < COMFORT_ZONE) {
+            if (range < Const.COMFORT_ZONE) {
                 result += 1;
             }
-            if (range < VISIBLE_ZONE) {
+            if (range < Const.VISIBLE_ZONE) {
                 me.addTarget(person);
             }
         }
         final int ME = 1;
         final int MARGIN = 1;
-        result -= (COZY_GROUP - ME - MARGIN);
+        result -= (Const.COZY_GROUP - ME - MARGIN);
         if (result > 0) {
             me.safeSpot(me.xy);
             return result;
@@ -52,11 +48,11 @@ public class CozyUp extends RuleHelper {
         Set<VisibleEntity> targets = me.getTargets();
         double[] destination;
         if (targets.size() == 0) {
-            destination = randomDestination(me, WALK_DISTANCE);
+            destination = randomDestination(me, Const.WALK_DISTANCE);
         } else if (status == 0) {
             destination = centroid(targets);
             if (me.xy[0] == destination[0] && me.xy[1] == destination[1]) {
-                destination = randomDestination(me, WALK_DISTANCE);
+                destination = randomDestination(me, Const.WALK_DISTANCE);
             }
         } else {
             destination = centroid(targets);
