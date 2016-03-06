@@ -1,5 +1,6 @@
 package com.cozyhills.rules;
 
+import com.cozyhills.Const;
 import com.cozyhills.actions.*;
 import com.cozyhills.cozy.Util;
 import com.cozyhills.things.Person;
@@ -18,9 +19,6 @@ import java.util.Set;
  */
 public class Household extends RuleHelper {
 
-    private static final int NEIGHBORHOOD_ZONE = 120;
-    private static final int VISIBLE_ZONE = 80;
-
     public Household(int rank) {
         super(rank);
     }
@@ -32,7 +30,7 @@ public class Household extends RuleHelper {
             int result = 0;
             for (Home home: getHomes()) {
                 double range = range(home, myHome.get()); //include my own home
-                if (range < NEIGHBORHOOD_ZONE) {
+                if (range < Const.NEIGHBORHOOD_ZONE) {
                     result += home.getStatus();
                 }
             }
@@ -64,7 +62,7 @@ public class Household extends RuleHelper {
             if (carryingItem.isPresent()) {
                 continueConstruction(me, home, carryingItem.get(), actionQueue);
             } else {
-                Optional<Item> visibleItem = (Optional<Item>) getClosestVisibleEntityOfTypeSet(me, VISIBLE_ZONE, remainingBuildCost.keySet());
+                Optional<Item> visibleItem = (Optional<Item>) getClosestVisibleEntityOfTypeSet(me, Const.VISIBLE_ZONE, remainingBuildCost.keySet());
                 if (visibleItem.isPresent()) {
                     pickUpItem(me, actionQueue, visibleItem);
                 } else {
@@ -77,12 +75,12 @@ public class Household extends RuleHelper {
     }
 
     private void searchForHome(Person me, Queue<Action> actionQueue) {
-        Optional<Home> home = getClosestUnvisitedVisibleHome(me, VISIBLE_ZONE);
+        Optional<Home> home = getClosestUnvisitedVisibleHome(me, Const.VISIBLE_ZONE);
         if (home.isPresent()) {
             actionQueue.add(new Path(me.xy, home.get().xy));
             actionQueue.add(new MoveIn(home.get()));
         } else {
-            actionQueue.add(new Path(me.xy, randomDestination(me, VISIBLE_ZONE / 2)));
+            actionQueue.add(new Path(me.xy, randomDestination(me, Const.VISIBLE_ZONE / 2)));
         }
     }
 
@@ -91,7 +89,7 @@ public class Household extends RuleHelper {
         if (carryingItem.isPresent()) {
             buildNewHut(me, carryingItem.get(), actionQueue);
         } else {
-            Optional<Item> visibleItem = (Optional<Item>) getClosestVisibleEntityOfTypeSet(me, VISIBLE_ZONE, BasicHut.buildCost().keySet());
+            Optional<Item> visibleItem = (Optional<Item>) getClosestVisibleEntityOfTypeSet(me, Const.VISIBLE_ZONE, BasicHut.buildCost().keySet());
             if (visibleItem.isPresent()) {
                 pickUpItem(me, actionQueue, visibleItem);
             } else {
@@ -113,13 +111,13 @@ public class Household extends RuleHelper {
     }
 
     private void gatherResource(Person me, Set<Class<? extends Item>> buildItems, Queue<Action> actionQueue) {
-        Optional<Resource> resource = getClosestVisibleResourceFromItemSet(me, VISIBLE_ZONE, buildItems);
+        Optional<Resource> resource = getClosestVisibleResourceFromItemSet(me, Const.VISIBLE_ZONE, buildItems);
         if (resource.isPresent()) {
             actionQueue.add(new DropCarrying());
             actionQueue.add(new Path(me.xy, resource.get().xy));
             actionQueue.add(new Gather(resource.get()));
         } else {
-            actionQueue.add(new Path(me.xy, randomDestination(me, VISIBLE_ZONE / 2)));
+            actionQueue.add(new Path(me.xy, randomDestination(me, Const.VISIBLE_ZONE / 2)));
         }
     }
 

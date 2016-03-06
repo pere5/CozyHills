@@ -1,5 +1,6 @@
 package com.cozyhills.actions;
 
+import com.cozyhills.Const;
 import com.cozyhills.cozy.StateHolder;
 import com.cozyhills.cozy.Util;
 import com.cozyhills.things.Person;
@@ -19,7 +20,7 @@ public class PickUp extends Action {
     @Override
     public boolean doIt(Person me) {
         Util.printActionId(id);
-        if (closeEnough(me.xy, item.xy, Path.STEP)) {
+        if (closeEnough(me.xy, item.xy, Const.STEP)) {
             me.carry(item);
             StateHolder.removeVisibleEntity(item);
             return DONE;

@@ -5,7 +5,6 @@ import com.cozyhills.rules.EmptyRule;
 import com.cozyhills.rules.Household;
 import com.cozyhills.rules.Rule;
 import com.cozyhills.things.Person;
-import com.cozyhills.things.VisibleEntity;
 
 import java.awt.*;
 import java.util.HashSet;
@@ -26,8 +25,7 @@ public class CozyHills {
     Rule selectedRule = new EmptyRule();
 
     public void update() {
-        for (VisibleEntity visibleEntity : StateHolder.getPersons()) {
-            Person person = (Person) visibleEntity;
+        for (Person person : StateHolder.getPersons()) {
             boolean working = person.working();
             if (!working) {
                 int currentStatus = Integer.MAX_VALUE;

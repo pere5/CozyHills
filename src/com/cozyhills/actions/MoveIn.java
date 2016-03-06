@@ -1,5 +1,6 @@
 package com.cozyhills.actions;
 
+import com.cozyhills.Const;
 import com.cozyhills.cozy.Util;
 import com.cozyhills.things.Person;
 import com.cozyhills.things.buildings.Home;
@@ -18,7 +19,7 @@ public class MoveIn extends Action {
     @Override
     public boolean doIt(Person me) {
         Util.printActionId(id);
-        if (closeEnough(me.xy, home.xy, Path.STEP)) {
+        if (closeEnough(me.xy, home.xy, Const.STEP)) {
             home.moveIn(me);
             me.visited(home);
             return DONE;

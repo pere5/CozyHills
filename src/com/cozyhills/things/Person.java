@@ -20,7 +20,7 @@ public class Person extends VisibleEntity {
     private final Map<Class, Integer> levels = new HashMap<>();
     private final Set<Home> visitedHomes = new HashSet<>();
     private Optional<Home> home = Optional.empty();
-    private int searchForHome = 5;
+    private int searchForHome = 1;
     private Optional<Item> carrying = Optional.empty();
     private Optional<double[]> safeSpot = Optional.empty();
     private Rule selectedRule;
