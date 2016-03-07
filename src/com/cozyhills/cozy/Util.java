@@ -78,6 +78,6 @@ public class Util {
     }
 
     public static void printActionId(int id) {
-        //System.out.print(id);
+        System.out.print(id);
     }
 }

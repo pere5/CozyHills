@@ -35,6 +35,7 @@ public class Path extends Action {
 
     @Override
     public boolean doIt(Person me) {
+        Util.printActionId(id);
         me.xy = path.poll();
         return path.size() > 0;
     }
