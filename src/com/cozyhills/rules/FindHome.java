@@ -2,10 +2,10 @@ package com.cozyhills.rules;
 
 import com.cozyhills.Const;
 import com.cozyhills.actions.*;
-import com.cozyhills.cozy.Util;
 import com.cozyhills.things.Person;
-import com.cozyhills.things.buildings.BasicHut;
+import com.cozyhills.things.buildings.MudHut;
 import com.cozyhills.things.buildings.Home;
+import com.cozyhills.things.ideas.Settlement;
 import com.cozyhills.things.items.Item;
 import com.cozyhills.things.resources.Resource;
 
@@ -17,9 +17,9 @@ import java.util.Set;
 /**
  * Created by pere5 on 02/01/16.
  */
-public class Household extends RuleHelper {
+public class FindHome extends RuleHelper {
 
-    public Household(int rank) {
+    public FindHome(int rank) {
         super(rank);
     }
 
@@ -62,7 +62,7 @@ public class Household extends RuleHelper {
             if (carryingItem.isPresent()) {
                 continueConstruction(me, home, carryingItem.get(), actionQueue);
             } else {
-                Optional<Item> visibleItem = (Optional<Item>) getClosestVisibleEntityOfTypeSet(me, Const.VISIBLE_ZONE, remainingBuildCost.keySet());
+                Optional<Item> visibleItem = (Optional<Item>) getClosestVisibleEntityOfTypeSet(me, Const.VIEWABLE_DISTANCE, remainingBuildCost.keySet());
                 if (visibleItem.isPresent()) {
                     pickUpItem(me, actionQueue, visibleItem);
                 } else {
@@ -75,25 +75,25 @@ public class Household extends RuleHelper {
     }
 
     private void searchForHome(Person me, Queue<Action> actionQueue) {
-        Optional<Home> home = getClosestUnvisitedVisibleHome(me, Const.VISIBLE_ZONE);
+        Optional<Home> home = getClosestUnvisitedVisibleHome(me, Const.VIEWABLE_DISTANCE);
         if (home.isPresent()) {
             actionQueue.add(new Path(me.xy, home.get().xy));
             actionQueue.add(new MoveIn(home.get()));
         } else {
-            actionQueue.add(new Path(me.xy, randomDestination(me, Const.VISIBLE_ZONE / 2)));
+            actionQueue.add(new Path(me.xy, randomDestination(me, Const.VIEWABLE_DISTANCE / 2)));
         }
     }
 
     private void buildNewHut(Person me, Queue<Action> actionQueue) {
-        Optional<Item> carryingItem = me.getAnCarryingItemOfTypes(BasicHut.buildCost());
+        Optional<Item> carryingItem = me.getAnCarryingItemOfTypes(MudHut.buildCost());
         if (carryingItem.isPresent()) {
             buildNewHut(me, carryingItem.get(), actionQueue);
         } else {
-            Optional<Item> visibleItem = (Optional<Item>) getClosestVisibleEntityOfTypeSet(me, Const.VISIBLE_ZONE, BasicHut.buildCost().keySet());
+            Optional<Item> visibleItem = (Optional<Item>) getClosestVisibleEntityOfTypeSet(me, Const.VIEWABLE_DISTANCE, MudHut.buildCost().keySet());
             if (visibleItem.isPresent()) {
                 pickUpItem(me, actionQueue, visibleItem);
             } else {
-                gatherResource(me, BasicHut.buildCost().keySet(), actionQueue);
+                gatherResource(me, MudHut.buildCost().keySet(), actionQueue);
             }
         }
     }
@@ -111,13 +111,13 @@ public class Household extends RuleHelper {
     }
 
     private void gatherResource(Person me, Set<Class<? extends Item>> buildItems, Queue<Action> actionQueue) {
-        Optional<Resource> resource = getClosestVisibleResourceFromItemSet(me, Const.VISIBLE_ZONE, buildItems);
+        Optional<Resource> resource = getClosestVisibleResourceFromItemSet(me, Const.VIEWABLE_DISTANCE, buildItems);
         if (resource.isPresent()) {
             actionQueue.add(new DropCarrying());
             actionQueue.add(new Path(me.xy, resource.get().xy));
             actionQueue.add(new Gather(resource.get()));
         } else {
-            actionQueue.add(new Path(me.xy, randomDestination(me, Const.VISIBLE_ZONE / 2)));
+            actionQueue.add(new Path(me.xy, randomDestination(me, Const.VIEWABLE_DISTANCE / 2)));
         }
     }
 
@@ -127,14 +127,14 @@ public class Household extends RuleHelper {
     }
 
     private void buildNewHut(Person me, Item item, Queue<Action> actionQueue) {
-        if (me.getSafeSpot().isPresent()) {
-            double[] safeSpot = me.getSafeSpot().get();
-            BasicHut basicHut = new BasicHut(me, safeSpot);
-            actionQueue.add(new Path(me.xy, safeSpot));
-            actionQueue.add(new Build(basicHut, item));
+        if (me.getSettlement().isPresent()) {
+            Settlement settlement = me.getSettlement().get();
+            MudHut mudHut = new MudHut(me, settlement.getGatheringSpot());
+            actionQueue.add(new Path(me.xy, settlement.getGatheringSpot()));
+            actionQueue.add(new Build(mudHut, item));
         } else {
-            BasicHut basicHut = new BasicHut(me, me.xy);
-            actionQueue.add(new Build(basicHut, item));
+            MudHut mudHut = new MudHut(me, me.xy);
+            actionQueue.add(new Build(mudHut, item));
         }
     }
 }

@@ -14,7 +14,7 @@ import java.util.Map;
 /**
  * Created by pere5 on 28/01/16.
  */
-public class BasicHut extends Home {
+public class MudHut extends Home {
 
     private static final int ROOMS = 1;
     private static final int STATUS = 1;
@@ -27,14 +27,14 @@ public class BasicHut extends Home {
         BUILD_COST.put(Wood.class, 2);
     }
 
-    public BasicHut() {
+    public MudHut() {
         super(ROOMS, STATUS);
         this.color = FINISHED_COLOR;
         this.finished = true;
         setDefaults();
     }
 
-    public BasicHut(Person me, double[] position) {
+    public MudHut(Person me, double[] position) {
         super(ROOMS, STATUS, BUILD_COST);
         this.xy = position;
         this.color = CONSTRUCTING_COLOR;

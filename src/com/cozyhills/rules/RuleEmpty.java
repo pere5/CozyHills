@@ -5,9 +5,9 @@ import com.cozyhills.things.Person;
 /**
  * Created by pere5 on 02/01/16.
  */
-public class EmptyRule extends RuleHelper {
+public class RuleEmpty extends RuleHelper {
 
-    public EmptyRule() {
+    public RuleEmpty() {
         super(Integer.MAX_VALUE);
     }
 

@@ -4,6 +4,7 @@ import com.cozyhills.actions.Action;
 import com.cozyhills.cozy.StateHolder;
 import com.cozyhills.rules.Rule;
 import com.cozyhills.things.buildings.Home;
+import com.cozyhills.things.ideas.Settlement;
 import com.cozyhills.things.items.Item;
 
 import java.awt.*;
@@ -22,7 +23,7 @@ public class Person extends VisibleEntity {
     private Optional<Home> home = Optional.empty();
     private int searchForHome = 1;
     private Optional<Item> carrying = Optional.empty();
-    private Optional<double[]> safeSpot = Optional.empty();
+    private Optional<Settlement> settlement = Optional.empty();
     private Rule selectedRule;
 
     public Person () {
@@ -94,14 +95,12 @@ public class Person extends VisibleEntity {
         return carrying;
     }
 
-    public void safeSpot(double[] safeSpot) {
-        if (!this.safeSpot.isPresent()) {
-            this.safeSpot = Optional.of(safeSpot);
-        }
+    public void setSettlement(Settlement settlement) {
+        this.settlement = Optional.of(settlement);
     }
 
-    public Optional<double[]> getSafeSpot() {
-        return home.isPresent() ? Optional.of(home.get().xy) : safeSpot;
+    public Optional<Settlement> getSettlement() {
+        return settlement;
     }
 
     public void carry(Item item) {

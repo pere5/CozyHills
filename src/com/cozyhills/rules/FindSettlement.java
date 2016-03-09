@@ -5,6 +5,7 @@ import com.cozyhills.actions.Action;
 import com.cozyhills.actions.Path;
 import com.cozyhills.things.Person;
 import com.cozyhills.things.VisibleEntity;
+import com.cozyhills.things.ideas.MudVillage;
 
 import java.util.Queue;
 import java.util.Set;
@@ -12,22 +13,45 @@ import java.util.Set;
 /**
  * Created by pere5 on 02/01/16.
  */
-public class CozyUp extends RuleHelper {
+public class FindSettlement extends RuleHelper {
 
-    public CozyUp(int rank) {
+    public FindSettlement(int rank) {
         super(rank);
     }
 
+    /*
+     *  What is status for FindSettlement?
+     *
+     *  It is the status of the settlement or of none, zero.
+     */
+
     @Override
     public int calculateStatus(Person me) {
+        if (me.getSettlement().isPresent()) {
+            return me.getSettlement().get().getStatus();
+        } else {
+            return 0;
+        }
+    }
+
+    /*
+     *  What is work for FindSettlement?
+     *
+     *  Search for people and join their settlement.
+     *  If they have no settlement, create a new Settlement.
+     */
+
+    @Override
+    public void initWork(Person me, int status) {
+
         int result = 0;
         me.clearTarget();
         for (Person person: getPersons()) {
             double range = person != me ? range(person, me): Double.MAX_VALUE;
-            if (range < Const.COMFORT_ZONE) {
+            if (range < Const.TALKING_DISTANCE) {
                 result += 1;
             }
-            if (range < Const.VISIBLE_ZONE) {
+            if (range < Const.VIEWABLE_DISTANCE) {
                 me.addTarget(person);
             }
         }
@@ -35,15 +59,12 @@ public class CozyUp extends RuleHelper {
         final int MARGIN = 1;
         result -= (Const.COZY_GROUP - ME - MARGIN);
         if (result > 0) {
-            me.safeSpot(me.xy);
-            return result;
+            me.setSettlement(new MudVillage());
+            //return result;
         } else {
-            return 0;
+            //return 0;
         }
-    }
 
-    @Override
-    public void initWork(Person me, int status) {
         Queue<Action> actionQueue = me.getActionQueue();
         Set<VisibleEntity> targets = me.getTargets();
         double[] destination;

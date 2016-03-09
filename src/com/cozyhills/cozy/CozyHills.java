@@ -1,10 +1,11 @@
 package com.cozyhills.cozy;
 
-import com.cozyhills.rules.CozyUp;
-import com.cozyhills.rules.EmptyRule;
-import com.cozyhills.rules.Household;
+import com.cozyhills.rules.FindSettlement;
+import com.cozyhills.rules.RuleEmpty;
+import com.cozyhills.rules.FindHome;
 import com.cozyhills.rules.Rule;
 import com.cozyhills.things.Person;
+import com.cozyhills.things.ideas.Idea;
 
 import java.awt.*;
 import java.util.HashSet;
@@ -18,13 +19,17 @@ public class CozyHills {
     private static final Set<Rule> rules = new HashSet<>();
     static {
         int rank = Integer.MAX_VALUE;
-        rules.add(new CozyUp(--rank));
-        rules.add(new Household(--rank));
+        rules.add(new FindSettlement(--rank));
+        rules.add(new FindHome(--rank));
     }
 
-    Rule selectedRule = new EmptyRule();
-
     public void update() {
+        Rule selectedRule = new RuleEmpty();
+
+        for (Idea idea : StateHolder.getIdeas()) {
+
+        }
+
         for (Person person : StateHolder.getPersons()) {
             boolean working = person.working();
             if (!working) {
@@ -38,7 +43,7 @@ public class CozyHills {
                 }
                 person.startWorking(selectedRule, currentStatus);
             }
-            Util.print((working ? "  " : " >"));// + person.getCurrentRule().id());
+            Util.print((working ? "  " : " >") + person.getCurrentRule().id());
             person.color = working ? Color.BLACK : Color.RED;
             person.work();
         }
