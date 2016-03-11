@@ -38,7 +38,7 @@ public class CozyHills {
                 }
                 person.startWorking(selectedRule, currentStatus);
             }
-            Util.print((working ? "  " : " >"));// + person.getCurrentRule().id());
+            Util.print((working ? "  " : " >") + person.getCurrentRule().id());
             person.color = working ? Color.BLACK : Color.RED;
             person.work();
         }
