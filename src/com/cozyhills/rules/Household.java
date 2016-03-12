@@ -8,6 +8,7 @@ import com.cozyhills.things.buildings.Home;
 import com.cozyhills.things.items.Item;
 import com.cozyhills.things.resources.Resource;
 
+import java.awt.*;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Queue;
@@ -49,6 +50,11 @@ public class Household extends RuleHelper {
         } else {
             buildNewHut(me, actionQueue);
         }
+    }
+
+    @Override
+    public Color getColor() {
+        return Color.ORANGE;
     }
 
     //-----------------------------------------------------------

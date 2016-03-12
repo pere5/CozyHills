@@ -3,10 +3,14 @@ package com.cozyhills.ui;
 import com.cozyhills.Const;
 import com.cozyhills.cozy.CozyHills;
 import com.cozyhills.cozy.StateHolder;
+import com.cozyhills.cozy.Util;
 import com.cozyhills.things.VisibleEntity;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
@@ -25,7 +29,8 @@ public class GraphicsHandler extends JFrame {
 
     private CozyHills cozyHills = new CozyHills();
 
-    int x = 0;
+    private int x = 0;
+    private boolean pause;
 
     /**
      * This method starts the game and runs it in a loop
@@ -73,6 +78,43 @@ public class GraphicsHandler extends JFrame {
 
         backBuffer = new BufferedImage(windowWidth, windowHeight, BufferedImage.TYPE_INT_RGB);
         input = new InputHandler(this);
+        MouseListener mouseListener = new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                printValuesOfPoint(e.getPoint());
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {}
+
+            @Override
+            public void mouseReleased(MouseEvent e) {}
+
+            @Override
+            public void mouseEntered(MouseEvent e) {}
+
+            @Override
+            public void mouseExited(MouseEvent e) {}
+        };
+        this.getContentPane().addMouseListener(mouseListener);
+    }
+
+    private void printValuesOfPoint(Point point) {
+        outerLoop:
+        for (Set<? extends VisibleEntity> visibleEntities: StateHolder.getState().values()) {
+            for (VisibleEntity visibleEntity: visibleEntities) {
+                double veLeftBound = (visibleEntity.xy[0]);
+                double veRightBound = (visibleEntity.xy[0] + visibleEntity.size);
+                double veTopBound = (visibleEntity.xy[1]);
+                double veBottomBound = (visibleEntity.xy[1] + visibleEntity.size);
+                double pX = point.getX();
+                double pY = point.getY();
+                if (pX > veLeftBound && pX < veRightBound && pY > veTopBound && pY < veBottomBound) {
+                    Util.print(visibleEntity);
+                    break outerLoop;
+                }
+            }
+        }
     }
 
     /**
@@ -80,7 +122,14 @@ public class GraphicsHandler extends JFrame {
      * around and check for win conditions, etc
      */
     private void update() {
-        cozyHills.update();
+        boolean spaceHasBeenPressed = input.keyHasBeenPressed(KeyEvent.VK_SPACE);
+        if (spaceHasBeenPressed) {
+            pause = !pause;
+        }
+
+        if (!pause) {
+            cozyHills.update();
+        }
         /*
         if (input.isKeyDown(KeyEvent.VK_RIGHT)) {
             x += 5;
@@ -109,13 +158,13 @@ public class GraphicsHandler extends JFrame {
     }
 
     private void drawAllObjects(Graphics bbg) {
-        for (Set<? extends VisibleEntity> types: StateHolder.getState().values()) {
-            for (VisibleEntity type: types) {
-                bbg.setColor(type.color);
-                if (type.SHAPE.equals(Const.SHAPES.RECT)) {
-                    bbg.fillRect((int)type.xy[0], (int)type.xy[1], type.size, type.size);
+        for (Set<? extends VisibleEntity> visibleEntities: StateHolder.getState().values()) {
+            for (VisibleEntity visibleEntity: visibleEntities) {
+                bbg.setColor(visibleEntity.color);
+                if (visibleEntity.SHAPE.equals(Const.SHAPES.RECT)) {
+                    bbg.fillRect((int)visibleEntity.xy[0], (int)visibleEntity.xy[1], visibleEntity.size, visibleEntity.size);
                 } else {
-                    bbg.fillOval((int)type.xy[0], (int)type.xy[1], type.size, type.size);
+                    bbg.fillOval((int)visibleEntity.xy[0], (int)visibleEntity.xy[1], visibleEntity.size, visibleEntity.size);
                 }
             }
         }

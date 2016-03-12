@@ -5,6 +5,7 @@ import com.cozyhills.cozy.StateHolder;
 import com.cozyhills.cozy.Util;
 
 import java.awt.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Created by pere5 on 23/12/15.
@@ -19,13 +20,25 @@ public abstract class VisibleEntity {
     protected VisibleEntity() {
         this.id = StateHolder.getNewId();
         if (xy[0] == 0 && xy[1] == 0) {
-            this.xy[0] = Util.generateWidth();
-            this.xy[1] = Util.generateHeight();
+            this.xy[0] = generateWidth();
+            this.xy[1] = generateHeight();
         }
     }
 
     protected void removeVisibleEntity(VisibleEntity visibleEntity) {
         StateHolder.removeVisibleEntity(visibleEntity);
+    }
+
+    public static int generateHeight () {
+        return Const.WINDOW_HEIGHT / 2 + generateInt();
+    }
+
+    public static int generateWidth () {
+        return Const.WINDOW_WIDTH / 2 + generateInt();
+    }
+
+    private static int generateInt() {
+        return 250 - ThreadLocalRandom.current().nextInt(0, 500 + 1);
     }
 
     @Override

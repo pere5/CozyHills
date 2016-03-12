@@ -6,6 +6,7 @@ import com.cozyhills.actions.Path;
 import com.cozyhills.things.Person;
 import com.cozyhills.things.VisibleEntity;
 
+import java.awt.*;
 import java.util.Queue;
 import java.util.Set;
 
@@ -58,5 +59,10 @@ public class CozyUp extends RuleHelper {
             destination = centroid(targets);
         }
         actionQueue.add(new Path(me.xy, destination));
+    }
+
+    @Override
+    public Color getColor() {
+        return Color.RED;
     }
 }

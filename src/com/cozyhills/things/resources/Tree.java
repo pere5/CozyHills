@@ -15,7 +15,7 @@ public class Tree extends Resource {
     }
 
     private void setDefaults() {
-        this.numberOfItems = 400;
+        this.numberOfItems = 4;
         this.size = 4;
         this.color = Color.GREEN;
     }

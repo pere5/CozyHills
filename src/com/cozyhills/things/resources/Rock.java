@@ -15,7 +15,7 @@ public class Rock extends Resource {
     }
 
     private void setDefaults() {
-        this.numberOfItems = 400;
+        this.numberOfItems = 4;
         this.size = 10;
         this.color = Color.GRAY;
     }

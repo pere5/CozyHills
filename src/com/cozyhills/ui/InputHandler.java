@@ -14,6 +14,7 @@ import java.awt.event.KeyListener;
 public class InputHandler implements KeyListener
 {
     private boolean [] keys = new boolean[256];
+    private boolean [] pressedKeys = new boolean[256];
 
     /**
      * Assigns the newly created InputHandler to a Component
@@ -21,6 +22,17 @@ public class InputHandler implements KeyListener
      */
     public InputHandler(Component c) {
         c.addKeyListener(this);
+    }
+
+    /**
+     * Checks whether a specific key has been pressed since last check
+     * @param keyCode The key to check
+     * @return Whether the key has been pressed or not since last check
+     */
+    public boolean keyHasBeenPressed(int keyCode) {
+        boolean keyHasBeenPressed = keyCode > 0 && keyCode < 256 && pressedKeys[keyCode];
+        pressedKeys[keyCode] = false;
+        return keyHasBeenPressed;
     }
 
     /**
@@ -39,6 +51,7 @@ public class InputHandler implements KeyListener
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() > 0 && e.getKeyCode() < 256) {
             keys[e.getKeyCode()] = true;
+            pressedKeys[e.getKeyCode()] = true;
         }
     }
 
@@ -55,5 +68,7 @@ public class InputHandler implements KeyListener
     /**
      * Not used
      */
-    public void keyTyped(KeyEvent e){}
+    public void keyTyped(KeyEvent e) {
+
+    }
 }

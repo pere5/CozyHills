@@ -1,29 +1,24 @@
 package com.cozyhills.things;
 
-import com.cozyhills.actions.Action;
 import com.cozyhills.cozy.StateHolder;
-import com.cozyhills.rules.Rule;
 import com.cozyhills.things.buildings.Home;
 import com.cozyhills.things.items.Item;
 
 import java.awt.*;
-import java.util.*;
-import java.util.Queue;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 /**
  * Created by pere5 on 21/12/15.
  */
-public class Person extends VisibleEntity {
+public class Person extends PersonHelper {
 
-    private final Set<VisibleEntity> targets = new HashSet<>();
-    private final Queue<Action> actionQueue = new LinkedList<>();
-    private final Map<Class, Integer> levels = new HashMap<>();
-    private final Set<Home> visitedHomes = new HashSet<>();
+    //In game values
+    private Map<Class, Integer> experience = new HashMap<>();
     private Optional<Home> home = Optional.empty();
-    private int searchForHome = 1;
     private Optional<Item> carrying = Optional.empty();
     private Optional<double[]> safeSpot = Optional.empty();
-    private Rule selectedRule;
 
     public Person () {
         super();
@@ -35,45 +30,8 @@ public class Person extends VisibleEntity {
         this.color = Color.BLACK;
     }
 
-    public boolean working() {
-        return actionQueue.size() > 0;
-    }
-
-    public void work() {
-        boolean continueWorking = actionQueue.peek().doIt(this);
-        if (!continueWorking) {
-            Action completed = actionQueue.poll();
-        }
-    }
-
-    public void startWorking(Rule selectedRule, int status) {
-        this.selectedRule = selectedRule;
-        selectedRule.initWork(this, status);
-    }
-
-    public void addTarget(VisibleEntity visibleEntity) {
-        targets.add(visibleEntity);
-    }
-
-    public void clearTarget() {
-        targets.clear();
-    }
-
-    public Set<VisibleEntity> getTargets() {
-        return targets;
-    }
-
     public Optional<Home> getHome() {
         return home;
-    }
-
-    public boolean searchForHome() {
-        searchForHome--;
-        return searchForHome >= 0;
-    }
-
-    public Queue<Action> getActionQueue() {
-        return actionQueue;
     }
 
     public void moveIn(Home home) {
@@ -109,11 +67,11 @@ public class Person extends VisibleEntity {
     }
 
     public void levelUp(Item item) {
-        Integer level = levels.get(item.getClass());
+        Integer level = experience.get(item.getClass());
         if (level == null) {
-            levels.put(item.getClass(), 1);
+            experience.put(item.getClass(), 1);
         } else {
-            levels.put(item.getClass(), level + 1);
+            experience.put(item.getClass(), level + 1);
         }
     }
 
@@ -124,17 +82,5 @@ public class Person extends VisibleEntity {
             StateHolder.addVisibleEntity(item);
             carrying = Optional.empty();
         }
-    }
-
-    public void visited(Home home) {
-        visitedHomes.add(home);
-    }
-
-    public boolean notVisited(Home home) {
-        return !visitedHomes.contains(home);
-    }
-
-    public Rule getCurrentRule() {
-        return selectedRule;
     }
 }
