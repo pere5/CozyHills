@@ -2,9 +2,8 @@ package com.cozyhills.rules;
 
 import com.cozyhills.Const;
 import com.cozyhills.actions.*;
-import com.cozyhills.cozy.Util;
 import com.cozyhills.things.Person;
-import com.cozyhills.things.buildings.BasicHut;
+import com.cozyhills.things.buildings.Hut;
 import com.cozyhills.things.buildings.Home;
 import com.cozyhills.things.items.Item;
 import com.cozyhills.things.resources.Resource;
@@ -85,15 +84,15 @@ public class Household extends RuleHelper {
     }
 
     private void buildNewHut(Person me, Queue<Action> actionQueue) {
-        Optional<Item> carryingItem = me.getAnCarryingItemOfTypes(BasicHut.buildCost());
+        Optional<Item> carryingItem = me.getAnCarryingItemOfTypes(Hut.buildCost());
         if (carryingItem.isPresent()) {
             buildNewHut(me, carryingItem.get(), actionQueue);
         } else {
-            Optional<Item> visibleItem = (Optional<Item>) getClosestVisibleEntityOfTypeSet(me, Const.VISIBLE_ZONE, BasicHut.buildCost().keySet());
+            Optional<Item> visibleItem = (Optional<Item>) getClosestVisibleEntityOfTypeSet(me, Const.VISIBLE_ZONE, Hut.buildCost().keySet());
             if (visibleItem.isPresent()) {
                 pickUpItem(me, actionQueue, visibleItem);
             } else {
-                gatherResource(me, BasicHut.buildCost().keySet(), actionQueue);
+                gatherResource(me, Hut.buildCost().keySet(), actionQueue);
             }
         }
     }
@@ -129,12 +128,12 @@ public class Household extends RuleHelper {
     private void buildNewHut(Person me, Item item, Queue<Action> actionQueue) {
         if (me.getSafeSpot().isPresent()) {
             double[] safeSpot = me.getSafeSpot().get();
-            BasicHut basicHut = new BasicHut(me, safeSpot);
+            Hut hut = new Hut(me, safeSpot);
             actionQueue.add(new Path(me.xy, safeSpot));
-            actionQueue.add(new Build(basicHut, item));
+            actionQueue.add(new Build(hut, item));
         } else {
-            BasicHut basicHut = new BasicHut(me, me.xy);
-            actionQueue.add(new Build(basicHut, item));
+            Hut hut = new Hut(me, me.xy);
+            actionQueue.add(new Build(hut, item));
         }
     }
 }

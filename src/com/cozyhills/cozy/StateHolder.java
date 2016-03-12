@@ -2,7 +2,7 @@ package com.cozyhills.cozy;
 
 import com.cozyhills.things.Person;
 import com.cozyhills.things.VisibleEntity;
-import com.cozyhills.things.buildings.BasicHut;
+import com.cozyhills.things.buildings.Hut;
 import com.cozyhills.things.buildings.Building;
 import com.cozyhills.things.buildings.Home;
 import com.cozyhills.things.items.*;
@@ -20,61 +20,64 @@ public class StateHolder {
 
     private static int idGenerator = 0;
 
-    private static final Map<Class, Set<? extends VisibleEntity>> state = new HashMap<>();
+    private static final Map<Class, Set<? extends VisibleEntity>> STATE = new HashMap<>();
 
-    private static final Set<Set<? extends Home>> homeSet = new HashSet<>();
-    private static final Set<Set<? extends Building>> buildingSet = new HashSet<>();
-    private static final Set<Set<? extends Item>> itemSet = new HashSet<>();
-    private static final Set<Set<? extends Resource>> resourceSet = new HashSet<>();
+    private static final Set<Set<? extends Home>> HOMES = new HashSet<>();
+    private static final Set<Set<? extends Building>> BUILDINGS = new HashSet<>();
+    private static final Set<Set<? extends Item>> ITEMS = new HashSet<>();
+    private static final Set<Set<? extends Resource>> RESOURCES = new HashSet<>();
 
-    private static final Set<Person> persons = new HashSet<>();
-    private static final Set<BasicHut> basicHuts = new HashSet<>();
-    private static final Set<Rock> rocks = new HashSet<>();
-    private static final Set<Tree> trees = new HashSet<>();
-    private static final Set<Stone> stones = new HashSet<>();
-    private static final Set<Wood> woods = new HashSet<>();
-    private static final Set<Clothes> clothes = new HashSet<>();
-    private static final Set<Food> food = new HashSet<>();
+    //Persons
+    private static final Set<Person> PERSONS = new HashSet<>();
+
+    //Buildings
+    private static final Set<Hut> HUTS = new HashSet<>();
+
+    //Resources
+    private static final Set<Rock> ROCKS = new HashSet<>();
+    private static final Set<Tree> TREES = new HashSet<>();
+
+    //Items
+    private static final Set<Stone> STONES = new HashSet<>();
+    private static final Set<Wood> WOOD = new HashSet<>();
+    private static final Set<Clothes> CLOTHES = new HashSet<>();
+    private static final Set<Food> FOOD = new HashSet<>();
 
     static {
-        state.put(Person.class, persons);
-        state.put(BasicHut.class, basicHuts);
-        state.put(Rock.class, rocks);
-        state.put(Tree.class, trees);
-        state.put(Stone.class, stones);
-        state.put(Wood.class, woods);
-        state.put(Clothes.class, clothes);
-        state.put(Food.class, food);
+        STATE.put(Person.class, PERSONS);
+        STATE.put(Hut.class, HUTS);
+        STATE.put(Rock.class, ROCKS);
+        STATE.put(Tree.class, TREES);
+        STATE.put(Stone.class, STONES);
+        STATE.put(Wood.class, WOOD);
+        STATE.put(Clothes.class, CLOTHES);
+        STATE.put(Food.class, FOOD);
 
-        homeSet.add(basicHuts);
+        HOMES.add(HUTS);
 
-        buildingSet.add(basicHuts);
+        BUILDINGS.add(HUTS);
 
-        itemSet.add(stones);
-        itemSet.add(woods);
-        itemSet.add(clothes);
-        itemSet.add(food);
+        ITEMS.add(STONES);
+        ITEMS.add(WOOD);
+        ITEMS.add(CLOTHES);
+        ITEMS.add(FOOD);
 
-        resourceSet.add(rocks);
-        resourceSet.add(trees);
+        RESOURCES.add(ROCKS);
+        RESOURCES.add(TREES);
 
-        createPersons(persons);
-        createTrees(trees);
-        createRocks(rocks);
-        createBasicHuts(basicHuts);
+        createPersons(PERSONS);
+        createTrees(TREES);
+        createRocks(ROCKS);
+        createBasicHuts(HUTS);
     }
 
     public static Map<Class, Set<? extends VisibleEntity>> getState() {
-        return state;
+        return STATE;
     }
 
-    public static void addVisibleEntity(VisibleEntity visibleEntity) {
-        ((Set)(state.get(visibleEntity.getClass()))).add(visibleEntity);
-    }
-
-    private static void createBasicHuts(Set<BasicHut> basicHuts) {
+    private static void createBasicHuts(Set<Hut> huts) {
         for (int i = 0; i < 8; i++) {
-            basicHuts.add(new BasicHut());
+            huts.add(new Hut());
         }
     }
 
@@ -97,22 +100,26 @@ public class StateHolder {
     }
 
     public static Set<Person> getPersons() {
-        return persons;
+        return PERSONS;
     }
 
     public static Set<Home> getHomes() {
-        return homeSet.stream().flatMap(Collection::stream).collect(Collectors.toSet());
+        return HOMES.stream().flatMap(Collection::stream).collect(Collectors.toSet());
     }
 
     public static Set<? extends VisibleEntity> getEntities(Class classType) {
-        return state.get(classType);
+        return STATE.get(classType);
     }
 
     public static int getNewId() {
         return idGenerator++;
     }
 
+    public static void addVisibleEntity(VisibleEntity visibleEntity) {
+        ((Set)(STATE.get(visibleEntity.getClass()))).add(visibleEntity);
+    }
+
     public static void removeVisibleEntity(VisibleEntity visibleEntity) {
-        state.get(visibleEntity.getClass()).remove(visibleEntity);
+        STATE.get(visibleEntity.getClass()).remove(visibleEntity);
     }
 }
