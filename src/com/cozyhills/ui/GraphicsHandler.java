@@ -29,34 +29,41 @@ public class GraphicsHandler extends JFrame {
 
     private CozyHills cozyHills = new CozyHills();
 
-    private int x = 0;
     private boolean pause;
+    int lastFramesPerSecond = 0;
 
     /**
      * This method starts the game and runs it in a loop
      */
-    public void run() {
+    public GraphicsHandler() {
         initialize();
-        int character;
-        int intendedFps = 6;
+        int intendedFps = 20;
+        int framesPerSecond = 0;
+        long startTime = System.currentTimeMillis();
 
         while(isRunning) {
+            long timeBeforeFrame = System.currentTimeMillis();
 
-            long time = System.currentTimeMillis();
             update();
             draw();
-            character = ThreadLocalRandom.current().nextInt(1, 3 + 1);
-            System.out.print(character == 1 ? " - " : character == 2 ? " + " : " * ");
-            System.out.println(System.currentTimeMillis() - time);
 
             //  delay for each frame  -   time it took for one frame
-            time = (1000 / intendedFps) - (System.currentTimeMillis() - time);
+            long time = (1000 / intendedFps) - (System.currentTimeMillis() - timeBeforeFrame);
             if (time > 0) {
                 try {
                     Thread.sleep(time);
                 } catch(Exception e) {
                     System.out.println("Woohah!");
                 }
+            }
+            long currentTime = System.currentTimeMillis();
+            framesPerSecond++;
+            if (currentTime - startTime > 1000) {
+                System.out.println();
+                System.out.print("fps: " + framesPerSecond);
+                startTime = currentTime;
+                lastFramesPerSecond = framesPerSecond;
+                framesPerSecond = 0;
             }
         }
         setVisible(false);
@@ -153,6 +160,9 @@ public class GraphicsHandler extends JFrame {
         bbg.setColor(Color.BLACK);
 
         drawAllObjects(bbg);
+
+        bbg.setColor(Color.BLACK);
+        bbg.drawString("FPS: " + lastFramesPerSecond, Const.WINDOW_WIDTH - 60, Const.WINDOW_HEIGHT - 20);
 
         g.drawImage(backBuffer, insets.left, insets.top, this);
     }
