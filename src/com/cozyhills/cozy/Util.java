@@ -7,7 +7,7 @@ import com.cozyhills.things.VisibleEntity;
  */
 public class Util {
 
-    private static final boolean MUTE_PRINT = true;
+    private static final boolean MUTE_PRINT = false;
 
     public static void print(double value) {
         if (!MUTE_PRINT) System.out.print(value + " ");

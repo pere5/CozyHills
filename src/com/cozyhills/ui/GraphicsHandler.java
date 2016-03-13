@@ -37,7 +37,7 @@ public class GraphicsHandler extends JFrame {
      */
     public GraphicsHandler() {
         initialize();
-        int intendedFps = 20;
+        int intendedFps = 8;
         int framesPerSecond = 0;
         long startTime = System.currentTimeMillis();
 
@@ -56,14 +56,15 @@ public class GraphicsHandler extends JFrame {
                     System.out.println("Woohah!");
                 }
             }
-            long currentTime = System.currentTimeMillis();
-            framesPerSecond++;
-            if (currentTime - startTime > 1000) {
+            if (!pause) {
+                long currentTime = System.currentTimeMillis();
+                framesPerSecond++;
+                if (currentTime - startTime > 1000) {
+                    startTime = currentTime;
+                    lastFramesPerSecond = framesPerSecond;
+                    framesPerSecond = 0;
+                }
                 System.out.println();
-                System.out.print("fps: " + framesPerSecond);
-                startTime = currentTime;
-                lastFramesPerSecond = framesPerSecond;
-                framesPerSecond = 0;
             }
         }
         setVisible(false);
@@ -111,13 +112,14 @@ public class GraphicsHandler extends JFrame {
         for (Set<? extends VisibleEntity> visibleEntities: StateHolder.getState().values()) {
             for (VisibleEntity visibleEntity: visibleEntities) {
                 double veLeftBound = (visibleEntity.xy[0]);
-                double veRightBound = (visibleEntity.xy[0] + visibleEntity.size);
+                double veRightBound = (visibleEntity.xy[0] + visibleEntity.size + 2);
                 double veTopBound = (visibleEntity.xy[1]);
-                double veBottomBound = (visibleEntity.xy[1] + visibleEntity.size);
+                double veBottomBound = (visibleEntity.xy[1] + visibleEntity.size + 2);
                 double pX = point.getX();
                 double pY = point.getY();
                 if (pX > veLeftBound && pX < veRightBound && pY > veTopBound && pY < veBottomBound) {
                     Util.print(visibleEntity);
+                    Util.println();
                     break outerLoop;
                 }
             }
