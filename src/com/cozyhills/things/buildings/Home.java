@@ -29,7 +29,7 @@ public abstract class Home extends Building {
                 if (tenants[i] == null) {
                     tenants[i] = me;
                     takenRooms++;
-                    me.moveIn(this);
+                    me.setHome(this);
                     return;
                 }
             }

@@ -9,6 +9,7 @@ import com.cozyhills.things.items.*;
 import com.cozyhills.things.resources.Resource;
 import com.cozyhills.things.resources.Rock;
 import com.cozyhills.things.resources.Tree;
+import com.cozyhills.tribe.Tribe;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -42,6 +43,9 @@ public class StateHolder {
     private static final Set<Wood> WOOD = new HashSet<>();
     private static final Set<Clothes> CLOTHES = new HashSet<>();
     private static final Set<Food> FOOD = new HashSet<>();
+
+    //Tribes
+    private static final List<Tribe> TRIBES = new ArrayList<>();
 
     static {
         STATE.put(Person.class, PERSONS);
@@ -121,5 +125,9 @@ public class StateHolder {
 
     public static void removeVisibleEntity(VisibleEntity visibleEntity) {
         STATE.get(visibleEntity.getClass()).remove(visibleEntity);
+    }
+
+    public static List<Tribe> getTribes() {
+        return TRIBES;
     }
 }

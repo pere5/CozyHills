@@ -20,7 +20,7 @@ public class CozyUp extends RuleHelper {
     }
 
     @Override
-    public int calculateStatus(Person me) {
+    public int assessStatus(Person me) {
         int result = 0;
         me.clearTarget();
         for (Person person: getPersons()) {
@@ -44,7 +44,7 @@ public class CozyUp extends RuleHelper {
     }
 
     @Override
-    public void initWork(Person me, int status) {
+    public void decideActions(Person me, int status) {
         Queue<Action> actionQueue = me.getActionQueue();
         Set<VisibleEntity> targets = me.getTargets();
         double[] destination;

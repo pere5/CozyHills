@@ -3,6 +3,7 @@ package com.cozyhills.things;
 import com.cozyhills.cozy.StateHolder;
 import com.cozyhills.things.buildings.Home;
 import com.cozyhills.things.items.Item;
+import com.cozyhills.tribe.Tribe;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -15,6 +16,7 @@ import java.util.Optional;
 public class Person extends PersonHelper {
 
     //In game values
+    private Tribe tribe = new Tribe(this);
     private Map<Class, Integer> experience = new HashMap<>();
     private Optional<Home> home = Optional.empty();
     private Optional<Item> carrying = Optional.empty();
@@ -34,7 +36,7 @@ public class Person extends PersonHelper {
         return home;
     }
 
-    public void moveIn(Home home) {
+    public void setHome(Home home) {
         this.home = Optional.of(home);
     }
 

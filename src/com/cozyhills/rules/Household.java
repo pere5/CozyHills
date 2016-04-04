@@ -24,7 +24,7 @@ public class Household extends RuleHelper {
     }
 
     @Override
-    public int calculateStatus(Person me) {
+    public int assessStatus(Person me) {
         Optional<Home> myHome = me.getHome();
         if (myHome.isPresent() && myHome.get().completed()) {
             int result = 0;
@@ -41,7 +41,7 @@ public class Household extends RuleHelper {
     }
 
     @Override
-    public void initWork(Person me, int status) {
+    public void decideActions(Person me, int status) {
         Queue<Action> actionQueue = me.getActionQueue();
         if (me.getHome().isPresent()) {
             improveHome(me, actionQueue);

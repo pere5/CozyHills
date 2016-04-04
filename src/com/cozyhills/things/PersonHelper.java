@@ -3,6 +3,7 @@ package com.cozyhills.things;
 import com.cozyhills.actions.Action;
 import com.cozyhills.rules.Rule;
 import com.cozyhills.things.buildings.Home;
+import com.cozyhills.tribe.Tribe;
 
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -19,6 +20,7 @@ public abstract class PersonHelper extends VisibleEntity {
     private Set<Home> visitedHomes = new HashSet<>();
     private int searchForHome = 1;
     private Rule selectedRule;
+    private Tribe tribe;
 
     public boolean working() {
         return actionQueue.size() > 0;
@@ -33,7 +35,7 @@ public abstract class PersonHelper extends VisibleEntity {
 
     public void startWorking(Rule selectedRule, int status) {
         this.selectedRule = selectedRule;
-        selectedRule.initWork((Person)this, status);
+        selectedRule.decideActions((Person)this, status);
     }
 
     public boolean searchForHome() {
@@ -67,5 +69,9 @@ public abstract class PersonHelper extends VisibleEntity {
 
     public boolean notVisited(Home home) {
         return !visitedHomes.contains(home);
+    }
+
+    public Tribe getTribe() {
+        return tribe;
     }
 }

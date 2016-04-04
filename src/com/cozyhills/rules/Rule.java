@@ -9,10 +9,10 @@ import java.awt.*;
  */
 public interface Rule {
 
-    int calculateStatus(Person me);
+    int assessStatus(Person me);
     void printInfo(int status);
 
-    void initWork(Person me, int status);
+    void decideActions(Person me, int status);
 
     int rank();
     int id();
